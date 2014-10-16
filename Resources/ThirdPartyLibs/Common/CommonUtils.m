@@ -725,4 +725,88 @@
     return titleSize.height;
 }
 
++ (NSString *)getOrderStateName:(int)state
+{
+    NSString *stateName = @"";
+    
+    switch (state) {
+        case ORDER_NEW:
+            return @"新建";
+            break;
+            
+        case ORDER_NORMAL:
+            return @"正常";
+            break;
+            
+        case ORDER_CANCEL:
+            return @"已取消";
+            break;
+            
+        case ORDER_OVER_TIME:
+            return @"抢单超时";
+            break;
+            
+        case ORDER_WEIGHT_DONE:
+            return @"已称重";
+            break;
+            
+        case ORDER_WEIGHT_UNDONE:
+            return @"未称重";
+            break;
+            
+        case ORDER_UN_SEND:
+            return @"未发货";
+            break;
+            
+        case ORDER_SEND_DONE:
+            return @"已发货";
+            break;
+            
+        case ORDER_RECEIVE_DONE:
+            return @"已收货";
+            break;
+            
+        case ORDER_PAY_OVEN:
+            return @"已支付";
+            break;
+            
+        case ORDER_UPPAY:
+            return @"未支付";
+            break;
+            
+        case ORDER_ROBBED:
+            return @"已抢";
+            break;
+            
+        case ORDER_ROB:
+            return @"未抢";
+            break;
+            
+        case ORDER_WEIGHT_OVER_TIME:
+            return @"称重超时";
+            break;
+            
+        case ORDER_PAY_OVER_TIME:
+            return @"支付超时";
+            break;
+            
+        case ORDER_CANVASS_DONE:
+            return @"已揽货";
+            break;
+            
+        case ORDER_CANVASS_UNDONE:
+            return @"未揽货";
+            break;
+            
+        case ORDER_EVALUATED:
+            return @"已评价";
+            break;
+            
+        default:
+            break;
+    }
+    
+    return stateName;
+}
+
 @end

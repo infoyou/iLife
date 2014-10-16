@@ -42,7 +42,7 @@ typedef enum{
     UILabel *userLbl =[InformationDefault createLblWithFrame:userRect withTextColor:HEX_COLOR(@"0x82bf23") withFont:[UIFont systemFontOfSize:15] withTag:ADDRESS_CELL_USER_TAG];
     [self addSubview:userLbl];
     
-    CGRect mobileRect = CGRectMake(155, yGap, 231, 15);
+    CGRect mobileRect = CGRectMake(145, yGap, 231, 15);
     UILabel *mobileLbl =[InformationDefault createLblWithFrame:mobileRect withTextColor:HEX_COLOR(@"0x999999") withFont:[UIFont systemFontOfSize:15] withTag:ADDRESS_CELL_MOBILE_TAG];
     [self addSubview:mobileLbl];
     

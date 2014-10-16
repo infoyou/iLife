@@ -79,4 +79,7 @@
 #pragma mark - 定宽高度自适应
 + (int)calcuViewHeight:(NSString *)content font:(UIFont*)font width:(float)width;
 
+#pragma mark - 订单状态
++ (NSString *)getOrderStateName:(int)state;
+
 @end

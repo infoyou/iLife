@@ -29,9 +29,10 @@
 #if APP_TYPE == APP_TYPE_EMBA
 // Publish
 //#define VALUE_API_PREFIX   @"http://www.o2omarketing.cn:9004/ApplicationInterface/Gateway.ashx"
+
 // Test
-//#define VALUE_API_PREFIX   @"http://test.o2omarketing.cn:9100/RateLetterInterface"
-#define VALUE_API_PREFIX   @"http://dev.o2omarketing.cn:9004/ApplicationInterface/"
+#define VALUE_API_PREFIX   @"http://182.254.148.196/AppInterface/"
+//#define VALUE_API_PREFIX   @"http://dev.o2omarketing.cn:9004/ApplicationInterface/"
 
 //O2O
 #elif APP_TYPE == APP_TYPE_O2O

@@ -45,28 +45,6 @@
 
 @end
 
-enum Order_States_Enum
-{
-    ORDER_NEW = 0,	//新建
-    ORDER_NORMAL = 1,	//正常
-    ORDER_CANCEL = 2,	//已取消
-    ORDER_OVER_TIME = 3,//	抢单超时
-    ORDER_WEIGHT_DONE = 4,//	已称重
-    ORDER_WEIGHT_UNDONE = 5,//	未称重
-    ORDER_UN_SEND = 6,//	未发货
-    ORDER_SEND_DONE = 7,//	已发货
-    ORDER_RECEIVE_DONE = 8,//	已收货
-    ORDER_PAY_OVEN = 9,//	已支付
-    ORDER_UPPAY = 10,//	未支付
-    ORDER_ROBBED = 11,//	已抢
-    ORDER_ROB = 12,//	未抢
-    ORDER_WEIGHT_OVER_TIME = 13,//	称重超时
-    ORDER_PAY_OVER_TIME = 14,//	支付超时
-    ORDER_CANVASS_DONE = 15,//	已揽货
-    ORDER_CANVASS_UNDONE = 16,//	未揽货
-    ORDER_EVALUATED = 17,//	已评价
-};
-
 enum Button_Switch_Enum
 {
     ORDERSTATE_CELL_BTN_TAG,
@@ -384,7 +362,7 @@ enum Button_Evaluation_Tag_Enum
             skuName.text = orderDetail.itemName;
             weight.text = [NSString stringWithFormat:@"%@克", orderDetail.realWeight];
             price.text = [NSString stringWithFormat:@"称重%@克/%@元", orderDetail.purchaseWeight, orderDetail.realAmount];
-            orderState.text = [self getOrderStateName:[[NSString stringWithFormat:@"%@",orderDetail.orderStatus] intValue]];
+            orderState.text = [CommonUtils getOrderStateName:[[NSString stringWithFormat:@"%@",orderDetail.orderStatus] intValue]];
             
             if (orderDetail.isFirst && row != 0) {
                 int spliteH = 8;
@@ -1080,90 +1058,6 @@ enum Button_Evaluation_Tag_Enum
     }
     
     [super connectFailed:error url:url contentType:contentType];
-}
-
-- (NSString *)getOrderStateName:(int)state
-{
-    NSString *stateName = @"";
-    
-    switch (state) {
-        case ORDER_NEW:
-            return @"新建";
-            break;
-         
-        case ORDER_NORMAL:
-            return @"正常";
-            break;
-            
-        case ORDER_CANCEL:
-            return @"已取消";
-            break;
-            
-        case ORDER_OVER_TIME:
-            return @"抢单超时";
-            break;
-            
-        case ORDER_WEIGHT_DONE:
-            return @"已称重";
-            break;
-            
-        case ORDER_WEIGHT_UNDONE:
-            return @"未称重";
-            break;
-            
-        case ORDER_UN_SEND:
-            return @"未发货";
-            break;
-            
-        case ORDER_SEND_DONE:
-            return @"已发货";
-            break;
-            
-        case ORDER_RECEIVE_DONE:
-            return @"已收货";
-            break;
-            
-        case ORDER_PAY_OVEN:
-            return @"已支付";
-            break;
-            
-        case ORDER_UPPAY:
-            return @"未支付";
-            break;
-            
-        case ORDER_ROBBED:
-            return @"已抢";
-            break;
-            
-        case ORDER_ROB:
-            return @"未抢";
-            break;
-            
-        case ORDER_WEIGHT_OVER_TIME:
-            return @"称重超时";
-            break;
-            
-        case ORDER_PAY_OVER_TIME:
-            return @"支付超时";
-            break;
-            
-        case ORDER_CANVASS_DONE:
-            return @"已揽货";
-            break;
-            
-        case ORDER_CANVASS_UNDONE:
-            return @"未揽货";
-            break;
-            
-        case ORDER_EVALUATED:
-            return @"已评价";
-            break;
-            
-        default:
-            break;
-    }
-    
-    return stateName;
 }
 
 @end

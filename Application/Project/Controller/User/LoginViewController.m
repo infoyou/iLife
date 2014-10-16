@@ -392,7 +392,7 @@ typedef enum {
     NSMutableDictionary *specialDict = [NSMutableDictionary dictionary];
 
     [specialDict setValue:_nameField.text forKey:@"Mobile"];
-    [specialDict setValue:[CommonMethod hashStringAsMD5:_passwordField.text] forKey:@"Password"];
+    [specialDict setValue:_passwordField.text /*[CommonMethod hashStringAsMD5:_passwordField.text]*/ forKey:@"Password"];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/%@%@", VALUE_API_PREFIX, API_SERVICE_USER, API_USER_LOGIN];
     NSString *url = [ProjectAPI getURL:urlStr specialDict:specialDict];
@@ -648,7 +648,7 @@ typedef enum {
                 
                 NSDictionary *resultDict = [result objectFromJSONData];
                 NSDictionary *dataDict = OBJ_FROM_DIC(resultDict, @"Data");
-                NSDictionary *dict = OBJ_FROM_DIC(dataDict, @"MemberInfo");
+                NSDictionary *dict = OBJ_FROM_DIC(dataDict, @"Member");
                 
                 if (dict && [dict count] > 0) {
                     NSString *updateURL = [dict objectForKey:@"updateURL"];

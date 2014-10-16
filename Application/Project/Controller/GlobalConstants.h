@@ -188,6 +188,31 @@ enum USER_STATUS{
 #define NOTIFY_NETWORK_STATUS               @"notify.network.status"
 #define NOTIFY_SAVE_ALL_USER_STATUS         @"saveAllUserToLocal"
 
+// Pay Notify
+#define NOTIFY_PAY_RESULT_STATUS            @"payResultStatus"
+
+enum Order_States_Enum
+{
+    ORDER_NEW = 0,	//新建
+    ORDER_NORMAL = 1,	//正常
+    ORDER_CANCEL = 2,	//已取消
+    ORDER_OVER_TIME = 3,//	抢单超时
+    ORDER_WEIGHT_DONE = 4,//	已称重
+    ORDER_WEIGHT_UNDONE = 5,//	未称重
+    ORDER_UN_SEND = 6,//	未发货
+    ORDER_SEND_DONE = 7,//	已发货
+    ORDER_RECEIVE_DONE = 8,//	已收货
+    ORDER_PAY_OVEN = 9,//	已支付
+    ORDER_UPPAY = 10,//	未支付
+    ORDER_ROBBED = 11,//	已抢
+    ORDER_ROB = 12,//	未抢
+    ORDER_WEIGHT_OVER_TIME = 13,//	称重超时
+    ORDER_PAY_OVER_TIME = 14,//	支付超时
+    ORDER_CANVASS_DONE = 15,//	已揽货
+    ORDER_CANVASS_UNDONE = 16,//	未揽货
+    ORDER_EVALUATED = 17,//	已评价
+};
+
 //聊天的类型
 enum CHAT_TYPE {
     CHAT_TYPE_UNKNOWN = 0,

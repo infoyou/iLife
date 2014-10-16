@@ -10,25 +10,25 @@
 	<string>iLife</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>813e8fc1-9f83-0c43-acd4-cf9372002559++2252</key>
+		<key>6C4E947692E79725AA78C21BE9A3E51FB41F7F42</key>
 		<string>http://git.aladingyidong.com:99/svn/iLife/IOS/iLife</string>
-		<key>DF9AD854-3953-40E4-99EB-B1FAD874C753</key>
+		<key>813e8fc1-9f83-0c43-acd4-cf9372002559++2252</key>
 		<string>http://git.aladingyidong.com:99/svn/iLife/IOS/iLife</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>iLife/iLife.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>6C4E947692E79725AA78C21BE9A3E51FB41F7F42</key>
+		<string>../../../../iLife</string>
 		<key>813e8fc1-9f83-0c43-acd4-cf9372002559++2252</key>
 		<string>../../..</string>
-		<key>DF9AD854-3953-40E4-99EB-B1FAD874C753</key>
-		<string>../../../../iLife</string>
 	</dict>
 	<key>IDESourceControlProjectRepositoryRootDictionary</key>
 	<dict>
-		<key>813e8fc1-9f83-0c43-acd4-cf9372002559++2252</key>
+		<key>6C4E947692E79725AA78C21BE9A3E51FB41F7F42</key>
 		<string>http://git.aladingyidong.com:99/svn/iLife</string>
-		<key>DF9AD854-3953-40E4-99EB-B1FAD874C753</key>
+		<key>813e8fc1-9f83-0c43-acd4-cf9372002559++2252</key>
 		<string>http://git.aladingyidong.com:99/svn/iLife</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -43,7 +43,7 @@
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.subversion</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>DF9AD854-3953-40E4-99EB-B1FAD874C753</string>
+			<string>6C4E947692E79725AA78C21BE9A3E51FB41F7F42</string>
 			<key>IDESourceControlWCCName</key>
 			<string>iLife</string>
 		</dict>
