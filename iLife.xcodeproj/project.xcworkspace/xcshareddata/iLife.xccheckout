@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>051F7F8D-6251-4144-89D9-EE15C6184DF2</string>
+	<key>IDESourceControlProjectName</key>
+	<string>iLife</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>813e8fc1-9f83-0c43-acd4-cf9372002559++2252</key>
+		<string>http://git.aladingyidong.com:99/svn/iLife/IOS/iLife</string>
+		<key>DF9AD854-3953-40E4-99EB-B1FAD874C753</key>
+		<string>http://git.aladingyidong.com:99/svn/iLife/IOS/iLife</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>iLife/iLife.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>813e8fc1-9f83-0c43-acd4-cf9372002559++2252</key>
+		<string>../../..</string>
+		<key>DF9AD854-3953-40E4-99EB-B1FAD874C753</key>
+		<string>../../../../iLife</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>813e8fc1-9f83-0c43-acd4-cf9372002559++2252</key>
+		<string>http://git.aladingyidong.com:99/svn/iLife</string>
+		<key>DF9AD854-3953-40E4-99EB-B1FAD874C753</key>
+		<string>http://git.aladingyidong.com:99/svn/iLife</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>http://git.aladingyidong.com:99/svn/iLife/IOS/iLife/iLife/iLife.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>813e8fc1-9f83-0c43-acd4-cf9372002559++2252</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DF9AD854-3953-40E4-99EB-B1FAD874C753</string>
+			<key>IDESourceControlWCCName</key>
+			<string>iLife</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>813e8fc1-9f83-0c43-acd4-cf9372002559++2252</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Project</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>UIStatusBarStyleLightContent</key>
+	<string>0</string>
+	<key>kNaviBarBGColor</key>
+	<string>0xefefef</string>
+	<key>kNaviBarTitleLabel</key>
+	<string>0x007aff</string>
+	<key>kMenuBGColor</key>
+	<string>0xafcbf0</string>
+	<key>kTableSectionIndexLabel</key>
+	<string>20,104,217</string>
+	<key>tabBarBGColor</key>
+	<string>0x1468d9</string>
+	<key>tabBarItemColor</key>
+	<string>0x1468d9</string>
+	<key>tabBarItemSelColor</key>
+	<string>0xbfd3e8</string>
+</dict>
+</plist>

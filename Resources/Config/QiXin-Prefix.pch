@@ -1,0 +1,70 @@
+//
+//  Prefix header
+//
+//  The contents of this file are implicitly included at the beginning of every source file.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_5_0
+#warning "This project uses features only available in iOS SDK 5.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+#endif
+
+#ifdef DEBUG
+#    define DLog(...)     NSLog(__VA_ARGS__)
+#else
+#    define DLog(...)
+#endif
+
+// 动态获取设备参数SCREEN_WIDTH
+#define SCREEN_WIDTH  [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+
+#define PG_SERVER_URL           @"http://120.132.145.149:9080"
+#define PG_SERVER_URL_LOGIN     @"/app/common!login.action?"
+#define PG_SERVER_URL_GETTODOLIST @"http://120.132.145.149:9080/app/todo!queryNotices.action"
+#define PG_SERVER_URL_GETNEWSLIST @"http://120.132.145.149:9080/app/common!queryCapabilityNewsByPage.action"
+//#define PG_SERVER_URL_GETALLCOURSES @"http://120.132.145.149:9080/app/course!queryCourseForCalendar.action"
+#define PG_SERVER_URL_GETALLCOURSES @"http://120.132.145.149:9080/app/course!queryCourseListForCalandar.action"
+#define PG_SERVER_URL_COURSESUBMIT @"http://120.132.145.149:9080/app/course!confirmCourse.action"
+#define PG_SERVER_URL_COURSEAPPLY @"http://120.132.145.149:9080/app/course!applyCourse.action"
+#define PG_SERVER_URL_GETALLLIBRARYS @"http://120.132.145.149:9080/app/library!queryOnlineCourses.action"
+#define PG_SERVER_URL_GETMETERIALS @"http://120.132.145.149:9080/app/library!queryOnlineCourseMeterialList.action"
+#define PG_SERVER_URL_GETCOMMENTS @"http://120.132.145.149:9080/app/library!queryOnlineCoursecomments.action"
+#define PG_SERVER_URL_ADDCOMMENT @"http://120.132.145.149:9080/app/library!commentToOnlineCourse.action"
+
+// Survey
+#define PG_SERVER_URL_GETALLSURVEYS @"http://120.132.145.149:9080/app/survey!querySurveyList.action"
+#define PG_SERVER_URL_GETCHANNELID @"http://120.132.145.149:9080/app/survey!queryDepartment.action"
+#define PG_SERVER_URL_GET_SURVEY_ANSWER @"http://120.132.145.149:9080/app/survey!queryUserAnswers.action"
+#define PG_SERVER_URL_GET_SURVEY_DETAIL @"http://120.132.145.149:9080/app/survey!queryQuestionBySurvey.action"
+#define PG_SERVER_URL_GET_SURVEY_SUBMIT @"http://120.132.145.149:9080/app/survey!submitSurvey.action"
+
+#define PG_SERVER_URL_GET_COURSE_DETAIL @"http://120.132.145.149:9080/app/course!queryHomework.action"
+#define PG_SERVER_URL_GET_COURSE_SUBMIT @"http://120.132.145.149:9080/app/course!submitHomework.action"
+
+#define PG_SERVER_URL_GETMATERIALDETAIL @"http://120.132.145.149:9080/app/library!downloadMaterial.action"
+
+#define PG_SERVER_URL_GET_COACH_LIST @"http://120.132.145.149:9080/app/icoach!availableCoachList.action"
+
+#define PG_SERVER_URL_CREATE_NEWCOACH @"http://120.132.145.149:9080/app/icoach!createCoachInvite.action"
+#define PG_SERVER_URL_GETCOACHDETAIL   @"http://120.132.145.149:9080/app/icoach!coachInviteDetail.action"
+#define PG_SERVER_URL_GETASSESSDETAIL  @"http://120.132.145.149:9080/app/icoach!coachAssesse.action"
+
+#define PG_SERVER_URL_GETCOACHASSESS @"http://120.132.145.149:9080/app/icoach!allCoachFeedback.action"
+
+#define PG_SERVER_URL_GETASSESSLIST @"http://120.132.145.149:9080/app/icoach!coachAssesseList.action"
+
+#define PG_SERVER_URL_SUBMITASSESS @"http://120.132.145.149:9080/app/icoach!setCoachAssess.action"
+
+#define PG_USER_ID @"17fe67e2b69e4b50b67e725939586459"
+
+#define JIT_SERVER_URL @"http://test.o2omarketing.cn:9100"
+#define JIT_SERVER_GET_ALLPOWERHOUR @"http://test.o2omarketing.cn:9100/ApplicationInterface/Project/PG/PGHandler.ashx?action=%@&type=%@&req=%@"
+
+#define JIE_SERVER_GET_BOOKSEHLFT @"http://120.132.145.149:9080/app/library!queryLibrary.action"

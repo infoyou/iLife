@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "-[OrderDetailViewController tableView:cellForRowAtIndexPath:]:OrderDetailViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[MJPhotoView reset]:MJPhotoView.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "_imageView.image">
+            </PersistentString>
+            <PersistentString
+               value = "_photo.capture">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[SurveyDetailViewController tableView:cellForRowAtIndexPath:]:SurveyDetailViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "questionId == @&quot;FECE1E581D314DE3BB5AA0E3D3F32340&quot;">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[RegistViewController viewDidLoad]:RegistViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[[ThemeManager shareInstance] getThemeImage:@&quot;button_back.png&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ProjectAppDelegate arrangeSolidColorNavigationBar]:ProjectAppDelegate.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "bgImage.image">
+            </PersistentString>
+            <PersistentString
+               value = "[[ThemeManager shareInstance] getThemeImage:@&quot;nav_top_bg_4.png&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ChatDetailViewController viewWillAppear:]:ChatDetailViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.chatTitle">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[MJPhotoBrowser loadImageNearIndex:]:MJPhotoBrowser.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "photo.image">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[OrderDetailViewController tableView:numberOfRowsInSection:]:OrderDetailViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[FMDBConnection insertAllUserObjectDB:]:FMDBConnection.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "userInfo">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[MeTypeViewController updateViewImage]:MeTypeViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.selectedPhoto">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ImageWallView fetchImageFromLocal:]:ImageWallView.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.image">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "+[JSONParser handleSurveyDetail:MOC:]:JSONParser.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "questionId">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[BJLibaryCommentsViewController viewWillAppear:]:BJLibaryCommentsViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "segmentedControl.layer.borderColor">
+            </PersistentString>
+            <PersistentString
+               value = "[[ThemeManager shareInstance] getColorWithName:@&quot;kNaviBarTitleLabel&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[UserDetailViewController addBottomView]:UserDetailViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "bottomView.backgroundColor">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ImageModuleViewController showDetail:]:ImageModuleViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[MJPhotoBrowser showPhotoViewAtIndex:]:MJPhotoBrowser.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[BJLibarysSecViewController tableView:cellForRowAtIndexPath:]:BJLibarysSecViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "rightTitleLabel.textColor">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[ChatDetailViewController sendAttachedFile]:ChatDetailViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[UIImage imageWithContentsOfFile:@&quot;/private/var/mobile/Applications/1940C399-F932-4081-BD93-8EA3F08B0BF5/tmp/2014-5-13_16:58:39.jpg&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[OrderDetailViewController connectDone:url:contentType:]:OrderDetailViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "orderGroupArray">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[BJLibaryCommentsViewController connectDone:url:contentType:]:BJLibaryCommentsViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[mMaterialsArray objectAtIndex:0]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
