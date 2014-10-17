@@ -10,7 +10,7 @@
 
 #define INTERVAL_NUM 1000
 
-@interface VisitingFarmsViewController ()<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,JILNetBaseDelegate>
+@interface VisitingFarmsViewController ()<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,JILNetBaseDelegate,UIWebViewDelegate>
 {
     UILabel* _addressLabel;
     UILabel* _farmNameLabel;
@@ -20,8 +20,9 @@
 }
 @property (retain, nonatomic) IBOutlet UITableViewCell *farmCategoryCellView;
 @property (retain, nonatomic) IBOutlet UITableViewCell *farmFoodCellView;
-@property (retain, nonatomic) IBOutlet JILOptionPicker *weightPickerView;
-@property (retain, nonatomic) IBOutlet UIView *foodView;
+@property (retain, nonatomic) UIView *weightView;
+@property (retain, nonatomic) JILOptionPicker *weightPickerView;
+@property (retain, nonatomic) UIView *foodView;
 
 @property(nonatomic,retain)UITableView* categoryTableView;
 @property(nonatomic,retain)UITableView* foodTableView;
@@ -69,10 +70,13 @@
     self.navigationController.navigationBarHidden = YES;
     //获取菜的类别
     if (!_update) {
-        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemCategoryList" UserID:@"004852E9-7AA1-4C3F-97A3-361B8EA96464" Parameters:@{}]];
+        [MBProgressHUD showMessag:@"刷新菜场" toView:self.view];
+        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemCategoryList" UserID:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{}]];
+        [[UIApplication sharedApplication].delegate window].userInteractionEnabled=NO;
         _update=YES;
     }
 }
+
 
 - (void)viewDidLoad
 {
@@ -110,8 +114,8 @@
     [self.view addSubview:self.foodTableView];
     self.options=[NSMutableArray arrayWithObject:@"nil"];
 
-    [self.view.superview setBackgroundColor:[UIColor blueColor]];
     
+   
 //    [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemCategoryList" UserID:@"004852E9-7AA1-4C3F-97A3-361B8EA96464" Parameters:@{}]];
 }
 
@@ -126,6 +130,7 @@
             self.foodList=[[dic objectForKey:@"Data"] objectForKey:@"ItemSaleInfo"];
             [self.foodTableView reloadData];
         }
+        [[UIApplication sharedApplication].delegate window].userInteractionEnabled=YES;
         self.netBase.requestType=nil;
     }else if (self.netBase.requestType==(RequestType*)BUY_PUTINCART){
         if ([[dic objectForKey:@"IsSuccess"] integerValue]==1) {
@@ -134,14 +139,9 @@
         self.netBase.requestType=nil;
     }else if (self.netBase.requestType==(RequestType*)BUY_FOODINFORMATION){
         if ([[dic objectForKey:@"IsSuccess"] integerValue]==1) {
-            NSArray* nib=[[NSBundle mainBundle] loadNibNamed:@"FarmFoodView" owner:self options:nil];
-            self.foodView=[nib objectAtIndex:0];
-            UIWebView* web=(UIWebView*)[self.foodView viewWithTag:10];
-            [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[[dic objectForKey:@"Data"] objectForKey:@"ItemDescURL"]]]];
-            self.asheet=[[CustomActionSheet alloc]initWithContentView:self.foodView];
-            self.asheet.delegate=self;
-            [self.asheet showInView:[UIApplication sharedApplication].keyWindow];
-
+            NSString* url=[[[dic objectForKey:@"Data"] objectForKey:@"ItemDescURL"] length]>0?[[dic objectForKey:@"Data"] objectForKey:@"ItemDescURL"]:@"http://www.baidu.com";
+            [self createFoodView:url];
+            [[[UIApplication sharedApplication].delegate window] addSubview:self.foodView];
         }
     }else{
         if ([[dic objectForKey:@"IsSuccess"] integerValue]==1) {
@@ -156,9 +156,8 @@
             [self.categoryTableView reloadData];
             if ([self.catrgoryList count]>0) {
                 self.itemCategoryID=[[self.catrgoryList objectAtIndex:0] objectForKey:@"ItemCategoryID"];
-                
                 self.netBase.requestType=(RequestType*)BUY_FOODLIST;
-                [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemSaleList" UserID:@"004852E9-7AA1-4C3F-97A3-361B8EA96464" Parameters:@{@"ItemCategoryID":@"10544888"}]];
+                [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemSaleList" UserID:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"ItemCategoryID":self.itemCategoryID}]];
                 
             }
         }
@@ -232,6 +231,7 @@
         
         [cell setText:[[self.foodList objectAtIndex:indexPath.row] objectForKey:@"ItemName"]  toLabelWithTag:10];
         [cell setText:[NSString stringWithFormat:@"%.2f",[[[self.foodList objectAtIndex:indexPath.row] objectForKey:@"SKUPrice"] floatValue]] toLabelWithTag:11];
+        [cell setText:[[self.foodList objectAtIndex:indexPath.row] objectForKey:@"ItemUnit"] toLabelWithTag:13];
         [self resumeAddWeightButton:cell];
         return cell;
 
@@ -242,13 +242,14 @@
 {
     if ([tableView isEqual:self.categoryTableView]) {
         if (indexPath.row<[self.catrgoryList count]) {
-            [MBProgressHUD showMessag:@"刷新菜单" toView:self.view];
+            [MBProgressHUD showMessag:@"刷新菜厂" toView:self.view];
             self.netBase.requestType=(RequestType*)BUY_FOODLIST;
-            [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemSaleList" UserID:@"004852E9-7AA1-4C3F-97A3-361B8EA96464" Parameters:@{@"ItemCategoryID":@"10544888"}]];
+            [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemSaleList" UserID:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"ItemCategoryID":[[self.catrgoryList objectAtIndex:indexPath.row] objectForKey:@"ItemCategoryID"]}]];
         }
     }else{
         self.netBase.requestType=(RequestType*)BUY_FOODINFORMATION;
-        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"ShowItemDesc" UserID:@"004852E9-7AA1-4C3F-97A3-361B8EA96464" Parameters:@{@"ItemID":@"2245"}]];
+        NSString* itemID=[[self.foodList objectAtIndex:indexPath.row] objectForKey:@"ItemId"];
+        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"ShowItemDesc" UserID:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"ItemID":itemID}]];
     }
 }
 
@@ -263,19 +264,19 @@
     NSMutableArray* weightArray=[[self.foodList objectAtIndex:self.foodIndexPath.row] objectForKey:@"weightOption"];
     [self.options removeAllObjects];
     for (NSDictionary* dic in weightArray) {
-        [self.options addObject:[NSString stringWithFormat:@"%@克 - %@元",[dic objectForKey:@"Weight"],[dic objectForKey:@"Amount"]]];
+        [self.options addObject:[NSString stringWithFormat:@"%@%@ - %@%@",[dic objectForKey:@"Quantity"],[dic objectForKey:@"Unit"],[dic objectForKey:@"Amount"],[dic objectForKey:@"MoneyUnit"]]];
     }
-    NSArray* nib=[[NSBundle mainBundle] loadNibNamed:@"FarmWeightPickerView" owner:self options:nil];
-    self.weightPickerView=[nib objectAtIndex:0];
-//    self.options=[NSMutableArray arrayWithObject:@"nil"];
+//    NSArray* nib=[[NSBundle mainBundle] loadNibNamed:@"FarmWeightPickerView" owner:self options:nil];
+//    self.weightPickerView=[nib objectAtIndex:0];
+//    [self.weightPickerView setOptions:self.options];
+//    self.asheet=[[CustomActionSheet alloc]initWithContentView:self.weightPickerView];
+//    self.asheet.delegate=self;
+//    [self.asheet showInView:[UIApplication sharedApplication].keyWindow];
+    [self setWeightPickerView];
     [self.weightPickerView setOptions:self.options];
 
-//    [self.weightPickerView setOptions:self.options];
+     [[[UIApplication sharedApplication].delegate window] addSubview:self.weightPickerView];
     
-    self.asheet=[[CustomActionSheet alloc]initWithContentView:self.weightPickerView];
-    self.asheet.delegate=self;
-    
-    [self.asheet showInView:[UIApplication sharedApplication].keyWindow];
 }
 
 - (IBAction)sureWeight:(UIButton *)sender {
@@ -294,21 +295,110 @@
 }
 
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    
-    if (buttonIndex==1) {
-        
-        self.netBase.requestType=(RequestType*)BUY_PUTINCART;
-        NSString* weight=[[[[self.foodList objectAtIndex:self.foodIndexPath.row] objectForKey:@"weightOption"] objectAtIndex:self.weightPickerView.selecttedIndex] objectForKey:@"Weight"];
-        NSString* SkuId=[[self.foodList objectAtIndex:self.foodIndexPath.row] objectForKey:@"SKUId"];
-        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"PutItemCard" UserID:@"004852E9-7AA1-4C3F-97A3-361B8EA96464" Parameters:@{@"SkuId":SkuId,@"Weight":weight}]];
-        
-    }
-}
 
 
 #pragma mark-addView
+- (void)setWeightPickerView
+{
+    
+    self.weightPickerView=[[JILOptionPicker alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    UIImageView* bg=[[UIImageView alloc]initWithFrame:self.weightPickerView.frame];
+    bg.image=[UIImage imageNamed:@"farm_bg.png"];
+    [self.weightPickerView addSubview:bg];
+    
+    
+    UIView* contengView=[[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-280, SCREEN_WIDTH, 280)];
+    [contengView setBackgroundColor:[UIColor whiteColor]];
+    [self.weightPickerView addSubview:contengView];
+    
+    UILabel* titleLab=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, contengView.frame.size.width, 46)];
+    titleLab.text=@"重量 - 金额";
+    titleLab.textColor=RGBACOLOR(129, 192, 36, 1);
+    titleLab.textAlignment=NSTextAlignmentCenter;
+    titleLab.font=[UIFont systemFontOfSize:17.0f];
+    [contengView addSubview:titleLab];
+    UILabel* lineLab=[[UILabel alloc]initWithFrame:CGRectMake(10, 45, SCREEN_WIDTH-20, 1)];
+    [lineLab setBackgroundColor:RGBACOLOR(129, 192, 36, 1)];
+    [contengView addSubview:lineLab];
+    
+    UIPickerView* pickerView=[[UIPickerView alloc]initWithFrame:CGRectMake(0, 37, SCREEN_WIDTH, 162)];
+    pickerView.dataSource=self.weightPickerView;
+    pickerView.delegate=self.weightPickerView;
+    self.weightPickerView.pickerView=pickerView;
+    [contengView addSubview:pickerView];
+    
+    UILabel* lineLab1=[[UILabel alloc]initWithFrame:CGRectMake(0, 242, SCREEN_WIDTH, 1)];
+    [lineLab1 setBackgroundColor:RGBACOLOR(129, 192, 36, 1)];
+    [contengView addSubview:lineLab1];
+    
+    UIButton* cancleBtn=[[UIButton alloc]initWithFrame:CGRectMake(0, 242, SCREEN_WIDTH/2, 38)];
+    cancleBtn.tag=10;
+    [cancleBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [cancleBtn setTitleColor:RGBACOLOR(129, 192, 36, 1) forState:UIControlStateNormal];
+    [cancleBtn.titleLabel setFont:[UIFont systemFontOfSize:15.0f]];
+    [cancleBtn.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [cancleBtn addTarget:self action:@selector(removeWeightPickerView:) forControlEvents:UIControlEventTouchUpInside];
+    [contengView addSubview:cancleBtn];
+    
+    UIButton* sureBtn=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/2, 242, SCREEN_WIDTH/2, 38)];
+    sureBtn.tag=11;
+    [sureBtn setTitle:@"确定" forState:UIControlStateNormal];
+    [sureBtn setTitleColor:RGBACOLOR(129, 192, 36, 1) forState:UIControlStateNormal];
+    [sureBtn.titleLabel setFont:[UIFont systemFontOfSize:15.0f]];
+    [sureBtn.titleLabel setTextAlignment:NSTextAlignmentCenter];
+    [sureBtn addTarget:self action:@selector(removeWeightPickerView:) forControlEvents:UIControlEventTouchUpInside];
+    [contengView addSubview:sureBtn];
+}
+
+- (void)removeWeightPickerView:(UIButton*)sender
+{
+    [self.weightPickerView removeFromSuperview];
+    if (sender.tag==11) {
+        self.netBase.requestType=(RequestType*)BUY_PUTINCART;
+        NSDictionary* d=[self.foodList objectAtIndex:self.foodIndexPath.row];
+        NSString* weight=[[[d objectForKey:@"weightOption"] objectAtIndex:self.weightPickerView.selecttedIndex] objectForKey:@"Quantity"];
+        NSString* SkuId=[d objectForKey:@"SKUId"];
+        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"PutItemCard" UserID:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"SkuId":SkuId,@"Weight":weight}]];
+    }
+    
+}
+- (void)createFoodView:(NSString*)url
+{
+    self.foodView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    UIImageView* bg=[[UIImageView alloc]initWithFrame:self.foodView.frame];
+    bg.image=[UIImage imageNamed:@"farm_bg.png"];
+    [self.foodView addSubview:bg];
+    
+    UIWebView* web=[[UIWebView alloc]initWithFrame:CGRectMake(30, 40, SCREEN_WIDTH-60, SCREEN_HEIGHT-130)];
+    web.delegate=self;
+    web.tag=10;
+    [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    [self.foodView addSubview:web];
+    
+    UIButton* btn=[[UIButton alloc]initWithFrame:CGRectMake((SCREEN_WIDTH-35)/2, SCREEN_HEIGHT-75, 35, 35)];
+    [btn addTarget:self action:@selector(removeFoodView) forControlEvents:UIControlEventTouchUpInside];
+    [btn setImage:[UIImage imageNamed:@"farm_close.png"] forState:UIControlStateNormal];
+    [self.foodView addSubview:btn];
+}
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    NSLog(@"start");
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSLog(@"finished");
+}
+
+-(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    NSLog(@"Falied");
+}
+- (void)removeFoodView
+{
+    [self.foodView removeFromSuperview];
+}
+
 - (void)addAddressButton
 {
 //    EditAddressViewController* editAddress=[[EditAddressViewController alloc]initWithNibName:@"EditAddressViewController" bundle:nil];
@@ -324,7 +414,7 @@
     UITableViewCell* cell=[self.foodTableView cellForRowAtIndexPath:self.foodIndexPath];
     [[cell buttonWithTag:12] setBackgroundImage:[UIImage imageNamed:@"farm_dialog.png"] forState:UIControlStateNormal];
     [[cell buttonWithTag:12] setFrame:CGRectMake(213, 17, 50, 25)];
-    [[cell buttonWithTag:12] setTitle:[NSString stringWithFormat:@"%@克",[[[[self.foodList objectAtIndex:self.foodIndexPath.row] objectForKey:@"weightOption"] objectAtIndex:self.weightPickerView.selecttedIndex] objectForKey:@"Weight"]] forState:UIControlStateNormal];
+    [[cell buttonWithTag:12] setTitle:[NSString stringWithFormat:@"%@%@",[[[[self.foodList objectAtIndex:self.foodIndexPath.row] objectForKey:@"weightOption"] objectAtIndex:self.weightPickerView.selecttedIndex] objectForKey:@"Quantity"],[[[[self.foodList objectAtIndex:self.foodIndexPath.row] objectForKey:@"weightOption"] objectAtIndex:self.weightPickerView.selecttedIndex] objectForKey:@"Unit"]] forState:UIControlStateNormal];
 }
 
 -(void)resumeAddWeightButton:(UITableViewCell*)cell
@@ -375,6 +465,7 @@
 }
 
 
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -382,7 +473,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    
+    _update=NO;
 }
 
 - (void)dealloc {

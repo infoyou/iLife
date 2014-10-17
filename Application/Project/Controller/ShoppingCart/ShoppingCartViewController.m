@@ -45,7 +45,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
-    [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetCardItemList" UserID:@"004852E9-7AA1-4C3F-97A3-361B8EA96464" Parameters:@{}]];
+    [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetCardItemList" UserID:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{}]];
     
 }
 
@@ -93,11 +93,14 @@
         self.netBase.requestType=nil;
     }else{
         if ([[dic objectForKey:@"IsSuccess"] integerValue]==1) {
-            self.foodList=[NSMutableArray arrayWithArray:[[dic objectForKey:@"Data"] objectForKey:@"ItemList"]];
+            if ([[[dic objectForKey:@"Data"] objectForKey:@"ItemList"] isEqual:[NSNull null]]||[[dic objectForKey:@"Data"] objectForKey:@"ItemList"]==nil) {
+                self.foodList=[NSMutableArray arrayWithArray:[NSArray array]];
+            }else{
+                 self.foodList=[NSMutableArray arrayWithArray:[[dic objectForKey:@"Data"] objectForKey:@"ItemList"]];
+            }
             [self.tableView reloadData];
             [self showtotalPrice];
         }
-        
     }
 
     
@@ -194,7 +197,7 @@
     NSString* SkuId=[[[[self.foodList objectAtIndex:self.deleteIndexPath.section] objectForKey:@"ItemCartList"] objectAtIndex:self.deleteIndexPath.row] objectForKey:@"SkuId"];
     SkuId=@"1040081044"; //后期需要注释掉
     self.netBase.requestType=(RequestType*)BUY_DELETECART;
-    [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"RemoveItem" UserID:@"004852E9-7AA1-4C3F-97A3-361B8EA96464" Parameters:@{@"SkuId":SkuId}]];
+    [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"RemoveItem" UserID:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"SkuId":SkuId}]];
 }
 
 #pragma mark-set others
