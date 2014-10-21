@@ -694,6 +694,18 @@
 		CE01C3DF19C840B600354F77 /* FarmWeightPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE01C3DE19C840B600354F77 /* FarmWeightPickerView.xib */; };
 		CE01C3E219C8423E00354F77 /* farm_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = CE01C3E019C8423E00354F77 /* farm_bg.png */; };
 		CE01C3E319C8423E00354F77 /* farm_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE01C3E119C8423E00354F77 /* farm_bg@2x.png */; };
+		CE0D58BB19F5F80700EBCA7C /* farm_address_select.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0D58B719F5F80700EBCA7C /* farm_address_select.png */; };
+		CE0D58BC19F5F80700EBCA7C /* farm_address_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0D58B819F5F80700EBCA7C /* farm_address_select@2x.png */; };
+		CE0D58BD19F5F80700EBCA7C /* farm_close.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0D58B919F5F80700EBCA7C /* farm_close.png */; };
+		CE0D58BE19F5F80700EBCA7C /* farm_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0D58BA19F5F80700EBCA7C /* farm_close@2x.png */; };
+		CE0D58C719F5F81300EBCA7C /* shoppingcart_square_gray.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0D58BF19F5F81300EBCA7C /* shoppingcart_square_gray.png */; };
+		CE0D58C819F5F81300EBCA7C /* shoppingcart_square_gray@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0D58C019F5F81300EBCA7C /* shoppingcart_square_gray@2x.png */; };
+		CE0D58C919F5F81300EBCA7C /* shoppingcart_square_green.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0D58C119F5F81300EBCA7C /* shoppingcart_square_green.png */; };
+		CE0D58CA19F5F81300EBCA7C /* shoppingcart_square_green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0D58C219F5F81300EBCA7C /* shoppingcart_square_green@2x.png */; };
+		CE0D58CB19F5F81300EBCA7C /* shoppingcart_square_yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0D58C319F5F81300EBCA7C /* shoppingcart_square_yellow.png */; };
+		CE0D58CC19F5F81300EBCA7C /* shoppingcart_square_yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0D58C419F5F81300EBCA7C /* shoppingcart_square_yellow@2x.png */; };
+		CE0D58CD19F5F81300EBCA7C /* shoppingcart_tick.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0D58C519F5F81300EBCA7C /* shoppingcart_tick.png */; };
+		CE0D58CE19F5F81300EBCA7C /* shoppingcart_tick@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0D58C619F5F81300EBCA7C /* shoppingcart_tick@2x.png */; };
 		CE0E486C19CAC17900AB6FF5 /* ShoppongCartCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE0E486B19CAC17900AB6FF5 /* ShoppongCartCell.xib */; };
 		CE0E487019CAC54F00AB6FF5 /* shoppingcart_fork.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0E486E19CAC54F00AB6FF5 /* shoppingcart_fork.png */; };
 		CE0E487119CAC54F00AB6FF5 /* shoppingcart_fork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CE0E486F19CAC54F00AB6FF5 /* shoppingcart_fork@2x.png */; };
@@ -2003,6 +2015,18 @@
 		CE01C3DE19C840B600354F77 /* FarmWeightPickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FarmWeightPickerView.xib; sourceTree = "<group>"; };
 		CE01C3E019C8423E00354F77 /* farm_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = farm_bg.png; sourceTree = "<group>"; };
 		CE01C3E119C8423E00354F77 /* farm_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "farm_bg@2x.png"; sourceTree = "<group>"; };
+		CE0D58B719F5F80700EBCA7C /* farm_address_select.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = farm_address_select.png; sourceTree = "<group>"; };
+		CE0D58B819F5F80700EBCA7C /* farm_address_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "farm_address_select@2x.png"; sourceTree = "<group>"; };
+		CE0D58B919F5F80700EBCA7C /* farm_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = farm_close.png; sourceTree = "<group>"; };
+		CE0D58BA19F5F80700EBCA7C /* farm_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "farm_close@2x.png"; sourceTree = "<group>"; };
+		CE0D58BF19F5F81300EBCA7C /* shoppingcart_square_gray.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shoppingcart_square_gray.png; sourceTree = "<group>"; };
+		CE0D58C019F5F81300EBCA7C /* shoppingcart_square_gray@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shoppingcart_square_gray@2x.png"; sourceTree = "<group>"; };
+		CE0D58C119F5F81300EBCA7C /* shoppingcart_square_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shoppingcart_square_green.png; sourceTree = "<group>"; };
+		CE0D58C219F5F81300EBCA7C /* shoppingcart_square_green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shoppingcart_square_green@2x.png"; sourceTree = "<group>"; };
+		CE0D58C319F5F81300EBCA7C /* shoppingcart_square_yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shoppingcart_square_yellow.png; sourceTree = "<group>"; };
+		CE0D58C419F5F81300EBCA7C /* shoppingcart_square_yellow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shoppingcart_square_yellow@2x.png"; sourceTree = "<group>"; };
+		CE0D58C519F5F81300EBCA7C /* shoppingcart_tick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shoppingcart_tick.png; sourceTree = "<group>"; };
+		CE0D58C619F5F81300EBCA7C /* shoppingcart_tick@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shoppingcart_tick@2x.png"; sourceTree = "<group>"; };
 		CE0E486B19CAC17900AB6FF5 /* ShoppongCartCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShoppongCartCell.xib; sourceTree = "<group>"; };
 		CE0E486E19CAC54F00AB6FF5 /* shoppingcart_fork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shoppingcart_fork.png; sourceTree = "<group>"; };
 		CE0E486F19CAC54F00AB6FF5 /* shoppingcart_fork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shoppingcart_fork@2x.png"; sourceTree = "<group>"; };
@@ -4504,6 +4528,10 @@
 		CE01C0ED19C80B5E00354F77 /* Farm */ = {
 			isa = PBXGroup;
 			children = (
+				CE0D58B719F5F80700EBCA7C /* farm_address_select.png */,
+				CE0D58B819F5F80700EBCA7C /* farm_address_select@2x.png */,
+				CE0D58B919F5F80700EBCA7C /* farm_close.png */,
+				CE0D58BA19F5F80700EBCA7C /* farm_close@2x.png */,
 				CE01C3E019C8423E00354F77 /* farm_bg.png */,
 				CE01C3E119C8423E00354F77 /* farm_bg@2x.png */,
 				CE01C3D719C8330C00354F77 /* farm_dialog.png */,
@@ -4527,6 +4555,14 @@
 		CE0E486D19CAC54F00AB6FF5 /* ShoppingCart */ = {
 			isa = PBXGroup;
 			children = (
+				CE0D58BF19F5F81300EBCA7C /* shoppingcart_square_gray.png */,
+				CE0D58C019F5F81300EBCA7C /* shoppingcart_square_gray@2x.png */,
+				CE0D58C119F5F81300EBCA7C /* shoppingcart_square_green.png */,
+				CE0D58C219F5F81300EBCA7C /* shoppingcart_square_green@2x.png */,
+				CE0D58C319F5F81300EBCA7C /* shoppingcart_square_yellow.png */,
+				CE0D58C419F5F81300EBCA7C /* shoppingcart_square_yellow@2x.png */,
+				CE0D58C519F5F81300EBCA7C /* shoppingcart_tick.png */,
+				CE0D58C619F5F81300EBCA7C /* shoppingcart_tick@2x.png */,
 				CE0E487219CAD6FB00AB6FF5 /* shoppingcart_commit_light.png */,
 				CE0E487319CAD6FB00AB6FF5 /* shoppingcart_commit_light@2x.png */,
 				CE0E487419CAD6FB00AB6FF5 /* shoppingcart_commit_normal.png */,
@@ -4911,7 +4947,9 @@
 				6689C593195010320059CB69 /* bg_1@2x.png in Resources */,
 				669CC36219BEAF3700117982 /* orderStateDetail.png in Resources */,
 				6689C591195010320059CB69 /* alert_bg@2x.png in Resources */,
+				CE0D58CB19F5F81300EBCA7C /* shoppingcart_square_yellow.png in Resources */,
 				667EE2211901175E00328E1F /* checkbox1_unchecked@2x.png in Resources */,
+				CE0D58C819F5F81300EBCA7C /* shoppingcart_square_gray@2x.png in Resources */,
 				6689C5BB195010320059CB69 /* release_cache@2x.png in Resources */,
 				6689C592195010320059CB69 /* bg_1.png in Resources */,
 				6689C595195010320059CB69 /* bg_2@2x.png in Resources */,
@@ -4935,6 +4973,7 @@
 				667ED8471901106100328E1F /* ProjectProp.plist in Resources */,
 				6689C55C195010320059CB69 /* mapPin.png in Resources */,
 				6689C611195010320059CB69 /* TabBar_icon3.png in Resources */,
+				CE0D58BD19F5F80700EBCA7C /* farm_close.png in Resources */,
 				6689C594195010320059CB69 /* bg_2.png in Resources */,
 				6689C4E4195010320059CB69 /* information_pagecontrol_unselect@2x.png in Resources */,
 				6689C558195010320059CB69 /* mapAnnoView.png in Resources */,
@@ -4948,6 +4987,7 @@
 				6689C60F195010320059CB69 /* TabBar_icon2.png in Resources */,
 				66FF1ECF19CBCCDE00CCAA35 /* ok.png in Resources */,
 				6689C5A4195010320059CB69 /* button_logout.png in Resources */,
+				CE0D58CD19F5F81300EBCA7C /* shoppingcart_tick.png in Resources */,
 				6689C612195010320059CB69 /* TabBar_icon3_sel.png in Resources */,
 				66FB562319C18F1E003CF123 /* login_code.png in Resources */,
 				66D4C2AC19B700B900E755AC /* PlatNotifyDetailViewController.xib in Resources */,
@@ -4955,6 +4995,7 @@
 				CE01C3D919C8330C00354F77 /* farm_dialog.png in Resources */,
 				66FB562419C18F1E003CF123 /* login_regist.png in Resources */,
 				6689C5BC195010320059CB69 /* write.png in Resources */,
+				CE0D58BB19F5F80700EBCA7C /* farm_address_select.png in Resources */,
 				6689C5A7195010320059CB69 /* check_no@2x.png in Resources */,
 				667EE20B1901175E00328E1F /* Done@2x.png in Resources */,
 				6689C4E3195010320059CB69 /* information_pagecontrol_unselect.png in Resources */,
@@ -4981,12 +5022,14 @@
 				6689C59B195010320059CB69 /* blank_bg_2@2x.png in Resources */,
 				66AFF3BA19B9904C00AFC4A6 /* good.png in Resources */,
 				66AFF3BD19B9904C00AFC4A6 /* pay_alipay.png in Resources */,
+				CE0D58BC19F5F80700EBCA7C /* farm_address_select@2x.png in Resources */,
 				6689C60D195010320059CB69 /* TabBar_icon1.png in Resources */,
 				6689C4DD195010320059CB69 /* information_aloneMarketing_logo.png in Resources */,
 				667ED8441901106100328E1F /* Localizable.strings in Resources */,
 				6689C4E2195010320059CB69 /* information_pagecontrol_selected@2x.png in Resources */,
 				6689C55A195010320059CB69 /* mapAnnoViewSelfLocation.png in Resources */,
 				6689C5B9195010320059CB69 /* personal_info@2x.png in Resources */,
+				CE0D58BE19F5F80700EBCA7C /* farm_close@2x.png in Resources */,
 				669CC36019BEA5D500117982 /* OrderStateCellSection.xib in Resources */,
 				CE01C3CD19C8281D00354F77 /* farm_vertical.png in Resources */,
 				66AFF3BE19B9904C00AFC4A6 /* pay_cft.png in Resources */,
@@ -5013,6 +5056,8 @@
 				662BDC2A19D7B1CA0015EE94 /* EditAddressViewController.xib in Resources */,
 				6689C5A5195010320059CB69 /* button_logout@2x.png in Resources */,
 				66FB563119C19166003CF123 /* RegistViewController.xib in Resources */,
+				CE0D58CA19F5F81300EBCA7C /* shoppingcart_square_green@2x.png in Resources */,
+				CE0D58CC19F5F81300EBCA7C /* shoppingcart_square_yellow@2x.png in Resources */,
 				66E1043A19D4F8F900309161 /* shareSMS.png in Resources */,
 				6689C5BD195010320059CB69 /* write@2x.png in Resources */,
 				CE01C3D219C82A3600354F77 /* FarmFoodCell.xib in Resources */,
@@ -5020,14 +5065,17 @@
 				6689C613195010320059CB69 /* TabBar_icon4.png in Resources */,
 				667EE2071901175E00328E1F /* README.txt in Resources */,
 				6689C5AC195010320059CB69 /* download.png in Resources */,
+				CE0D58C919F5F81300EBCA7C /* shoppingcart_square_green.png in Resources */,
 				6689C5B8195010320059CB69 /* personal_info.png in Resources */,
 				6689C5AF195010320059CB69 /* download_manager@2x.png in Resources */,
+				CE0D58CE19F5F81300EBCA7C /* shoppingcart_tick@2x.png in Resources */,
 				6689C5A8195010320059CB69 /* check_yes.png in Resources */,
 				6689C5A3195010320059CB69 /* button_delete@2x.png in Resources */,
 				66E1044319D518F500309161 /* NewAddressViewController.xib in Resources */,
 				CE0E487719CAD6FB00AB6FF5 /* shoppingcart_commit_light@2x.png in Resources */,
 				665E24B71977994F00A1F471 /* MJRefresh.bundle in Resources */,
 				66FB562019C174BE003CF123 /* OrderPayHead.xib in Resources */,
+				CE0D58C719F5F81300EBCA7C /* shoppingcart_square_gray.png in Resources */,
 				667EE21F1901175E00328E1F /* checkbox1_checked@2x.png in Resources */,
 				66FB563319C1B13C003CF123 /* OrderPayView.xib in Resources */,
 				6689C5A9195010320059CB69 /* check_yes@2x.png in Resources */,

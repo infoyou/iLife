@@ -66,10 +66,10 @@
 
 -(AFHTTPClient*)RequestClient
 {
-    NSString* baseUrl=@"http://182.254.148.196/AppInterface/BuyFood";
+//    NSString* baseUrl=@"http://192.168.0.8/AppInterface/BuyFood";
+    NSString* baseUrl=@"http://test.wymc.com.cn/AppInterface/BuyFood";
     baseUrl=[baseUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     AFHTTPClient * client = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:baseUrl]];
     return client;
 }
-
 @end

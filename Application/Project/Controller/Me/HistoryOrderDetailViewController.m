@@ -284,7 +284,7 @@ enum Button_Order_State_Tag_Enum
             
             skuName.text = orderDetail.itemName;
             weight.text = [NSString stringWithFormat:@"%@克", orderDetail.realWeight];
-            price.text = [NSString stringWithFormat:@"称重%@克/%@元", orderDetail.weight, orderDetail.itemAmount];
+            price.text = [NSString stringWithFormat:@"已购%@克/%@元", orderDetail.weight, orderDetail.itemAmount];
             state.text = [CommonUtils getOrderStateName:[[NSString stringWithFormat:@"%@",orderDetail.status] intValue]];
             
             if ([state.text isEqualToString:@"抢光了"]) {

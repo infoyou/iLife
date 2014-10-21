@@ -5,6 +5,8 @@
 #import "OrderDetailViewController.h"
 #import "MeListViewController.h"
 #import "ShareViewController.h"
+#import "LoginViewController.h"
+#import "RegistViewController.h"
 
 #import "GlobalConstants.h"
 #import "TextPool.h"
@@ -282,17 +284,37 @@
 //首页
 - (void)selectFirstTabBar {
     
-     if ([self.currentVC isKindOfClass:[VisitingFarmsViewController class]]) {
-         return;
-     }
+//     if ([self.currentVC isKindOfClass:[VisitingFarmsViewController class]]) {
+//         return;
+//     }
 
      self.navigationItem.title = LocaleStringForKey(NSMainPageBottomBarInformation, nil);
     
-    // right
-    UIBarButtonItem* sendItem = [[[UIBarButtonItem alloc] initWithTitle:LocaleStringForKey(@"个人中心", nil) style:UIBarButtonItemStyleDone
-                                                                 target:self action:@selector(goProfile)] autorelease];
-    [sendItem setTintColor:[UIColor whiteColor]];
-    self.navigationItem.rightBarButtonItem = sendItem;
+    self.navigationItem.rightBarButtonItem = nil;
+    
+    if ([AppManager instance].passwd && [[AppManager instance].passwd length] > 0) {
+        
+        // right
+        UIBarButtonItem* sendItem = [[[UIBarButtonItem alloc] initWithTitle:LocaleStringForKey(@"个人中心", nil) style:UIBarButtonItemStyleDone
+                                                                     target:self action:@selector(goProfile)] autorelease];
+        [sendItem setTintColor:[UIColor whiteColor]];
+        self.navigationItem.rightBarButtonItem = sendItem;
+    } else {
+        
+        UIBarButtonItem* registBtnItem = [[[UIBarButtonItem alloc] initWithTitle:LocaleStringForKey(@"注册", nil) style:UIBarButtonItemStyleDone
+                                                                     target:self action:@selector(goRegist)] autorelease];
+        [registBtnItem setTintColor:[UIColor whiteColor]];
+        
+        UIBarButtonItem* splitBtnItem = [[[UIBarButtonItem alloc] initWithTitle:LocaleStringForKey(@"|", nil) style:UIBarButtonItemStyleDone
+                                                                          target:self action:nil] autorelease];
+        [splitBtnItem setTintColor:[UIColor whiteColor]];
+        
+        UIBarButtonItem* loginBtnItem = [[[UIBarButtonItem alloc] initWithTitle:LocaleStringForKey(@"登陆", nil) style:UIBarButtonItemStyleDone
+                                                                     target:self action:@selector(goLogin)] autorelease];
+        [loginBtnItem setTintColor:[UIColor whiteColor]];
+        
+        [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:loginBtnItem, splitBtnItem, registBtnItem, nil]];
+    }
     
      if (!self.visitingFarmsVC)
      _visitingFarmsVC = [[VisitingFarmsViewController alloc] initWithMOC:self.MOC
@@ -402,28 +424,35 @@
 {
 }
 
+- (void)goRegist
+{
+    
+    RegistViewController *registVC = [[[RegistViewController alloc] initWithNibName:@"RegistViewController" bundle:nil] autorelease];
+    
+    UINavigationController *vcNav = [[[UINavigationController alloc] initWithRootViewController:registVC] autorelease];
+    vcNav.navigationBar.tintColor = TITLESTYLE_COLOR;
+    
+    [self presentViewController:vcNav animated:YES completion:nil];
+}
+
+- (void)goLogin
+{
+    self.navigationItem.rightBarButtonItem = nil;
+    
+    LoginViewController* login=[[LoginViewController alloc] init];
+    login.delegate=[UIApplication sharedApplication].delegate;
+    [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
+}
+
 - (void)goProfile
 {
-//    ShareViewController *aboutVC = [[ShareViewController alloc] initWithNibName:@"ShareViewController" bundle:nil moc:_MOC];
-//    [self.navigationController pushViewController:aboutVC animated:YES];
-//    [aboutVC release];
-    
-//    MeListViewController *meVC = [[[MeListViewController alloc] initWithMOC:_MOC parentVC:self] autorelease];
-    MeListViewController *meVC = [[[MeListViewController alloc] initWithMOC:_MOC] autorelease];
-    [self.navigationController pushViewController:meVC animated:YES];
-    
-//    self.navigationItem.title = LocaleStringForKey(NSMainPageBottomBarMe, nil);
-//    
-//    if (CURRENT_OS_VERSION >= IOS7) {
-//        int y = SCREEN_HEIGHT - HOMEPAGE_TAB_HEIGHT;
-//        self.tabBar.frame = CGRectMake(0, y - 64, SCREEN_WIDTH, HOMEPAGE_TAB_HEIGHT);
-//    }
 
-    
-//    UINavigationController *vcNav = [[[UINavigationController alloc] initWithRootViewController:meVC] autorelease];
-//    vcNav.navigationBar.tintColor = TITLESTYLE_COLOR;
-//    
-//    [self presentViewController:vcNav animated:YES completion:nil];
+    if ([AppManager instance].passwd && [[AppManager instance].passwd length]>0) {
+        MeListViewController *meVC = [[[MeListViewController alloc] initWithMOC:_MOC parentVC:self] autorelease];
+        [self.navigationController pushViewController:meVC animated:YES];
+    } else {
+        [self askWithMessage:@"尚未登录，请先登录" alertTag:LOGIN_TAG];
+    }
 }
 
 #pragma mark - for gesture
@@ -515,6 +544,18 @@
         NSLog(@"发短信取消");
     } else if(result==MessageComposeResultFailed) {
         NSLog(@"发短信失败");
+    }
+}
+
+#pragma mark-UIAlertView Delegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag==LOGIN_TAG) {
+        if (buttonIndex==1) {
+            LoginViewController* login=[[LoginViewController alloc]init];
+            login.delegate=[UIApplication sharedApplication].delegate;
+            [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
+        }
     }
 }
 

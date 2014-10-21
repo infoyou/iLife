@@ -56,10 +56,15 @@
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"customerName"];
 }
 
+- (NSString *)getSaveUserId {
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
+}
+
 - (void)rememberUsername:(NSString *)username
 			  andPassword:(NSString *)password
                  pswdStr:(NSString *)pswdStr
             customerName:(NSString *)customerName
+                  userId:(NSString *)userId
 {
 	NSUserDefaults *_def = [NSUserDefaults standardUserDefaults];
     
@@ -68,12 +73,15 @@
 		[_def removeObjectForKey:@"password"];
         [_def removeObjectForKey:@"pswdStr"];
         [_def removeObjectForKey:@"customerName"];
+        [_def removeObjectForKey:@"userId"];
 	} else {
 		[_def setObject:username forKey:@"username"];
 		[_def setObject:password forKey:@"password"];
         [_def setObject:pswdStr forKey:@"pswdStr"];
         [_def setObject:customerName forKey:@"customerName"];
+        [_def setObject:userId forKey:@"userId"];
 	}
+    
 	[_def synchronize];
 }
 

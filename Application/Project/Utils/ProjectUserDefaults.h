@@ -14,10 +14,12 @@
 - (NSString *)usernameRemembered;
 - (NSString *)customerNameRemembered;
 - (NSString *)passwordStrRemembered;
+- (NSString *)getSaveUserId;
 
 - (void)rememberUsername:(NSString *)username
-			  andPassword:(NSString *)password
+             andPassword:(NSString *)password
                  pswdStr:(NSString *)pswdStr
-            customerName:(NSString *)customerName;
+            customerName:(NSString *)customerName
+                  userId:(NSString *)userId;
 
 @end

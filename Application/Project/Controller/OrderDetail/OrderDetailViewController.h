@@ -58,6 +58,7 @@
 @property (nonatomic, retain)NSString* itemId;
 @property (nonatomic, retain)NSString* skuId;
 @property (nonatomic, retain)NSString* itemName;
+@property (nonatomic, retain)NSString* itemUnit;
 @property (nonatomic, retain)NSString* purchaseWeight;
 @property (nonatomic, retain)NSString* realWeight;
 @property (nonatomic, retain)NSString* realAmount;

@@ -49,6 +49,8 @@
 
 #define PG_POWERHOUR_MAP_BAND    3
 
+#define APP_NAME                @"BugClient"
+
 #define CUSTOMER_ID              @"3084cd58e4144cceb1faaac1c515f151" // 管理通
 //#define CUSTOMER_ID              @"e703dbedadd943abacf864531decdac1" // 企信
 //#define CUSTOMER_ID              @"17fe67e2b69e4b50b67e725939586459" // 宝洁
@@ -421,8 +423,8 @@ typedef enum {
     
     // 设置
     GET_DELIVERY_ADDRESS_TY,//地址列表
+    DEL_ADDRESS_TY,//删除买家地址
     SET_DEFAULT_ADDRESS_TY,//设置常用地址
-    DEL_ADDRESS_TY,        //删除地址
     GET_PRIORITY_SELLER_TY,//常用卖家
     GET_HISTORY_ORDER_TY,//历史订单
     GET_SYSTEM_MESSAGE_TY,//系统消息

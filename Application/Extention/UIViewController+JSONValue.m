@@ -21,7 +21,7 @@
 }
 
 
-- (void) askWithMessage:(NSString *) msg
+- (void)askWithMessage:(NSString *) msg
                alertTag:(NSInteger) tag
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提醒" message:msg delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];

@@ -61,6 +61,7 @@ typedef enum {
     [super viewWillAppear:animated];
     [self checkIsAutoLogin];
     
+    [self doLoginLogic];
 //    [self doUpdateSoftAction];
 }
 
@@ -178,6 +179,7 @@ typedef enum {
     
     self._nameField.text = [[AppManager instance].userDefaults usernameRemembered];
 }
+
 
 - (UIButton *)setCompanyBtnType
 {
@@ -356,7 +358,7 @@ typedef enum {
     
     if (_nameField.text.length > 0 && md5Password.length > 0) {
         
-        [[AppManager instance].userDefaults rememberUsername:[[AppManager instance].userDefaults usernameRemembered] andPassword:[[AppManager instance].userDefaults passwordRemembered] pswdStr:[[AppManager instance].userDefaults passwordStrRemembered] customerName:_companyField.text];
+        [[AppManager instance].userDefaults rememberUsername:[[AppManager instance].userDefaults usernameRemembered] andPassword:[[AppManager instance].userDefaults passwordRemembered] pswdStr:[[AppManager instance].userDefaults passwordStrRemembered] customerName:_companyField.text userId:[[AppManager instance].userDefaults getSaveUserId]];
         _isAutoLogin = YES;
     }
     
@@ -406,7 +408,7 @@ typedef enum {
 {
     
     NSMutableDictionary *specialDict = [NSMutableDictionary dictionary];
-    [specialDict setValue:@"QiXin" forKey:@"AppName"];
+    [specialDict setValue:APP_NAME forKey:@"AppName"];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/%@", VALUE_API_PREFIX, API_UPDATE_SERVICE];
     NSString *url = [ProjectAPI getURL:urlStr specialDict:specialDict];
@@ -682,9 +684,9 @@ typedef enum {
                     
                     if (_isAutoLogin)
                     {
-                        [[AppManager instance].userDefaults rememberUsername:_nameField.text andPassword:_passwordField.text pswdStr:_passwordField.text customerName:_passwordField.text];
+                        [[AppManager instance].userDefaults rememberUsername:_nameField.text andPassword:_passwordField.text pswdStr:_passwordField.text customerName:_passwordField.text userId:[[AppManager instance].userDefaults getSaveUserId]];
                     } else {
-                        [[AppManager instance].userDefaults rememberUsername:_nameField.text andPassword:_passwordField.text pswdStr:_passwordField.text customerName:_passwordField.text];
+                        [[AppManager instance].userDefaults rememberUsername:_nameField.text andPassword:_passwordField.text pswdStr:_passwordField.text customerName:_passwordField.text userId:[AppManager instance].userId];
                     }
                     
                     
@@ -729,7 +731,11 @@ typedef enum {
                     [[FMDBConnection instance] insertAllUserObjectDB:userList];
                     
                     if (self.delegate && [self.delegate respondsToSelector:@selector(loginSuccessfull:)]) {
+                        [AppManager instance].passwd = _passwordField.text;  //保存一下密码
+                        [AppManager instance].userId = [[[resultDict objectForKey:@"Data"] objectForKey:@"Member"] objectForKey:@"VipID"];
                         [self.delegate loginSuccessfull:self];
+                        
+                        [[AppManager instance].userDefaults rememberUsername:_nameField.text andPassword:_passwordField.text pswdStr:_passwordField.text customerName:_passwordField.text userId:[AppManager instance].userId];
                     }
                     
                 } else {

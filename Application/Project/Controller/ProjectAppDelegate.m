@@ -77,6 +77,10 @@ NSString *const UIApplicationDidReceivedRomateNotificationNotification = @"UIApp
         _homeNC = [[BaseNavigationController alloc] initWithRootViewController:self.homepageContainer];
     }
     
+    
+    [_homepageContainer selectFirstTabBar];
+    [_homepageContainer modifyFromTabBarFlag];
+    
     self.window.rootViewController = _homepageContainer;
     return _homeNC;
 }
@@ -98,7 +102,7 @@ NSString *const UIApplicationDidReceivedRomateNotificationNotification = @"UIApp
 }
 
 - (void)prepareApp {
-    [self prepareCrashReporter];
+//    [self prepareCrashReporter];
     
     [self loadNessesaryResource];
     
@@ -330,6 +334,14 @@ NSString *const UIApplicationDidReceivedRomateNotificationNotification = @"UIApp
 //    if (md5Password && md5Password.length > 0) {
 //        [_userLoginVC autoLogin];
 //    }
+    
+    [AppManager instance].passwd = [[AppManager instance].userDefaults passwordRemembered];
+    
+    if ([[AppManager instance].userDefaults getSaveUserId] != nil) {
+        [AppManager instance].userId = [[AppManager instance].userDefaults getSaveUserId];
+    } else {
+        [AppManager instance].userId = @"";
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

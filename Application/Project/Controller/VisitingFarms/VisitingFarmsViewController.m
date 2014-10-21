@@ -72,7 +72,7 @@
     //获取菜的类别
     if (!_update) {
         [MBProgressHUD showMessag:@"刷新菜场" toView:self.view];
-        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemCategoryList" UserID:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{}]];
+        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemCategoryList" UserID:[[AppManager instance].userId length]>0?[AppManager instance].userId:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{}]];
         [[UIApplication sharedApplication].delegate window].userInteractionEnabled=NO;
         _update=YES;
     }
@@ -160,7 +160,7 @@
             if ([self.catrgoryList count]>0) {
                 self.itemCategoryID=[[self.catrgoryList objectAtIndex:0] objectForKey:@"ItemCategoryID"];
                 self.netBase.requestType=(RequestType*)BUY_FOODLIST;
-                [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemSaleList" UserID:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"ItemCategoryID":self.itemCategoryID}]];
+                [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemSaleList" UserID:[[AppManager instance].userId length]>0?[AppManager instance].userId:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"ItemCategoryID":self.itemCategoryID}]];
             }
         }
     }
@@ -244,18 +244,17 @@
         if (indexPath.row<[self.catrgoryList count]) {
             [MBProgressHUD showMessag:@"刷新菜厂" toView:self.view];
             self.netBase.requestType=(RequestType*)BUY_FOODLIST;
-            [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemSaleList" UserID:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"ItemCategoryID":[[self.catrgoryList objectAtIndex:indexPath.row] objectForKey:@"ItemCategoryID"]}]];
+            [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemSaleList" UserID:[[AppManager instance].userId length]>0?[AppManager instance].userId:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"ItemCategoryID":[[self.catrgoryList objectAtIndex:indexPath.row] objectForKey:@"ItemCategoryID"]}]];
         }
     }else{
         self.netBase.requestType=(RequestType*)BUY_FOODINFORMATION;
         NSString* itemID=[[self.foodList objectAtIndex:indexPath.row] objectForKey:@"ItemId"];
-        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"ShowItemDesc" UserID:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"ItemID":itemID}]];
+        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"ShowItemDesc" UserID:[[AppManager instance].userId length]>0?[AppManager instance].userId:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"ItemID":itemID}]];
     }
 }
 
-
 - (IBAction)selectFoodWeight:(UIButton *)sender {
-    if ([[AppManager instance].passwd length]>0) {
+    if ([AppManager instance].passwd && [[AppManager instance].passwd length]>0) {
         UIView *view = sender;
         while (view != nil && ![view isKindOfClass:[UITableViewCell class]]) {
             view = [view superview];
@@ -269,49 +268,33 @@
         [self setWeightPickerView];
         [self.weightPickerView setOptions:self.options];
         [[[UIApplication sharedApplication].delegate window] addSubview:self.weightPickerView];
-    }else{
+    } else {
         [self askWithMessage:@"尚未登录，请先登录" alertTag:LOGIN_TAG];
     }
-    
-    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (alertView.tag==LOGIN_TAG) {
         if (buttonIndex==1) {
-            LoginViewController* login=[[LoginViewController alloc]init];
+            LoginViewController* login = [[LoginViewController alloc] init];
+            login.delegate = [UIApplication sharedApplication].delegate;
             [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
-//            [[AppManager instance].userDefaults rememberUsername:[[AppManager instance].userDefaults usernameRemembered] andPassword:@"" pswdStr:@"" customerName:@""];
-//            
-//            // Clear current user data
-//            [WXWCoreDataUtils deleteEntitiesFromMOC:_MOC entityName:@"TodoList" predicate:nil];
-//            [WXWCoreDataUtils deleteEntitiesFromMOC:_MOC entityName:@"SurveyDetail" predicate:nil];
-//            [WXWCoreDataUtils deleteEntitiesFromMOC:_MOC entityName:@"SurveyItem" predicate:nil];
-//            
-//            // Do logout
-//            [((ProjectAppDelegate *)APP_DELEGATE) logout];
-//            [self.navigationController popToRootViewControllerAnimated:YES];
-
         }
     }
 }
-
-
-
-
 
 #pragma mark-addView
 - (void)setWeightPickerView
 {
     
-    self.weightPickerView=[[JILOptionPicker alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    UIImageView* bg=[[UIImageView alloc]initWithFrame:self.weightPickerView.frame];
-    bg.image=[UIImage imageNamed:@"farm_bg.png"];
+    self.weightPickerView = [[JILOptionPicker alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    UIImageView* bg = [[UIImageView alloc] initWithFrame:self.weightPickerView.frame];
+    bg.image = [UIImage imageNamed:@"farm_bg.png"];
     [self.weightPickerView addSubview:bg];
     
     
-    UIView* contengView=[[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-280, SCREEN_WIDTH, 280)];
+    UIView* contengView = [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-280, SCREEN_WIDTH, 280)];
     [contengView setBackgroundColor:[UIColor whiteColor]];
     [self.weightPickerView addSubview:contengView];
     
@@ -362,9 +345,8 @@
         NSDictionary* d=[self.foodList objectAtIndex:self.foodIndexPath.row];
         NSString* weight=[[[d objectForKey:@"weightOption"] objectAtIndex:self.weightPickerView.selecttedIndex] objectForKey:@"Quantity"];
         NSString* SkuId=[d objectForKey:@"SKUId"];
-        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"PutItemCard" UserID:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"SkuId":SkuId,@"Weight":weight}]];
+        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"PutItemCard" UserID:[[AppManager instance].userId length]>0?[AppManager instance].userId:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"SkuId":SkuId,@"Weight":weight}]];
     }
-    
 }
 
 - (void)createFoodView:(NSString*)url
@@ -415,7 +397,7 @@
 - (void)addAddressButton
 {
 //    EditAddressViewController* editAddress=[[EditAddressViewController alloc]initWithNibName:@"EditAddressViewController" bundle:nil];
-    if ([[AppManager instance].passwd length]>0) {
+    if ([AppManager instance].passwd && [[AppManager instance].passwd length]>0) {
         _update=NO;
         AddressListController *addressVC = [[[AddressListController alloc] initWithMOC:_MOC parentVC:nil] autorelease];
         [CommonMethod pushViewController:addressVC withAnimated:YES];

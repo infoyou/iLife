@@ -7,6 +7,7 @@
 //
 
 #import "RegistViewController.h"
+#import "LoginViewController.h"
 
 @interface RegistViewController () <UITextFieldDelegate>
 {
@@ -183,10 +184,12 @@
     NSString *urlStr = [NSString stringWithFormat:@"%@/%@%@", VALUE_API_PREFIX, API_SERVICE_USER, API_USER_REGISTER];
     NSString *url = [ProjectAPI getURL:urlStr specialDict:specialDict];
     DLog(@"url = %@", url);
+    
     WXWAsyncConnectorFacade *connFacade = [self setupAsyncConnectorForUrl:url
                                                               contentType:USER_REGIST_MOBILE_REPSWD_TY];
     
     [connFacade fetchGets:url];
+    
 }
 
 #pragma mark - ECConnectorDelegate methods
@@ -211,12 +214,17 @@
                                                                            paramID:0];
             
             if (ret == SUCCESS_CODE) {
-                
+            
                 NSDictionary *resultDict = [result objectFromJSONData];
                 NSDictionary *dict = OBJ_FROM_DIC(resultDict, @"Data");
                 
-                //执行程序
+                [[AppManager instance].userDefaults rememberUsername:_mMobileTxt.text andPassword:_mPswdTxt.text pswdStr:_mPswdTxt.text customerName:_mPswdTxt.text userId:@""];
+                
                 [self dismissModalViewControllerAnimated:YES];
+                
+                LoginViewController* login=[[LoginViewController alloc] init];
+                login.delegate=[UIApplication sharedApplication].delegate;
+                [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
             }
             
             break;

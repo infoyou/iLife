@@ -1,6 +1,9 @@
 
 #import "OrderDetailViewController.h"
 #import "OrderPayViewController.h"
+#import "LoginViewController.h"
+
+#define LOGIN_TAG  1
 
 @implementation OrderTotal
 
@@ -16,6 +19,7 @@
 @synthesize itemId = _itemId;
 @synthesize skuId = _skuId;
 @synthesize itemName = _itemName;
+@synthesize itemUnit = _itemUnit;
 @synthesize purchaseWeight = _purchaseWeight;
 @synthesize realWeight = _realWeight;
 @synthesize realAmount = _realAmount;
@@ -123,7 +127,12 @@ enum Button_Evaluation_Tag_Enum
     _tableView.frame = CGRectMake(0, SWITCH_BTN_H, SCREEN_WIDTH, SCREEN_HEIGHT - SWITCH_BTN_H - 64 - HOMEPAGE_TAB_HEIGHT);
     [self addSwitchButton];
     
-    [self getOrderPayList];
+    
+    if ([AppManager instance].passwd && [[AppManager instance].passwd length]>0) {
+        [self getOrderPayList];
+    } else {
+        [self askWithMessage:@"尚未登录，请先登录" alertTag:LOGIN_TAG];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -360,8 +369,8 @@ enum Button_Evaluation_Tag_Enum
             
             OrderDetail *orderDetail = orderDetailArray[0];
             skuName.text = orderDetail.itemName;
-            weight.text = [NSString stringWithFormat:@"%@克", orderDetail.realWeight];
-            price.text = [NSString stringWithFormat:@"称重%@克/%@元", orderDetail.purchaseWeight, orderDetail.realAmount];
+            weight.text = [NSString stringWithFormat:@"%@%@", orderDetail.realWeight, orderDetail.itemUnit];
+            price.text = [NSString stringWithFormat:@"已购%@%@/%@元", orderDetail.purchaseWeight, orderDetail.itemUnit, orderDetail.realAmount];
             orderState.text = [CommonUtils getOrderStateName:[[NSString stringWithFormat:@"%@",orderDetail.orderStatus] intValue]];
             
             if (orderDetail.isFirst && row != 0) {
@@ -439,15 +448,25 @@ enum Button_Evaluation_Tag_Enum
             NSString *evaluationTypeIDStr = [NSString stringWithFormat:@"%@", orderDetail.evaluationTypeID];
             int evaluationTypeID = [evaluationTypeIDStr intValue];
             
+            if (indexPath.row != 0) {
+                UIView *splitView = [[[UIView alloc] initWithFrame:CGRectMake(10, 1, SCREEN_WIDTH-10, 1)] autorelease];
+                splitView.backgroundColor = HEX_COLOR(@"0xe8e8e8");
+                [cell.contentView addSubview:splitView];
+            }
+            
             switch (evaluationTypeID) {
                 case 0:
                 {
+                    if (goodImgView.isHighlighted || okImgView.isHighlighted || badImgView.isHighlighted) {
+                        return cell;
+                    }
+                    
                     [self addTapGestureRecognizer:goodImgView];
                     [self addTapGestureRecognizer:okImgView];
                     [self addTapGestureRecognizer:badImgView];
                 }
                     break;
-                
+                    
                 case 1:
                 {
                     goodImgView.highlighted = YES;
@@ -468,12 +487,6 @@ enum Button_Evaluation_Tag_Enum
                     
                 default:
                     break;
-            }
-            
-            if (indexPath.row != 0) {
-                UIView *splitView = [[[UIView alloc] initWithFrame:CGRectMake(10, 1, SCREEN_WIDTH-10, 1)] autorelease];
-                splitView.backgroundColor = HEX_COLOR(@"0xe8e8e8");
-                [cell.contentView addSubview:splitView];
             }
             
             return cell;
@@ -782,7 +795,7 @@ enum Button_Evaluation_Tag_Enum
     
     NSLog(@"section = %d, row = %d", section, row);
     
-    OrderCompletedTotal *orderCompletedTotal = (OrderCompletedTotal *)_orderCompletedArray[section];
+    OrderCompletedDetail *orderDetail = ((OrderCompletedTotal *)_orderCompletedArray[section]).detailArray[row];
     
     int tagValue = tag%1000;
     
@@ -797,7 +810,7 @@ enum Button_Evaluation_Tag_Enum
     }
     
     NSMutableDictionary *specialDict = [NSMutableDictionary dictionary];
-    [specialDict setValue:orderCompletedTotal.orderId forKey:@"OrderID"];
+    [specialDict setValue:orderDetail.deliverOrderID forKey:@"OrderID"];
     [specialDict setValue:[NSString stringWithFormat:@"%d", evaluationTypeID] forKey:@"EvaluationTypeID"];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/%@%@", VALUE_API_PREFIX, API_SERVICE_USER, API_ORDER_EVALUATION];
@@ -925,8 +938,8 @@ enum Button_Evaluation_Tag_Enum
                     
                     for (NSDictionary *sellDic in orderGroupArray) {
                         
-                        NSArray *detailList = OBJ_FROM_DIC(sellDic, @"OrderDetail");
                         NSString *status = STRING_VALUE_FROM_DIC(sellDic, @"Status");
+                        NSArray *detailList = OBJ_FROM_DIC(sellDic, @"OrderDetailInfo");
                         
                         BOOL isFirst = YES;
                         for (NSDictionary *dic in detailList) {
@@ -938,6 +951,7 @@ enum Button_Evaluation_Tag_Enum
                             orderDetail.itemId = STRING_VALUE_FROM_DIC(dic, @"ItemID");
                             orderDetail.skuId = STRING_VALUE_FROM_DIC(dic, @"SKUID");
                             orderDetail.itemName = STRING_VALUE_FROM_DIC(dic, @"ItemName");
+                            orderDetail.itemUnit = STRING_VALUE_FROM_DIC(dic, @"ItemUnit");
                             orderDetail.purchaseWeight = STRING_VALUE_FROM_DIC(dic, @"PurchaseWeight");
                             orderDetail.realWeight = STRING_VALUE_FROM_DIC(dic, @"RealWeight");
                             orderDetail.realAmount = STRING_VALUE_FROM_DIC(dic, @"RealAmount");
@@ -1058,6 +1072,17 @@ enum Button_Evaluation_Tag_Enum
     }
     
     [super connectFailed:error url:url contentType:contentType];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag==LOGIN_TAG) {
+        if (buttonIndex==1) {
+            LoginViewController* login=[[LoginViewController alloc] init];
+            login.delegate=[UIApplication sharedApplication].delegate;
+            [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
+        }
+    }
 }
 
 @end

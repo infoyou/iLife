@@ -76,7 +76,7 @@
     
     self.netBase=[[JILNetBase alloc]init];
     self.netBase.netBaseDelegate=self;
-    [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"getDeliverTimeList" UserID:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{}]];
+    [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"getDeliverTimeList" UserID:[AppManager instance].userId Parameters:@{}]];
 }
 
 #pragma mark-handle Request
@@ -115,7 +115,7 @@
         NSString* TimeID=[[self.timeInfoArray objectAtIndex:_lastBtn-1] objectForKey:@"TimeID"];
 //        TimeID=@"2245555555555555";
         self.netBase.requestType=(RequestType*)BUY_COMMITCART;
-        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"SubmitDeliveryOrder" UserID:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"TimeID":TimeID,@"ItemList":self.foodParam}]];
+        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"SubmitDeliveryOrder" UserID:[AppManager instance].userId Parameters:@{@"TimeID":TimeID,@"ItemList":self.foodParam}]];
     }else{
         [self confirmWithMessage:@"请选择时间" title:@""];
     }

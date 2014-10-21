@@ -56,7 +56,7 @@ static ProjectAPI *instance = nil;
     [requestDict setObject:[AppManager instance].userChatAccountId forKey:@"SubAccountSid"];
     [requestDict setObject:[AppManager instance].userChatToken forKey:@"SubToken"];
     [requestDict setObject:CUSTOMER_ID forKey:@"CustomerID"];
-    [requestDict setObject:@"QiXin" forKey:@"AppName"];
+    [requestDict setObject:APP_NAME forKey:@"AppName"];
     [requestDict setObject:CURRENT_OS_VERSION_SHOW forKey:@"OsInfo"];
     // 默认为中文（值为1）
     [requestDict setObject:@"1" forKey:@"Locale"];

@@ -286,7 +286,9 @@ enum ALERT_TAG {
 - (void)logoutClick:(id)sender
 {
     DLog(@"LOG OUT CLICK....");
-    [[AppManager instance].userDefaults rememberUsername:[[AppManager instance].userDefaults usernameRemembered] andPassword:@"" pswdStr:@"" customerName:@""];
+    [[AppManager instance].userDefaults rememberUsername:[[AppManager instance].userDefaults usernameRemembered] andPassword:@"" pswdStr:@"" customerName:@"" userId:@""];
+    [AppManager instance].userId = @"";
+    [AppManager instance].passwd = @"";
     
     [((ProjectAppDelegate *)APP_DELEGATE) logout];
     [self.navigationController popToRootViewControllerAnimated:YES];

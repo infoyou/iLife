@@ -659,7 +659,9 @@ enum Head_Control_Type
 - (void)doLogout
 {
     DLog(@"LOG OUT CLICK....");
-    [[AppManager instance].userDefaults rememberUsername:[[AppManager instance].userDefaults usernameRemembered] andPassword:@"" pswdStr:@"" customerName:@""];
+    [[AppManager instance].userDefaults rememberUsername:[[AppManager instance].userDefaults usernameRemembered] andPassword:@"" pswdStr:@"" customerName:@"" userId:@""];
+    [AppManager instance].userId = @"";
+    [AppManager instance].passwd = @"";
     
     // Clear current user data
     [WXWCoreDataUtils deleteEntitiesFromMOC:_MOC entityName:@"TodoList" predicate:nil];
@@ -681,7 +683,7 @@ enum Head_Control_Type
 {
     
     NSMutableDictionary *specialDict = [NSMutableDictionary dictionary];
-    [specialDict setValue:@"QiXin" forKey:@"AppName"];
+    [specialDict setValue:APP_NAME forKey:@"AppName"];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/%@", VALUE_API_PREFIX, API_UPDATE_SERVICE];
     NSString *url = [ProjectAPI getURL:urlStr specialDict:specialDict];
