@@ -14,6 +14,9 @@
 
 -(void)confirmWithMessage:(NSString *)msg title:(NSString *)title;
 
+- (void) askWithMessage:(NSString *) msg
+               alertTag:(NSInteger) tag;
+
 -(NSDictionary*)JSONValue:(id)object;
 
 -(NSDictionary*)getParamWithAction:(NSString*)action UserID:(NSString*)userID Parameters:(NSDictionary*)parameters;

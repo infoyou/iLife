@@ -6,11 +6,12 @@
 #import "JILBase.h"
 #import "EditAddressViewController.h"
 #import "AddressListController.h"
+#import "LoginViewController.h"
 
 
 #define INTERVAL_NUM 1000
 
-@interface VisitingFarmsViewController ()<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,JILNetBaseDelegate,UIWebViewDelegate>
+@interface VisitingFarmsViewController ()<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,JILNetBaseDelegate,UIWebViewDelegate,UIAlertViewDelegate>
 {
     UILabel* _addressLabel;
     UILabel* _farmNameLabel;
@@ -82,6 +83,7 @@
 {
     [super viewDidLoad];
     
+    
     self.view.backgroundColor = [UIColor whiteColor];
     
     _hasAddress=NO;
@@ -143,6 +145,7 @@
             [self createFoodView:url];
             [[[UIApplication sharedApplication].delegate window] addSubview:self.foodView];
         }
+        self.netBase.requestType=nil;
     }else{
         if ([[dic objectForKey:@"IsSuccess"] integerValue]==1) {
             self.catrgoryList=[[dic objectForKey:@"Data"] objectForKey:@"ItemType"];
@@ -158,13 +161,9 @@
                 self.itemCategoryID=[[self.catrgoryList objectAtIndex:0] objectForKey:@"ItemCategoryID"];
                 self.netBase.requestType=(RequestType*)BUY_FOODLIST;
                 [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemSaleList" UserID:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"ItemCategoryID":self.itemCategoryID}]];
-                
             }
         }
-        
     }
-
-
 }
 
 -(void)handleRequestFailedData:(NSError *)error
@@ -172,7 +171,7 @@
     if (self.netBase.requestType==(RequestType*)BUY_FOODLIST) {
         [MBProgressHUD hideHUDForView:self.view animated:YES];
     }
-    self.netBase.requestType=nil;
+//    self.netBase.requestType=nil;
 }
 #pragma mark-SetUp tableView
 
@@ -240,6 +239,7 @@
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if ([tableView isEqual:self.categoryTableView]) {
         if (indexPath.row<[self.catrgoryList count]) {
             [MBProgressHUD showMessag:@"刷新菜厂" toView:self.view];
@@ -255,44 +255,48 @@
 
 
 - (IBAction)selectFoodWeight:(UIButton *)sender {
-    UIView *view = sender;
-    while (view != nil && ![view isKindOfClass:[UITableViewCell class]]) {
-        view = [view superview];
+    if ([[AppManager instance].passwd length]>0) {
+        UIView *view = sender;
+        while (view != nil && ![view isKindOfClass:[UITableViewCell class]]) {
+            view = [view superview];
+        }
+        self.foodIndexPath=[self.foodTableView indexPathForCell:(UITableViewCell*)view];
+        NSMutableArray* weightArray=[[self.foodList objectAtIndex:self.foodIndexPath.row] objectForKey:@"weightOption"];
+        [self.options removeAllObjects];
+        for (NSDictionary* dic in weightArray) {
+            [self.options addObject:[NSString stringWithFormat:@"%@%@ - %@%@",[dic objectForKey:@"Quantity"],[dic objectForKey:@"Unit"],[dic objectForKey:@"Amount"],[dic objectForKey:@"MoneyUnit"]]];
+        }
+        [self setWeightPickerView];
+        [self.weightPickerView setOptions:self.options];
+        [[[UIApplication sharedApplication].delegate window] addSubview:self.weightPickerView];
+    }else{
+        [self askWithMessage:@"尚未登录，请先登录" alertTag:LOGIN_TAG];
     }
     
-    self.foodIndexPath=[self.foodTableView indexPathForCell:(UITableViewCell*)view];
-    NSMutableArray* weightArray=[[self.foodList objectAtIndex:self.foodIndexPath.row] objectForKey:@"weightOption"];
-    [self.options removeAllObjects];
-    for (NSDictionary* dic in weightArray) {
-        [self.options addObject:[NSString stringWithFormat:@"%@%@ - %@%@",[dic objectForKey:@"Quantity"],[dic objectForKey:@"Unit"],[dic objectForKey:@"Amount"],[dic objectForKey:@"MoneyUnit"]]];
-    }
-//    NSArray* nib=[[NSBundle mainBundle] loadNibNamed:@"FarmWeightPickerView" owner:self options:nil];
-//    self.weightPickerView=[nib objectAtIndex:0];
-//    [self.weightPickerView setOptions:self.options];
-//    self.asheet=[[CustomActionSheet alloc]initWithContentView:self.weightPickerView];
-//    self.asheet.delegate=self;
-//    [self.asheet showInView:[UIApplication sharedApplication].keyWindow];
-    [self setWeightPickerView];
-    [self.weightPickerView setOptions:self.options];
-
-     [[[UIApplication sharedApplication].delegate window] addSubview:self.weightPickerView];
     
 }
 
-- (IBAction)sureWeight:(UIButton *)sender {
-    switch (sender.tag) {
-        case 10:
-            [self.asheet dismissWithButtonIndex:0 animated:NO];
-            break;
-        case 11:
-            [self.asheet dismissWithButtonIndex:1 animated:NO];
-            break;
-        default:
-            [self.asheet dismissWithButtonIndex:0 animated:NO];
-            break;
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag==LOGIN_TAG) {
+        if (buttonIndex==1) {
+            LoginViewController* login=[[LoginViewController alloc]init];
+            [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
+//            [[AppManager instance].userDefaults rememberUsername:[[AppManager instance].userDefaults usernameRemembered] andPassword:@"" pswdStr:@"" customerName:@""];
+//            
+//            // Clear current user data
+//            [WXWCoreDataUtils deleteEntitiesFromMOC:_MOC entityName:@"TodoList" predicate:nil];
+//            [WXWCoreDataUtils deleteEntitiesFromMOC:_MOC entityName:@"SurveyDetail" predicate:nil];
+//            [WXWCoreDataUtils deleteEntitiesFromMOC:_MOC entityName:@"SurveyItem" predicate:nil];
+//            
+//            // Do logout
+//            [((ProjectAppDelegate *)APP_DELEGATE) logout];
+//            [self.navigationController popToRootViewControllerAnimated:YES];
+
+        }
     }
-    
 }
+
 
 
 
@@ -362,24 +366,37 @@
     }
     
 }
+
 - (void)createFoodView:(NSString*)url
 {
-    self.foodView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    UIImageView* bg=[[UIImageView alloc]initWithFrame:self.foodView.frame];
-    bg.image=[UIImage imageNamed:@"farm_bg.png"];
-    [self.foodView addSubview:bg];
-    
-    UIWebView* web=[[UIWebView alloc]initWithFrame:CGRectMake(30, 40, SCREEN_WIDTH-60, SCREEN_HEIGHT-130)];
-    web.delegate=self;
-    web.tag=10;
-    [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
-    [self.foodView addSubview:web];
-    
-    UIButton* btn=[[UIButton alloc]initWithFrame:CGRectMake((SCREEN_WIDTH-35)/2, SCREEN_HEIGHT-75, 35, 35)];
-    [btn addTarget:self action:@selector(removeFoodView) forControlEvents:UIControlEventTouchUpInside];
-    [btn setImage:[UIImage imageNamed:@"farm_close.png"] forState:UIControlStateNormal];
-    [self.foodView addSubview:btn];
+    if (!self.foodView) {
+        self.foodView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        UIImageView* bg=[[UIImageView alloc]initWithFrame:self.foodView.frame];
+        bg.image=[UIImage imageNamed:@"farm_bg.png"];
+        [self.foodView addSubview:bg];
+        
+        UIWebView* web=[[UIWebView alloc]initWithFrame:CGRectMake(30, 40, SCREEN_WIDTH-60, SCREEN_HEIGHT-130)];
+        web.delegate=self;
+        web.tag=10;
+        [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+        [self.foodView addSubview:web];
+        
+        UIButton* btn=[[UIButton alloc]initWithFrame:CGRectMake((SCREEN_WIDTH-35)/2, SCREEN_HEIGHT-75, 35, 35)];
+        [btn addTarget:self action:@selector(removeFoodView) forControlEvents:UIControlEventTouchUpInside];
+        [btn setImage:[UIImage imageNamed:@"farm_close.png"] forState:UIControlStateNormal];
+        [self.foodView addSubview:btn];
+    }else{
+        UIWebView* web=(UIWebView*)[self.foodView viewWithTag:10];
+        [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+    }
+    [self.foodView setAlpha:1.0f];
 }
+
+- (void)removeFoodView
+{
+    [self.foodView setAlpha:0.0f];
+}
+
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
     NSLog(@"start");
@@ -394,17 +411,18 @@
 {
     NSLog(@"Falied");
 }
-- (void)removeFoodView
-{
-    [self.foodView removeFromSuperview];
-}
 
 - (void)addAddressButton
 {
 //    EditAddressViewController* editAddress=[[EditAddressViewController alloc]initWithNibName:@"EditAddressViewController" bundle:nil];
-    _update=NO;
-    AddressListController *addressVC = [[[AddressListController alloc] initWithMOC:_MOC parentVC:nil] autorelease];
-    [CommonMethod pushViewController:addressVC withAnimated:YES];
+    if ([[AppManager instance].passwd length]>0) {
+        _update=NO;
+        AddressListController *addressVC = [[[AddressListController alloc] initWithMOC:_MOC parentVC:nil] autorelease];
+        [CommonMethod pushViewController:addressVC withAnimated:YES];
+    }else{
+        [self askWithMessage:@"尚未登录，请先登录" alertTag:LOGIN_TAG];
+    }
+    
 //    [CommonMethod pushViewController:editAddress withAnimated:NO];
 
 }

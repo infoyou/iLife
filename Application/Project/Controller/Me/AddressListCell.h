@@ -30,4 +30,6 @@
 
 - (void)clickAddressBtn:(id)Object;
 
+- (void)delAddressBtn:(id)Object;
+
 @end

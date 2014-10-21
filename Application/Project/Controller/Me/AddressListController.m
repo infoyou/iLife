@@ -54,6 +54,7 @@
 @implementation AddressListController
 {
     int defaultIndex;
+    int delIndex;
 }
 
 @synthesize _searchBar;
@@ -79,6 +80,7 @@
     if (self) {
         self.parentVC = pVC;
         defaultIndex = 0;
+        delIndex = 0;
     }
     
     return self;
@@ -260,6 +262,14 @@
     [self setDefaultAddress];
 }
 
+- (void)delAddressBtn:(id)Object
+{
+    UITableViewCell *selCell= (UITableViewCell *)Object;
+    NSIndexPath* indexPath = [_storeTable indexPathForCell:selCell];
+    delIndex = indexPath.row;
+    [self delDeliveryAddress];
+}
+
 - (void)addNewAddress:(id)sender {
     
     // add New Address
@@ -280,6 +290,19 @@
     
     [connFacade fetchGets:url];
 }
+
+- (void)delDeliveryAddress
+{
+    AddressItem* addressItem=(AddressItem*)[_addressArray objectAtIndex:delIndex];
+    NSString* addressID=addressItem.addressId;
+    NSString *urlStr = [NSString stringWithFormat:@"%@/%@%@", VALUE_API_PREFIX, API_SERVICE_USER, API_DEL_DELIVERY_ADDRESS];
+    NSString *url = [ProjectAPI getURL:urlStr specialDict:@{@"DeliveryAddressID":addressID}];
+    DLog(@"url = %@", url);
+    WXWAsyncConnectorFacade *connFacade = [self setupAsyncConnectorForUrl:url
+                                                              contentType:DEL_ADDRESS_TY];
+    [connFacade fetchGets:url];
+}
+
 
 - (void)setDefaultAddress
 {
@@ -350,6 +373,20 @@
             break;
         }
             
+        case DEL_ADDRESS_TY:
+        {
+            ConnectionAndParserResultCode ret = [JSONParser parserResponseJsonData:result
+                                                                              type:contentType
+                                                                               MOC:_MOC
+                                                                 connectorDelegate:self
+                                                                               url:url
+                                                                           paramID:0];
+            
+            if (ret == SUCCESS_CODE){
+                [self getDeliveryAddress];
+            }
+            break;
+        }
         default:
             break;
     }

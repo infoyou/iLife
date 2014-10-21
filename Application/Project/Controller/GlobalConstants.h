@@ -422,6 +422,7 @@ typedef enum {
     // 设置
     GET_DELIVERY_ADDRESS_TY,//地址列表
     SET_DEFAULT_ADDRESS_TY,//设置常用地址
+    DEL_ADDRESS_TY,        //删除地址
     GET_PRIORITY_SELLER_TY,//常用卖家
     GET_HISTORY_ORDER_TY,//历史订单
     GET_SYSTEM_MESSAGE_TY,//系统消息

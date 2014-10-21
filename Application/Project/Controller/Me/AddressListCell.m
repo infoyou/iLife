@@ -20,7 +20,8 @@ typedef enum{
     ADDRESS_CELL_NAME_TAG,
     
     ADDRESS_CELL_ACTION_TAG,
-    ADDRESS_CELL_BTN_TAG
+    ADDRESS_CELL_BTN_TAG,
+    ADDRESS_CELL_DELBTN_TAG
 } AddressListType;
 
 @implementation AddressListCell
@@ -65,7 +66,7 @@ typedef enum{
 //    [defaultButton setBackgroundImage:[CommonMethod createImageWithColor:[UIColor colorWithHexString:@"0x333333"]] forState:UIControlStateNormal];
     [defaultButton addTarget:self action:@selector(doDefaultButton:) forControlEvents:UIControlEventTouchUpInside];
     defaultButton.tag = ADDRESS_CELL_BTN_TAG;
-    defaultButton.frame = CGRectMake(242, 10, 68, 30);
+    defaultButton.frame = CGRectMake(242, 10, 68, 25);
     [defaultButton setTitleColor:HEX_COLOR(@"0xffffff") forState:UIControlStateNormal];
     defaultButton.titleLabel.font = [UIFont systemFontOfSize:14.0];
     [defaultButton setTitle:LocaleStringForKey(@"设为默认", nil) forState:UIControlStateNormal];
@@ -73,8 +74,21 @@ typedef enum{
     [defaultButton.layer setBorderColor:HEX_COLOR(@"0x82bf24")];
     [defaultButton.layer setCornerRadius:3];
     [defaultButton.layer setMasksToBounds:YES];
-
     [self addSubview:defaultButton];
+    
+    UIButton *deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [deleteButton setBackgroundColor:[UIColor colorWithHexString:@"0x82bf24"]];
+    [deleteButton addTarget:self action:@selector(delAddressButton:) forControlEvents:UIControlEventTouchUpInside];
+    deleteButton.tag = ADDRESS_CELL_DELBTN_TAG;
+    deleteButton.frame = CGRectMake(242, 40, 68, 25);
+    [deleteButton setTitleColor:HEX_COLOR(@"0xffffff") forState:UIControlStateNormal];
+    deleteButton.titleLabel.font = [UIFont systemFontOfSize:14.0];
+    [deleteButton setTitle:LocaleStringForKey(@"删除地址", nil) forState:UIControlStateNormal];
+    [deleteButton.layer setBorderWidth:1.0];
+    [deleteButton.layer setBorderColor:HEX_COLOR(@"0x82bf24")];
+    [deleteButton.layer setCornerRadius:3];
+    [deleteButton.layer setMasksToBounds:YES];
+    [self addSubview:deleteButton];
 }
 
 - (void)updataCellData:(AddressItem *)addressItem showButFlag:(BOOL)showButFlag
@@ -84,15 +98,18 @@ typedef enum{
     UILabel *nameLbl =   (UILabel *)[self viewWithTag:ADDRESS_CELL_NAME_TAG];
     UILabel *actionLbl =  (UILabel *)[self viewWithTag:ADDRESS_CELL_ACTION_TAG];
     UIButton *userButton =  (UIButton *)[self viewWithTag:ADDRESS_CELL_BTN_TAG];
+    UIButton *delButton = (UIButton *)[self viewWithTag:ADDRESS_CELL_DELBTN_TAG];
     
     [userLbl  setText:addressItem.addressReceiver];
     [mobileLbl setText:addressItem.receiverMobile];
     [nameLbl   setText:addressItem.addressName];
     
     if (!showButFlag) {
+        delButton.hidden = YES;
         userButton.hidden = YES;
         [actionLbl setText:@"默认"];
     } else {
+        delButton.hidden = NO;
         userButton.hidden = NO;
         [actionLbl setText:@""];
     }
@@ -110,4 +127,8 @@ typedef enum{
     [self.delegate clickAddressBtn:self];
 }
 
+- (void)delAddressButton:(UIButton*)sender
+{
+    [self.delegate delAddressBtn:self];
+}
 @end

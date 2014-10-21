@@ -20,11 +20,21 @@
 	   otherButtonTitles:nil] autorelease] show];
 }
 
+
+- (void) askWithMessage:(NSString *) msg
+               alertTag:(NSInteger) tag
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提醒" message:msg delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+    alert.tag = tag;
+    [alert show];
+}
+
+
 -(NSDictionary*)JSONValue:(id)object
 {
     if (object&&object!=[NSNull null]&&object!=nil) {
         NSString* aString=[[NSString alloc]initWithData:object encoding:NSUTF8StringEncoding];
-        NSDictionary* dic=[aString JSONValue];
+        NSDictionary* dic=(NSDictionary*)[aString JSONValue];
         return dic;
     }else{
         return [NSDictionary dictionary];

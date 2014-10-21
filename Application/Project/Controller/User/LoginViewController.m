@@ -179,7 +179,6 @@ typedef enum {
     self._nameField.text = [[AppManager instance].userDefaults usernameRemembered];
 }
 
-
 - (UIButton *)setCompanyBtnType
 {
     float hGap = 162.5f;

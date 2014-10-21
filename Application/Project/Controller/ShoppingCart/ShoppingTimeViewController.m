@@ -76,7 +76,7 @@
     
     self.netBase=[[JILNetBase alloc]init];
     self.netBase.netBaseDelegate=self;
-    [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"getDeliverTimeList" UserID:@"004852E9-7AA1-4C3F-97A3-361B8EA96464" Parameters:@{}]];
+    [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"getDeliverTimeList" UserID:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{}]];
 }
 
 #pragma mark-handle Request
@@ -94,13 +94,6 @@
             self.netBase.requestType=nil;
             [self.navigationController popToRootViewControllerAnimated:YES];
             [self.homeVC selectFirstTabBar];
-//            VisitingFarmsViewController* vf=[[VisitingFarmsViewController alloc]initWithNibName:@"VisitingFarmsViewController" bundle:nil];
-//
-//            [self.navigationController setViewControllers:@[vf]];
-//            []
-//            [self.view removeFromSuperview];
-//            [self.view addSubview:vf.view];
-            
         }else{
             self.timeInfoArray=[[dic objectForKey:@"Data"] objectForKey:@"TimeInfo"];
             [self setTimeView:self.scrollView];
@@ -120,9 +113,9 @@
         self.foodParam=[NSMutableArray arrayWithArray:@[@{@"SKUId":@"104081001",@"Weight":@"200"}]];  //初始化的时候已经传值了,后期这个得注释掉，只是为了配合接口才这样写
         
         NSString* TimeID=[[self.timeInfoArray objectAtIndex:_lastBtn-1] objectForKey:@"TimeID"];
-        TimeID=@"2245555555555555";
+//        TimeID=@"2245555555555555";
         self.netBase.requestType=(RequestType*)BUY_COMMITCART;
-        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"SubmitDeliveryOrder" UserID:@"004852E9-7AA1-4C3F-97A3-361B8EA96464" Parameters:@{@"TimeID":@"2245555555555555",@"ItemList":self.foodParam}]];
+        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"SubmitDeliveryOrder" UserID:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"TimeID":TimeID,@"ItemList":self.foodParam}]];
     }else{
         [self confirmWithMessage:@"请选择时间" title:@""];
     }
