@@ -227,6 +227,7 @@
         cell = [[[HistoryOrderListCell alloc] initWithStyle:UITableViewCellStyleDefault
                                        reuseIdentifier:kCellIdentifier] autorelease];
     }
+    
     [cell.contentView setBackgroundColor:[UIColor clearColor]];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
