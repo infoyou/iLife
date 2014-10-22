@@ -4,9 +4,6 @@
 #import "JILBase.h"
 #import "UIView+JITIOSLib.h"
 #import "ShoppingTimeViewController.h"
-#import "LoginViewController.h"
-
-#define LOGIN_TAG  1
 
 @interface ShoppingCartViewController ()<JILNetBaseDelegate>
 {
@@ -48,13 +45,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
+    [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetCardItemList" UserID:[AppManager instance].userId Parameters:@{}]];
     
-    if ([AppManager instance].passwd && [[AppManager instance].passwd length]>0) {
-        
-        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetCardItemList" UserID:[AppManager instance].userId Parameters:@{}]];
-    } else {
-        [self askWithMessage:@"尚未登录，请先登录" alertTag:LOGIN_TAG];
-    }
 }
 
 - (void)viewDidLoad
@@ -82,7 +74,6 @@
     [self.view addSubview:commitBtn];
     
     self.priceLabel=[[UILabel alloc]initWithFrame:CGRectMake(220, SCREEN_HEIGHT-64-48-38, 100, 30)];
-    
     [self showtotalPrice];
     [self.view addSubview:self.priceLabel];
 }
@@ -204,7 +195,7 @@
     }
     self.deleteIndexPath=[_tableView indexPathForCell:(UITableViewCell*)view];
     NSString* SkuId=[[[[self.foodList objectAtIndex:self.deleteIndexPath.section] objectForKey:@"ItemCartList"] objectAtIndex:self.deleteIndexPath.row] objectForKey:@"SkuId"];
-    SkuId=@"1040081044"; //后期需要注释掉
+//    SkuId=@"1040081044"; //后期需要注释掉
     self.netBase.requestType=(RequestType*)BUY_DELETECART;
     [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"RemoveItem" UserID:[AppManager instance].userId Parameters:@{@"SkuId":SkuId}]];
 }
@@ -262,17 +253,5 @@
     [super viewDidDisappear:animated];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (alertView.tag==LOGIN_TAG) {
-        
-        if (buttonIndex==1) {
-            LoginViewController* login = [[LoginViewController alloc]init];
-            login.delegate = [UIApplication sharedApplication].delegate;
-            [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
-           
-        }
-    }
-}
 
 @end

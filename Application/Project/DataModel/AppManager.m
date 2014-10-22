@@ -57,6 +57,7 @@
 @synthesize allUsers;
 @synthesize isLoadAllUserDataDone;
 @synthesize loadUserThread;
+@synthesize updateCache;
 
 @synthesize surveyPassRate;
 @synthesize surveyPassType;

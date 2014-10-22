@@ -231,7 +231,7 @@
     [self addTapGestureRecognizer:checkBoxImg];
     [self addTapGestureRecognizer:checkLabel];
     
-    checkBoxImg.highlighted = checkFlag;
+//    checkBoxImg.highlighted = checkFlag;
     
     return cell.contentView;
 }

@@ -2,6 +2,7 @@
 #import "OrderDetailViewController.h"
 #import "OrderPayViewController.h"
 #import "LoginViewController.h"
+#import "UIViewController+JSONValue.h"
 
 #define LOGIN_TAG  1
 
@@ -108,6 +109,12 @@ enum Button_Evaluation_Tag_Enum
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBarHidden = YES;
+    
+    if ([AppManager instance].passwd && [[AppManager instance].passwd length]>0) {
+        [self getOrderPayList];
+    } else {
+        [self askWithMessage:@"尚未登录，请先登录" alertTag:LOGIN_TAG];
+    }
 }
 
 - (void)viewDidLoad
@@ -126,13 +133,7 @@ enum Button_Evaluation_Tag_Enum
     [_tableView setShowsVerticalScrollIndicator:NO];
     _tableView.frame = CGRectMake(0, SWITCH_BTN_H, SCREEN_WIDTH, SCREEN_HEIGHT - SWITCH_BTN_H - 64 - HOMEPAGE_TAB_HEIGHT);
     [self addSwitchButton];
-    
-    
-    if ([AppManager instance].passwd && [[AppManager instance].passwd length]>0) {
-        [self getOrderPayList];
-    } else {
-        [self askWithMessage:@"尚未登录，请先登录" alertTag:LOGIN_TAG];
-    }
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -214,12 +215,20 @@ enum Button_Evaluation_Tag_Enum
     {
         case 0:
         {
-            return 50;
+            if ([_orderArray count] > 0) {
+                return 50;
+            } else {
+                return 0;
+            }
         }
             
         case 1:
         {
-            return 58;
+            if ([_orderCompletedArray count] > 0) {
+                return 58;
+            } else {
+                return 0;
+            }
         }
     }
     
@@ -232,12 +241,20 @@ enum Button_Evaluation_Tag_Enum
     {
         case 0:
         {
-            return 70.f;
+            if ([_orderArray count] > 0) {
+                return 70.f;
+            } else {
+                return 0;
+            }
         }
             
         case 1:
         {
-            return 33.f;
+            if ([_orderCompletedArray count] > 0) {
+                return 33.f;
+            } else {
+                return 0;
+            }
         }
     }
     

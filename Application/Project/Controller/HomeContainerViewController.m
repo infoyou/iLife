@@ -288,8 +288,9 @@
 //         return;
 //     }
 
-     self.navigationItem.title = LocaleStringForKey(NSMainPageBottomBarInformation, nil);
+    self.navigationItem.title = LocaleStringForKey(NSMainPageBottomBarInformation, nil);
     
+    self.navigationItem.rightBarButtonItems = nil;
     self.navigationItem.rightBarButtonItem = nil;
     
     if ([AppManager instance].passwd && [[AppManager instance].passwd length] > 0) {
@@ -299,6 +300,7 @@
                                                                      target:self action:@selector(goProfile)] autorelease];
         [sendItem setTintColor:[UIColor whiteColor]];
         self.navigationItem.rightBarButtonItem = sendItem;
+        
     } else {
         
         UIBarButtonItem* registBtnItem = [[[UIBarButtonItem alloc] initWithTitle:LocaleStringForKey(@"注册", nil) style:UIBarButtonItemStyleDone
@@ -314,6 +316,8 @@
         [loginBtnItem setTintColor:[UIColor whiteColor]];
         
         [self.navigationItem setRightBarButtonItems:[NSArray arrayWithObjects:loginBtnItem, splitBtnItem, registBtnItem, nil]];
+        
+        self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
     }
     
      if (!self.visitingFarmsVC)
@@ -334,6 +338,7 @@
     }
     
     self.navigationItem.title = LocaleStringForKey(NSMainPageBottomBarCommunicat, nil);
+    self.navigationItem.rightBarButtonItems = nil;
     self.navigationItem.rightBarButtonItem = nil;
     
     if (!self.shoppingCartVC)
@@ -349,6 +354,7 @@
     }
 
     self.navigationItem.title = LocaleStringForKey(NSMainPageBottomBarLearn, nil);
+    self.navigationItem.rightBarButtonItems = nil;
     self.navigationItem.rightBarButtonItem = nil;
     
     if (!self.orderVC)
@@ -437,11 +443,17 @@
 
 - (void)goLogin
 {
+    self.navigationItem.rightBarButtonItems = nil;
     self.navigationItem.rightBarButtonItem = nil;
     
-    LoginViewController* login=[[LoginViewController alloc] init];
-    login.delegate=[UIApplication sharedApplication].delegate;
-    [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
+    LoginViewController* loginVC =[[LoginViewController alloc] init];
+    
+//    UINavigationController *vcNav = [[[UINavigationController alloc] initWithRootViewController:loginVC] autorelease];
+//    vcNav.navigationBar.tintColor = TITLESTYLE_COLOR;
+//    [self presentViewController:vcNav animated:YES completion:nil];
+    
+    loginVC.delegate = [UIApplication sharedApplication].delegate;
+    [[[UIApplication sharedApplication].delegate window] setRootViewController:loginVC];
 }
 
 - (void)goProfile

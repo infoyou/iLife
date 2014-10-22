@@ -9,7 +9,6 @@
 #import "LoginViewController.h"
 
 
-#define INTERVAL_NUM 1000
 
 @interface VisitingFarmsViewController ()<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,JILNetBaseDelegate,UIWebViewDelegate,UIAlertViewDelegate>
 {
@@ -27,8 +26,9 @@
 
 @property(nonatomic,retain)UITableView* categoryTableView;
 @property(nonatomic,retain)UITableView* foodTableView;
-@property(nonatomic,retain)NSArray* catrgoryList;
+@property(nonatomic,retain)NSMutableArray* catrgoryList;
 @property(nonatomic,retain)NSMutableArray* foodList;
+@property(nonatomic,retain)NSString* cacheDir;
 
 
 
@@ -66,17 +66,6 @@
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = YES;
-    //获取菜的类别
-    if (!_update) {
-        [MBProgressHUD showMessag:@"刷新菜场" toView:self.view];
-        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemCategoryList" UserID:[[AppManager instance].userId length]>0?[AppManager instance].userId:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{}]];
-        [[UIApplication sharedApplication].delegate window].userInteractionEnabled=NO;
-        _update=YES;
-    }
-}
 
 
 - (void)viewDidLoad
@@ -121,7 +110,79 @@
 //    [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemCategoryList" UserID:@"004852E9-7AA1-4C3F-97A3-361B8EA96464" Parameters:@{}]];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
+    if (![self existCache]) {
+        if (!_update) {
+            [self requestUpdateData];
+        }
+    }else{
+        if ([AppManager instance].updateCache) {
+            //获取菜的类别
+            if (!_update) {
+                [self requestUpdateData];
+            }
+        }else{
+            [self readCache];
+        }
+    }
+}
 
+#pragma mark-UpdateData
+-(void)requestUpdateData
+{
+    [MBProgressHUD showMessag:@"刷新菜场" toView:self.view];
+    [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemCategoryList" UserID:[[AppManager instance].userId length]>0?[AppManager instance].userId:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{}]];
+    [[UIApplication sharedApplication].delegate window].userInteractionEnabled=NO;
+    _update=YES;
+}
+
+-(BOOL)existCache
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docDir = [paths objectAtIndex:0];
+    docDir=[docDir stringByAppendingPathComponent:@"Cache/cache.rtf"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if ([fileManager fileExistsAtPath:docDir]) {
+        return YES;
+    }else{
+        return NO;
+    }
+    
+    return NO;
+}
+
+-(void)updateCache
+{
+    //获取Documents文件夹目录
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docDir = [paths objectAtIndex:0];
+    //获取文件管理器
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    //指定新建文件夹路径
+    NSString *DocPath = [docDir stringByAppendingPathComponent:@"Cache"];
+    //创建ImageFile文件夹
+    [fileManager createDirectoryAtPath:DocPath withIntermediateDirectories:YES attributes:nil error:nil];
+    NSDictionary* cache=@{@"catrgoryList":self.catrgoryList,@"foodList":self.foodList,@"CustomerName":_farmNameLabel.text,@"Address":_addressLabel.text};
+    NSData *data=[NSKeyedArchiver archivedDataWithRootObject:cache];
+    [fileManager createFileAtPath:[DocPath stringByAppendingString:@"/cache.rtf"] contents:data attributes:nil];
+}
+
+-(void)readCache
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *docDir = [paths objectAtIndex:0];
+    docDir=[docDir stringByAppendingPathComponent:@"Cache/cache.rtf"];
+    NSData* data=[NSData dataWithContentsOfFile:docDir];
+    NSDictionary* dic=[NSKeyedUnarchiver unarchiveObjectWithData:data];
+    self.catrgoryList=[NSMutableArray arrayWithArray:[dic objectForKey:@"catrgoryList"]];
+    self.foodList=[NSMutableArray arrayWithArray:[dic objectForKey:@"foodList"]];
+    [self.categoryTableView reloadData];
+    [self.foodTableView reloadData];
+    _addressLabel.text=[dic objectForKey:@"Address"];
+    _farmNameLabel.text=[dic objectForKey:@"CustomerName"];
+}
 #pragma mark-handle Request
 -(void)handleRequestSuccessData:(id)object
 {
@@ -131,6 +192,8 @@
         if ([[dic objectForKey:@"IsSuccess"] integerValue]==1) {
             self.foodList=[[dic objectForKey:@"Data"] objectForKey:@"ItemSaleInfo"];
             [self.foodTableView reloadData];
+            [self updateCache];
+            [AppManager instance].updateCache=NO;
         }
         [[UIApplication sharedApplication].delegate window].userInteractionEnabled=YES;
         self.netBase.requestType=nil;
@@ -148,7 +211,7 @@
         self.netBase.requestType=nil;
     }else{
         if ([[dic objectForKey:@"IsSuccess"] integerValue]==1) {
-            self.catrgoryList=[[dic objectForKey:@"Data"] objectForKey:@"ItemType"];
+            self.catrgoryList=[NSMutableArray arrayWithArray:[[dic objectForKey:@"Data"] objectForKey:@"ItemType"]];
             if ([[[dic objectForKey:@"Data"] objectForKey:@"DefaultAddress"] length]>0) {
                 _addressLabel.text=[[dic objectForKey:@"Data"] objectForKey:@"DefaultAddress"];
                 _hasAddress=YES;
@@ -253,8 +316,9 @@
     }
 }
 
+
 - (IBAction)selectFoodWeight:(UIButton *)sender {
-    if ([AppManager instance].passwd && [[AppManager instance].passwd length]>0) {
+    if ([[AppManager instance].passwd length]>0) {
         UIView *view = sender;
         while (view != nil && ![view isKindOfClass:[UITableViewCell class]]) {
             view = [view superview];
@@ -268,33 +332,50 @@
         [self setWeightPickerView];
         [self.weightPickerView setOptions:self.options];
         [[[UIApplication sharedApplication].delegate window] addSubview:self.weightPickerView];
-    } else {
+    }else{
         [self askWithMessage:@"尚未登录，请先登录" alertTag:LOGIN_TAG];
     }
+    
+    
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (alertView.tag==LOGIN_TAG) {
         if (buttonIndex==1) {
-            LoginViewController* login = [[LoginViewController alloc] init];
-            login.delegate = [UIApplication sharedApplication].delegate;
+            LoginViewController* login=[[LoginViewController alloc]init];
+            login.delegate=[UIApplication sharedApplication].delegate;
             [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
+//            [[AppManager instance].userDefaults rememberUsername:[[AppManager instance].userDefaults usernameRemembered] andPassword:@"" pswdStr:@"" customerName:@""];
+//            
+//            // Clear current user data
+//            [WXWCoreDataUtils deleteEntitiesFromMOC:_MOC entityName:@"TodoList" predicate:nil];
+//            [WXWCoreDataUtils deleteEntitiesFromMOC:_MOC entityName:@"SurveyDetail" predicate:nil];
+//            [WXWCoreDataUtils deleteEntitiesFromMOC:_MOC entityName:@"SurveyItem" predicate:nil];
+//            
+//            // Do logout
+//            [((ProjectAppDelegate *)APP_DELEGATE) logout];
+//            [self.navigationController popToRootViewControllerAnimated:YES];
+
         }
     }
 }
+
+
+
+
 
 #pragma mark-addView
 - (void)setWeightPickerView
 {
     
-    self.weightPickerView = [[JILOptionPicker alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    UIImageView* bg = [[UIImageView alloc] initWithFrame:self.weightPickerView.frame];
-    bg.image = [UIImage imageNamed:@"farm_bg.png"];
+    self.weightPickerView=[[JILOptionPicker alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    UIImageView* bg=[[UIImageView alloc]initWithFrame:self.weightPickerView.frame];
+    bg.image=[UIImage imageNamed:@"farm_bg.png"];
     [self.weightPickerView addSubview:bg];
     
     
-    UIView* contengView = [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-280, SCREEN_WIDTH, 280)];
+    UIView* contengView=[[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-280, SCREEN_WIDTH, 280)];
     [contengView setBackgroundColor:[UIColor whiteColor]];
     [self.weightPickerView addSubview:contengView];
     
@@ -396,8 +477,7 @@
 
 - (void)addAddressButton
 {
-//    EditAddressViewController* editAddress=[[EditAddressViewController alloc]initWithNibName:@"EditAddressViewController" bundle:nil];
-    if ([AppManager instance].passwd && [[AppManager instance].passwd length]>0) {
+    if ([[AppManager instance].passwd length]>0) {
         _update=NO;
         AddressListController *addressVC = [[[AddressListController alloc] initWithMOC:_MOC parentVC:nil] autorelease];
         [CommonMethod pushViewController:addressVC withAnimated:YES];
@@ -434,7 +514,7 @@
     addressline.image=[UIImage imageNamed:@"farm_line.png"];
     [superView addSubview:addressline];
     _addressLabel=[[UILabel alloc]initWithFrame:CGRectMake(40, 10, 300, 16)];
-    _addressLabel.text=@"请输入您的地址";
+    _addressLabel.text=@"";
     _addressLabel.textColor=[UIColor redColor];
     _addressLabel.font=[UIFont systemFontOfSize:15.0f];
     [superView addSubview:_addressLabel];
@@ -458,7 +538,7 @@
     addressline.image=[UIImage imageNamed:@"farm_line.png"];
     [superView addSubview:addressline];
     _farmNameLabel=[[UILabel alloc]initWithFrame:CGRectMake(40, 10, 300, 16)];
-    _farmNameLabel.text=@"输入地址后为您选择菜场";
+    _farmNameLabel.text=@"";
     _farmNameLabel.textColor=[UIColor redColor];
     _farmNameLabel.font=[UIFont systemFontOfSize:15.0f];
     [superView addSubview:_farmNameLabel];

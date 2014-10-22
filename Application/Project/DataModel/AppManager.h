@@ -86,6 +86,8 @@
 @property (nonatomic, assign) BOOL isLoadAllUserDataDone;
 @property (nonatomic, retain) LoadUserThread *loadUserThread;
 
+@property (nonatomic, assign) BOOL updateCache;
+
 + (AppManager *)instance;
 
 - (void)prepareData;

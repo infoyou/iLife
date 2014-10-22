@@ -408,6 +408,7 @@ typedef enum {
     UPDATE_VERSION_TY,
     
     USER_LOGIN_TY,//登录
+    USER_BIND_TY,//绑定
     USER_REGIST_MOBILE_CODE_TY,//会员注册
     USER_REGIST_MOBILE_REPSWD_TY,
     USER_LIST_TY, //用户列表

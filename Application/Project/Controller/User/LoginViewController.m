@@ -400,6 +400,23 @@ typedef enum {
     DLog(@"url = %@", url);
     WXWAsyncConnectorFacade *connFacade = [self setupAsyncConnectorForUrl:url
                                                               contentType:USER_LOGIN_TY];
+    [connFacade fetchGets:url];
+}
+
+- (void)bindPushServer
+{
+    
+    NSMutableDictionary *specialDict = [NSMutableDictionary dictionary];
+    
+    [specialDict setValue:[AppManager instance].deviceToken forKey:@"DeviceToken"];
+    [specialDict setValue:@"2" forKey:@"Role"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/%@%@", VALUE_API_PREFIX, API_SERVICE_USER, API_BIND_PUSH];
+    
+    NSString *url = [ProjectAPI getURL:urlStr specialDict:specialDict];
+    DLog(@"url = %@", url);
+    WXWAsyncConnectorFacade *connFacade = [self setupAsyncConnectorForUrl:url
+                                                              contentType:USER_BIND_TY];
     
     [connFacade fetchGets:url];
 }
@@ -634,6 +651,13 @@ typedef enum {
             
             break;
             
+        case USER_BIND_TY:
+        {
+            [self.delegate loginSuccessfull:self];
+            
+            break;
+        }
+            
         case USER_LOGIN_TY:
         {
             [self.view endEditing:YES];
@@ -733,9 +757,13 @@ typedef enum {
                     if (self.delegate && [self.delegate respondsToSelector:@selector(loginSuccessfull:)]) {
                         [AppManager instance].passwd = _passwordField.text;  //保存一下密码
                         [AppManager instance].userId = [[[resultDict objectForKey:@"Data"] objectForKey:@"Member"] objectForKey:@"VipID"];
-                        [self.delegate loginSuccessfull:self];
+//                        [self.delegate loginSuccessfull:self];
                         
                         [[AppManager instance].userDefaults rememberUsername:_nameField.text andPassword:_passwordField.text pswdStr:_passwordField.text customerName:_passwordField.text userId:[AppManager instance].userId];
+                        
+                        [AppManager instance].updateCache = YES;
+                        
+                        [self bindPushServer];
                     }
                     
                 } else {

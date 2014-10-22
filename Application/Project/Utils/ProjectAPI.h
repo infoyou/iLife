@@ -120,6 +120,7 @@
 
 #define API_SERVICE_USER        @"BuyFood/BuyerGateway.ashx?Action="
 #define API_USER_LOGIN          @"Login"
+#define API_BIND_PUSH           @"SetIOSPushBindInfo"
 #define API_USER_PHONE_CODE     @"GetAuthCode"
 #define API_USER_REGISTER       @"Register"
 #define API_USER_RESETPASSWORD  @"ChangeVipPwd"

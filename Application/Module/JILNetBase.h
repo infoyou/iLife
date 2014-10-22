@@ -14,15 +14,7 @@
 typedef enum{
     NET_GET=0,
     NET_POST=1
-}NetType;
-
-typedef enum{
-    BUY_FOODLIST=1,
-    BUY_PUTINCART=2,
-    BUY_DELETECART=3,
-    BUY_COMMITCART=4,
-    BUY_FOODINFORMATION=5
-}RequestType;
+} NetType;
 
 @protocol JILNetBaseDelegate <NSObject>
 
@@ -31,6 +23,16 @@ typedef enum{
 
 @end
 
+typedef enum{
+    BUY_FOODLIST=1,
+    BUY_PUTINCART=2,
+    BUY_DELETECART=3,
+    BUY_COMMITCART=4,
+    BUY_FOODINFORMATION=5,
+    BUY_CITY=6,
+    BUY_DISTRICT=7,
+    BUY_COMMUNITY=8,
+} RequestType;
 
 @interface JILNetBase : NSObject
 
