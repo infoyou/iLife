@@ -374,7 +374,7 @@ enum Button_Evaluation_Tag_Enum
             orderState.text = [CommonUtils getOrderStateName:[[NSString stringWithFormat:@"%@",orderDetail.orderStatus] intValue]];
             
             if (orderDetail.isFirst && row != 0) {
-                int spliteH = 8;
+                int spliteH = 5;
                 UIView *splitTopView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)] autorelease];
                 splitTopView.backgroundColor = HEX_COLOR(@"0xe8e8e8");
                 [cell.contentView addSubview:splitTopView];
@@ -422,6 +422,7 @@ enum Button_Evaluation_Tag_Enum
             UILabel *badNum = (UILabel*)[cell viewWithTag:112];
             
             OrderCompletedDetail *orderDetail = ((OrderCompletedTotal *)_orderCompletedArray[section]).detailArray[row];
+            
             skuName.text = orderDetail.itemCategoryName;
             unitName.text = orderDetail.unitName;
             goodNum.text = [NSString stringWithFormat:@"%@", orderDetail.goodCount];
@@ -788,7 +789,7 @@ enum Button_Evaluation_Tag_Enum
     
     if (tag > 1000) {
         section = tag/1000;
-        row = tag%1000%5 - 2;
+        row = tag%1000/5 - 2;
     } else {
         row = tag/5 - 2;
     }
@@ -829,7 +830,7 @@ enum Button_Evaluation_Tag_Enum
     
     if (tag > 1000) {
         section = tag/1000;
-        row = tag%1000%5 - 2;
+        row = tag%1000/5 - 2;
     } else {
         row = tag/5 - 2;
     }
@@ -858,7 +859,7 @@ enum Button_Evaluation_Tag_Enum
     
     if (tag > 1000) {
         section = tag/1000;
-        row = tag%1000%5 - 2;
+        row = tag%1000/5 - 2;
     } else {
         row = tag/5 - 2;
     }
@@ -870,7 +871,8 @@ enum Button_Evaluation_Tag_Enum
     NSMutableDictionary *specialDict = [NSMutableDictionary dictionary];
     [specialDict setValue:orderDetail.unitID forKey:@"UnitID"];
     [specialDict setValue:orderDetail.itemCategoryId forKey:@"ItemCategoryID"];
-    
+    [specialDict setValue:orderDetail.deliverOrderID forKey:@"OrderId"];
+
     NSString *urlStr = [NSString stringWithFormat:@"%@/%@%@", VALUE_API_PREFIX, API_SERVICE_USER, API_SELLER_BLACK];
     NSString *url = [ProjectAPI getURL:urlStr specialDict:specialDict];
     DLog(@"url = %@", url);
@@ -979,6 +981,8 @@ enum Button_Evaluation_Tag_Enum
             
         case API_ORDER_EVALUATION_TY:
         {
+            [self getCompletedOrderList];
+            
             break;
         }
             

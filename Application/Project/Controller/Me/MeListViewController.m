@@ -223,6 +223,10 @@ enum Head_Control_Type
 {
     UIButton *logoutBtn = [[[UIButton alloc]initWithFrame:CGRectMake(10, kTableFootheight - kMeTypeCellHeight, SCREEN_WIDTH-20, kMeTypeCellHeight)] autorelease];
     
+    if (SCREEN_HEIGHT < 568) {
+        logoutBtn = [[[UIButton alloc]initWithFrame:CGRectMake(10, kTableFootheight - kMeTypeCellHeight - 30, SCREEN_WIDTH-20, kMeTypeCellHeight)] autorelease];
+    }
+    
     [logoutBtn setBackgroundColor:HEX_COLOR(@"0x82bf24")];
     [logoutBtn.titleLabel setFont:FONT_SYSTEM_SIZE(15)];
     [logoutBtn setTitleColor:HEX_COLOR(@"0xffffff") forState:UIControlStateNormal];

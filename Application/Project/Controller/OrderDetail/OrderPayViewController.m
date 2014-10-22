@@ -102,12 +102,12 @@
     payBtn.layer.cornerRadius = 3.f;
     payBtn.layer.masksToBounds = YES;
     
-    if (SCREEN_HEIGHT == 480) {
+    if (SCREEN_HEIGHT < 568) {
 
-//        splitImg.frame = CGRectOffset(splitImg.frame, 0, -88);
-//        payLabel.frame = CGRectOffset(payLabel.frame, 0, -88);
-//        payTotalLabel.frame = CGRectOffset(payTotalLabel.frame, 0, -88);
-//        payBtn.frame = CGRectOffset(payBtn.frame, 0, -88);
+        splitImg.frame = CGRectOffset(splitImg.frame, 0, -88);
+        payLabel.frame = CGRectOffset(payLabel.frame, 0, -88);
+        payTotalLabel.frame = CGRectOffset(payTotalLabel.frame, 0, -88);
+        payBtn.frame = CGRectOffset(payBtn.frame, 0, -88);
     }
 
 }
@@ -234,25 +234,6 @@
     checkBoxImg.highlighted = checkFlag;
     
     return cell.contentView;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    UIView *footView = [[[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - FOOTER_H, SCREEN_WIDTH, FOOTER_H)] autorelease];
-    footView.backgroundColor = [UIColor redColor];
-    
-    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"OrderPayFoot" owner:self options:nil];
-    UITableViewCell* cell = [nib objectAtIndex:0];
-    
-    cell.frame = CGRectMake(0, SCREEN_HEIGHT - FOOTER_H, SCREEN_WIDTH, FOOTER_H);
-    
-    UIButton *payBtn = (UIButton *)[cell viewWithTag:203];
-    payBtn.layer.cornerRadius = 3.f;
-    payBtn.layer.masksToBounds = YES;
-    [payBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [footView addSubview:cell.contentView];
-    return footView;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

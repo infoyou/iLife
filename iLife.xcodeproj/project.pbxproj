@@ -658,7 +658,6 @@
 		66E8E7461973AB460049882F /* SBCustomStyleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E8E7441973AB460049882F /* SBCustomStyleViewController.m */; };
 		66FB561A19C145B1003CF123 /* me_mark.png in Resources */ = {isa = PBXBuildFile; fileRef = 66FB561819C145B1003CF123 /* me_mark.png */; };
 		66FB561B19C145B1003CF123 /* me_order.png in Resources */ = {isa = PBXBuildFile; fileRef = 66FB561919C145B1003CF123 /* me_order.png */; };
-		66FB561F19C174BE003CF123 /* OrderPayFoot.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66FB561D19C174BE003CF123 /* OrderPayFoot.xib */; };
 		66FB562019C174BE003CF123 /* OrderPayHead.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66FB561E19C174BE003CF123 /* OrderPayHead.xib */; };
 		66FB562319C18F1E003CF123 /* login_code.png in Resources */ = {isa = PBXBuildFile; fileRef = 66FB562119C18F1E003CF123 /* login_code.png */; };
 		66FB562419C18F1E003CF123 /* login_regist.png in Resources */ = {isa = PBXBuildFile; fileRef = 66FB562219C18F1E003CF123 /* login_regist.png */; };
@@ -1972,7 +1971,6 @@
 		66E8E7441973AB460049882F /* SBCustomStyleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCustomStyleViewController.m; sourceTree = "<group>"; };
 		66FB561819C145B1003CF123 /* me_mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = me_mark.png; sourceTree = "<group>"; };
 		66FB561919C145B1003CF123 /* me_order.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = me_order.png; sourceTree = "<group>"; };
-		66FB561D19C174BE003CF123 /* OrderPayFoot.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderPayFoot.xib; sourceTree = "<group>"; };
 		66FB561E19C174BE003CF123 /* OrderPayHead.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderPayHead.xib; sourceTree = "<group>"; };
 		66FB562119C18F1E003CF123 /* login_code.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_code.png; sourceTree = "<group>"; };
 		66FB562219C18F1E003CF123 /* login_regist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_regist.png; sourceTree = "<group>"; };
@@ -3989,7 +3987,6 @@
 				66FB563219C1B13C003CF123 /* OrderPayView.xib */,
 				669CC36519BED3A700117982 /* OrderPayViewController.h */,
 				669CC36619BED3A700117982 /* OrderPayViewController.m */,
-				66FB561D19C174BE003CF123 /* OrderPayFoot.xib */,
 				66FB561E19C174BE003CF123 /* OrderPayHead.xib */,
 				669CC36A19BED51500117982 /* OrderPayCell.xib */,
 				66D4C11319B5A60700E755AC /* OrderDetailViewController.h */,
@@ -4894,7 +4891,6 @@
 				6689C559195010320059CB69 /* mapAnnoView@2x.png in Resources */,
 				662BDC2119D7B0C10015EE94 /* ShoppingTimeViewController.xib in Resources */,
 				6689C596195010320059CB69 /* bg_3.png in Resources */,
-				66FB561F19C174BE003CF123 /* OrderPayFoot.xib in Resources */,
 				66FB562C19C1914A003CF123 /* FindPasswordViewController.xib in Resources */,
 				66AFF3BB19B9904C00AFC4A6 /* good_sel.png in Resources */,
 				66FF1ECE19CBCCDE00CCAA35 /* ok_sel.png in Resources */,
