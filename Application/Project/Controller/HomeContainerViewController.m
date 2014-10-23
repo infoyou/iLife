@@ -106,9 +106,10 @@
     [self selectFirstTabBar];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(modifyFromTabBar)
-                                                 name:INFO_VIEW_REFREASH_NOTIFY
+                                             selector:@selector(handleNotifyData)
+                                                 name:UIApplicationDidReceivedRomateNotificationName
                                                object:nil];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -311,7 +312,7 @@
                                                                           target:self action:nil] autorelease];
         [splitBtnItem setTintColor:[UIColor whiteColor]];
         
-        UIBarButtonItem* loginBtnItem = [[[UIBarButtonItem alloc] initWithTitle:LocaleStringForKey(@"登陆", nil) style:UIBarButtonItemStyleDone
+        UIBarButtonItem* loginBtnItem = [[[UIBarButtonItem alloc] initWithTitle:LocaleStringForKey(@"登录", nil) style:UIBarButtonItemStyleDone
                                                                      target:self action:@selector(goLogin)] autorelease];
         [loginBtnItem setTintColor:[UIColor whiteColor]];
         
@@ -568,6 +569,45 @@
             login.delegate=[UIApplication sharedApplication].delegate;
             [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
         }
+    }
+}
+
+- (void)handleNotifyData
+{
+    
+//    {"aps":{"alert":"This is Test message.", "sound":"notify.wav", "badge":2,"type":"1"}}
+    
+    NSDictionary *notifyDict = OBJ_FROM_DIC([AppManager instance].notifyDataDict, @"aps");
+    NSString *typeStr = STRING_VALUE_FROM_DIC(notifyDict, @"type");
+    
+    int typeVal = 0;
+    
+    if (typeStr && typeStr.length > 0) {
+        typeVal = [typeStr intValue];
+    }
+    
+    switch (typeVal) {
+        case 0:
+        {
+            [self selectThirdTabBar];
+            [self.tabBar switchTabHighlightStatus:TAB_BAR_THIRD_TAG];
+        }
+            break;
+            
+        case 1:
+        {
+            [self selectFirstTabBar];
+            [self.tabBar switchTabHighlightStatus:TAB_BAR_FIRST_TAG];
+            
+            MeListViewController *meVC = [[[MeListViewController alloc] initWithMOC:_MOC parentVC:self] autorelease];
+            [self.navigationController pushViewController:meVC animated:YES];
+            
+            [meVC openNotifyVC];
+        }
+            break;
+            
+        default:
+            break;
     }
 }
 

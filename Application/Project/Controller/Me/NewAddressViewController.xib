@@ -9,8 +9,11 @@
             <connections>
                 <outlet property="cityTextField" destination="b8R-us-03U" id="Nwe-0a-sdf"/>
                 <outlet property="communityTextField" destination="pOB-oP-mhI" id="Mhf-tG-RG7"/>
+                <outlet property="detailAddressTextField" destination="h6Z-Io-jb5" id="64T-g1-Yvn"/>
                 <outlet property="districtTextField" destination="CI8-FA-w4H" id="3fG-FI-IQW"/>
                 <outlet property="mTitleLabel" destination="Zrs-0M-OMl" id="Yn4-DV-rHB"/>
+                <outlet property="mobileNumberTextField" destination="b1K-nH-U7T" id="fYM-5H-wnS"/>
+                <outlet property="nameTextField" destination="5X2-Dv-wTD" id="u9w-MP-8TJ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

@@ -93,7 +93,13 @@
         // Custom initialization
         self.title = @"选择地址";
     }
+    
     return self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self getDeliveryAddress];
 }
 
 - (void)viewDidLoad
@@ -106,7 +112,6 @@
     
     [self addRightBarButtonWithTitle:@"+添加" target:self action:@selector(addNewAddress:)];
     
-    [self getDeliveryAddress];
     _addressArray = [[NSMutableArray alloc] initWithCapacity:10];
 }
 
@@ -351,6 +356,12 @@
                 
                 NSDictionary *resultDict = [result objectFromJSONData];
                 NSDictionary *dict = OBJ_FROM_DIC(resultDict, @"Data");
+                
+                if (_addressArray && [_addressArray count] > 0) {
+                    
+                    [_addressArray removeAllObjects];
+                }
+                
                 
                 NSArray *list = OBJ_FROM_DIC(dict, @"DeliveryAddress");
                 for (NSDictionary *dic in list) {

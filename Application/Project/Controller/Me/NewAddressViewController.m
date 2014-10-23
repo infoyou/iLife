@@ -27,11 +27,15 @@
 @property(nonatomic, retain)UILabel* pickerTitleLab;
 @property(nonatomic, retain)NSString* cityID;
 @property(nonatomic, retain)NSString* areaID;
+@property(nonatomic, retain)NSString* estateID;
 @property(nonatomic)NSInteger flag;
 
 @property (retain, nonatomic) IBOutlet UITextField *cityTextField;
 @property (retain, nonatomic) IBOutlet UITextField *districtTextField;
 @property (retain, nonatomic) IBOutlet UITextField *communityTextField;
+@property (retain, nonatomic) IBOutlet UITextField *nameTextField;
+@property (retain, nonatomic) IBOutlet UITextField *mobileNumberTextField;
+@property (retain, nonatomic) IBOutlet UITextField *detailAddressTextField;
 
 @end
 
@@ -98,7 +102,7 @@
     
     
     self.pickerTitleLab=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.pickerView.frame.size.width, 46)];
-    self.pickerTitleLab.text=@"重量 - 金额";
+    self.pickerTitleLab.text=@"";
     self.pickerTitleLab.textColor=RGBACOLOR(129, 192, 36, 1);
     self.pickerTitleLab.textAlignment=NSTextAlignmentCenter;
     self.pickerTitleLab.font=[UIFont systemFontOfSize:17.0f];
@@ -150,6 +154,7 @@
             self.areaID=[[self.districtArray objectAtIndex:self.pickerView.selecttedIndex] objectForKey:@"AreaId"];
             self.districtTextField.text=[[self.districtArray objectAtIndex:self.pickerView.selecttedIndex] objectForKey:@"AreaName"];
         }else if (self.flag==AREAESTATE_TAG){
+            self.estateID=[[self.communityArray objectAtIndex:self.pickerView.selecttedIndex] objectForKey:@"EstateId"];
             self.communityTextField.text=[[self.communityArray objectAtIndex:self.pickerView.selecttedIndex] objectForKey:@"EstateName"];
         }
     }
@@ -159,6 +164,9 @@
     [_cityTextField release];
     [_districtTextField release];
     [_communityTextField release];
+    [_nameTextField release];
+    [_mobileNumberTextField release];
+    [_detailAddressTextField release];
     [super dealloc];
 }
 
@@ -172,15 +180,23 @@
 
 - (void)saveAddress:(id)sender
 {
-    ShowAlert(self, NSLocalizedString(NSNoteTitle, nil), @"非常抱歉,该地址附近没有菜场配送.", NSLocalizedString(NSSureTitle, nil));
+    if ([self.nameTextField.text length]==0||[self.mobileNumberTextField.text length]==0||[self.cityTextField.text length]==0||[self.districtTextField.text length]==0||[self.communityTextField.text length]==0||[self.detailAddressTextField.text length]==0) {
+        ShowAlert(self, NSLocalizedString(NSNoteTitle, nil), @"所有填写项不能为空", NSLocalizedString(NSSureTitle, nil));
+
+    } else {
+        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"NewDeliveryAddress" UserID:[AppManager instance].userId Parameters:@{@"MobileNumber":self.mobileNumberTextField.text,@"Receiver":self.nameTextField.text,@"CityID":self.cityID,@"AreaID":self.areaID,@"EstateId":self.estateID,@"DetailedAddress":self.detailAddressTextField.text}]];
+    }
+//    [self.netBase RequestOperationWithRequestType:NET_GET param:[self getParamWithAction:@"NewDeliveryAddress" UserID:[AppManager instance].userId Parameters:@{@"MobileNumber":@"13585645523",@"Receiver":@"allen",@"CityID":self.cityID,@"AreaID":self.areaID,@"DetailedAddress":@"延平路121号"}]];
+//    ShowAlert(self, NSLocalizedString(NSNoteTitle, nil), @"非常抱歉,该地址附近没有菜场配送.", NSLocalizedString(NSSureTitle, nil));
 }
 
 - (IBAction)selectAddress:(UIButton *)sender {
-    
+    [self.view endEditing:YES];
     switch (sender.tag) {
         case 10:
         {
             self.flag=CITY_TAG;
+            self.pickerTitleLab.text=@"城市";
             if ([self.cityArray count]>0) {
                 [self setCityOptions];
             }else{
@@ -194,6 +210,7 @@
         case 11:
         {
             self.flag=AREA_TAG;
+            self.pickerTitleLab.text=@"区";
             if ([self.districtArray count]>0) {
                 [self setAreaOptions];
             }else{
@@ -201,13 +218,13 @@
                 self.netBase.requestType=(RequestType*)BUY_DISTRICT;
                 [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetCityAreaList" UserID:[AppManager instance].userId Parameters:@{@"CityId":@"85A0A6FD-D1DD-44E1-8913-907D8CE07BA6"}]];
             }
-            
             [self.pickerView setAlpha:1.0f];
         }
             break;
         case 12:
         {
             self.flag=AREAESTATE_TAG;
+            self.pickerTitleLab.text=@"小区";
             if ([self.communityArray count]>0) {
                 [self setAreaEstateOptions];
             }else{
@@ -247,7 +264,12 @@
         }
         self.netBase.requestType=nil;
     }else{
-        
+        if ([[dic objectForKey:@"IsSuccess"] integerValue]==1){
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            ShowAlert(self, NSLocalizedString(NSNoteTitle, nil), @"非常抱歉,该地址附近没有菜场配送.", NSLocalizedString(NSSureTitle, nil));
+        }
+
     }
 }
 

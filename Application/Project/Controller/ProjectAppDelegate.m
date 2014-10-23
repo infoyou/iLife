@@ -33,8 +33,6 @@
 
 #import "DirectionMPMoviePlayerViewController.h"
 
-NSString *const UIApplicationDidReceivedRomateNotificationNotification = @"UIApplicationDidReceivedRomateNotificationNotification";
-
 @interface ProjectAppDelegate () <CurrentLoginVCDelegate, WXApiDelegate>
 
 @property (nonatomic, retain) BaseNavigationController *homeNC;
@@ -248,9 +246,11 @@ NSString *const UIApplicationDidReceivedRomateNotificationNotification = @"UIApp
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidReceivedRomateNotificationNotification
+    
+    [AppManager instance].notifyDataDict = userInfo;
+    [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidReceivedRomateNotificationName
                                                         object:self
-                                                      userInfo:userInfo];
+                                                      userInfo:nil];
 }
 
 #pragma mark - system call back methods

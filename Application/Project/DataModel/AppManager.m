@@ -15,6 +15,8 @@
 @synthesize pgCookie;
 // --- PG end----
 
+@synthesize notifyDataDict;
+
 @synthesize hostUrl = _hostUrl;
 // Delete
 @synthesize common = _common;

@@ -34,6 +34,8 @@
 @property (nonatomic, retain) NSMutableArray *pgChannelArray;
 // --- PG end----
 
+@property (nonatomic, retain) NSDictionary *notifyDataDict;
+
 @property (nonatomic, copy) NSString *userId;
 @property (nonatomic, copy) NSString *userName;
 @property (nonatomic, copy) NSString *userEmail;

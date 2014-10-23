@@ -25,5 +25,6 @@
 - (id)initWithMOC:(NSManagedObjectContext *)MOC
          parentVC:(RootViewController *)pVC;
 
+- (void)openNotifyVC;
 
 @end

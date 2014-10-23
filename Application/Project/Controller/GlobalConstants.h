@@ -41,6 +41,8 @@
 //#define VOIP_SERVER_IP                @"sandboxapp.cloopen.com"
 //#define VOIP_SERVER_PORT              8883
 
+#define UIApplicationDidReceivedRomateNotificationName @"UIApplicationDidReceivedRomateNotificationNotification"
+
 #if APP_TYPE == APP_TYPE_EMBA
 #define FORGET_PASSWORD_LINK                     @"http://112.124.68.147:5000/Mobile/RetrievePasswordList.aspx"
 #else

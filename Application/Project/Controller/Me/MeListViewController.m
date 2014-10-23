@@ -445,9 +445,7 @@ enum Head_Control_Type
              */
             
             if (row == 0) {
-                // 平台通知
-                PlatNotifyListViewController *platNotifyVC = [[[PlatNotifyListViewController alloc] initWithMOC:_MOC parentVC:nil] autorelease];
-                [CommonMethod pushViewController:platNotifyVC withAnimated:YES];
+                [self openNotifyVC];
             } else if (row == 1) {
                 // 常用地址
                 AddressListController *addressVC = [[[AddressListController alloc] initWithMOC:_MOC parentVC:nil] autorelease];
@@ -839,6 +837,13 @@ enum Head_Control_Type
         default:
             break;
     }
+}
+
+- (void)openNotifyVC
+{
+    // 平台通知
+    PlatNotifyListViewController *platNotifyVC = [[[PlatNotifyListViewController alloc] initWithMOC:_MOC parentVC:nil] autorelease];
+    [CommonMethod pushViewController:platNotifyVC withAnimated:YES];
 }
 
 @end

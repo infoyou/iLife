@@ -380,14 +380,15 @@
         
         [self setBackgroundColor:[[ThemeManager shareInstance] getColorWithName:@"tabBarBGColor"]];
         
-        [self addShadow];
+//        [self addShadow];
         
         [self initTabs];
         
         // 上面缺省选择条
         // [self initSelectedIndicator];
         
-        UIView *lineView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)] autorelease];
+        UIView *lineView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.5)] autorelease];
+        [lineView setBackgroundColor:[UIColor redColor]];
         [lineView setBackgroundColor:[UIColor colorWithHexString:@"0xb3b3b3"]];
         [self addSubview:lineView];
     }
