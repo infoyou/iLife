@@ -171,6 +171,8 @@
     if (_userLoginVC) {
         
         [self clearLogin];
+        
+        [AppManager instance].isFromHome = YES;
         _userLoginVC = [[LoginViewController alloc] initWithMOC:self.homepageContainer.MOC
                                                            parentVC:self.homepageContainer];
         
@@ -524,8 +526,10 @@
 - (void)endSplash:(UIViewController *)vc
 {
     if ([self isNeedShowRegisterView]) {
+        
         if (!_userLoginVC) {
             
+            [AppManager instance].isFromHome = YES;
             _userLoginVC = [[LoginViewController alloc] initWithMOC:self.homepageContainer.MOC
                                                                parentVC:self.homepageContainer];
             _userLoginVC.view.hidden = YES;

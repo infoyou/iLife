@@ -429,6 +429,7 @@ typedef enum {
     API_SELLER_BLACK_TY,//拉黑卖家
     
     // 设置
+    USER_INFO_TY,//用户信息
     GET_DELIVERY_ADDRESS_TY,//地址列表
     DEL_ADDRESS_TY,//删除买家地址
     SET_DEFAULT_ADDRESS_TY,//设置常用地址

@@ -235,8 +235,11 @@
         if ([[dic objectForKey:@"ResultCode"] integerValue]==0) {
             if (![[[dic objectForKey:@"Data"] objectForKey:@"ItemList"] isEqual:[NSNull null]]) {
                 [self updateSelectList:[[dic objectForKey:@"Data"] objectForKey:@"ItemList"]];
+            }else{
+                [AppManager instance].cartCount=0;
             }
         }
+        
         if ([self.categoryList count]>0) {
             self.itemCategoryID=[[self.categoryList objectAtIndex:0] objectForKey:@"ItemCategoryID"];
             self.netBase.requestType=(RequestType*)BUY_FOODLIST;
@@ -388,14 +391,21 @@
 {
     if (alertView.tag==LOGIN_TAG) {
         if (buttonIndex==1) {
-            LoginViewController* login=[[LoginViewController alloc]init];
-            login.delegate=[UIApplication sharedApplication].delegate;
-            [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
+//            LoginViewController* login=[[LoginViewController alloc]init];
+//            login.delegate=[UIApplication sharedApplication].delegate;
+//            [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
+            
+            [AppManager instance].isFromHome = YES;
+            LoginViewController* loginVC = [[[LoginViewController alloc] init] autorelease];
+            
+            UINavigationController *vcNav = [[[UINavigationController alloc] initWithRootViewController:loginVC] autorelease];
+            vcNav.navigationBar.tintColor = TITLESTYLE_COLOR;
+            loginVC.delegate = [UIApplication sharedApplication].delegate;
+            
+            [self presentViewController:vcNav animated:YES completion:nil];
         }
     }
 }
-
-
 
 #pragma mark-choose select
 -(void)updateSelectList:(NSArray*)itemList

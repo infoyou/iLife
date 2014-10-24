@@ -136,6 +136,7 @@
 #define API_SELLER_BLACK        @"SetBlack"
 
 // Setting
+#define API_MEMBER_INFO         @"GetMemberInfo"
 #define API_GET_DELIVERY_ADDRESS @"GetDeliveryAddress"
 #define API_DEL_DELIVERY_ADDRESS @"DeleteAddress"
 #define API_SET_DEFAULT_ADDRESS @"SetDefaultAddress"

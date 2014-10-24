@@ -559,17 +559,27 @@
     // If delegate was set make the callback
     self.alpha = 0.0f;
     
-	if(delegate != nil) {
-        if ([delegate respondsToSelector:@selector(hudWasHidden:)]) {
-            [delegate performSelector:@selector(hudWasHidden:) withObject:self];
-        } else if ([delegate respondsToSelector:@selector(hudWasHidden)]) {
-            [delegate performSelector:@selector(hudWasHidden)];
+    @try {
+        if(delegate != nil) {
+            
+            if (delegate && [delegate respondsToSelector:@selector(hudWasHidden:)]) {
+                [delegate performSelector:@selector(hudWasHidden:) withObject:self];
+            } else if (delegate && [delegate respondsToSelector:@selector(hudWasHidden)]) {
+                [delegate performSelector:@selector(hudWasHidden)];
+            }
         }
-	}
+        
+        if (removeFromSuperViewOnHide) {
+            [self removeFromSuperview];
+        }
+    }
+    @catch (NSException *exception) {
+        NSLog(@"done exception %@", exception.description);
+    }
+    @finally {
+        NSLog(@"done @finally");
+    }
 	
-	if (removeFromSuperViewOnHide) {
-		[self removeFromSuperview];
-	}
 }
 
 - (void)cleanUp {

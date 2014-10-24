@@ -15,6 +15,8 @@
 #import "AppManager.h"
 #import "TabBarView.h"
 
+#import "UIViewController+JSONValue.h"
+
 @interface HomeContainerViewController () <TabDelegate, MFMessageComposeViewControllerDelegate>
 {
     bool isFromTabBar;
@@ -345,9 +347,17 @@
     self.navigationItem.rightBarButtonItems = nil;
     self.navigationItem.rightBarButtonItem = nil;
     
-    if (!self.shoppingCartVC)
-        _shoppingCartVC = [[ShoppingCartViewController alloc] initWithMOC:_MOC viewHeight:[self contentHeight] homeContainerVC:self];
-    [self arrangeCurrentVC:self.shoppingCartVC];
+//    if (!self.shoppingCartVC)
+//        _shoppingCartVC = [[ShoppingCartViewController alloc] initWithMOC:_MOC viewHeight:[self contentHeight] homeContainerVC:self];
+//    [self arrangeCurrentVC:self.shoppingCartVC];
+    
+    if ([[AppManager instance].passwd length]>0) {
+        if (!self.shoppingCartVC)
+            _shoppingCartVC = [[ShoppingCartViewController alloc] initWithMOC:_MOC viewHeight:[self contentHeight] homeContainerVC:self];
+        [self arrangeCurrentVC:self.shoppingCartVC];
+    }else{
+        [self askWithMessage:@"未登录，请先登录" alertTag:1];
+    }
 }
 
 // 订单
@@ -571,9 +581,18 @@
 {
     if (alertView.tag==LOGIN_TAG) {
         if (buttonIndex==1) {
-            LoginViewController* login=[[LoginViewController alloc]init];
-            login.delegate=[UIApplication sharedApplication].delegate;
-            [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
+//            LoginViewController* login=[[LoginViewController alloc]init];
+//            login.delegate=[UIApplication sharedApplication].delegate;
+//            [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
+            
+            [AppManager instance].isFromHome = YES;
+            LoginViewController* loginVC = [[[LoginViewController alloc] init] autorelease];
+            
+            UINavigationController *vcNav = [[[UINavigationController alloc] initWithRootViewController:loginVC] autorelease];
+            vcNav.navigationBar.tintColor = TITLESTYLE_COLOR;
+            loginVC.delegate = [UIApplication sharedApplication].delegate;
+            
+            [self presentViewController:vcNav animated:YES completion:nil];
         }
     }
 }
@@ -581,10 +600,10 @@
 - (void)handleNotifyData
 {
     
-//    {"aps":{"alert":"This is Test message.", "sound":"notify.wav", "badge":2,"type":"1"}}
+//    {"aps":{"alert":"卖家已称重,订单0201141112002可支付","badge":2,"sound":"notify.wav"},"type":"0"}
     
-    NSDictionary *notifyDict = OBJ_FROM_DIC([AppManager instance].notifyDataDict, @"aps");
-    int typeVal = INT_VALUE_FROM_DIC(notifyDict, @"type");
+//    NSDictionary *notifyDict = OBJ_FROM_DIC([AppManager instance].notifyDataDict, @"aps");
+    int typeVal = INT_VALUE_FROM_DIC([AppManager instance].notifyDataDict, @"type");
     
     switch (typeVal) {
         case 0:

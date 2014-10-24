@@ -379,7 +379,6 @@ typedef enum {
 
 - (void)autoLogin
 {
-    
     _nameField.text = [[AppManager instance].userDefaults usernameRemembered];
     NSString *md5Password = [[AppManager instance].userDefaults passwordRemembered];
     _passwordField.text = md5Password;
@@ -391,7 +390,10 @@ typedef enum {
         _isAutoLogin = YES;
     }
     
-    [self doUpdateSoftAction];
+    [self bringToFront];
+    [self doLoginLogic];
+    
+//    [self doUpdateSoftAction];
 }
 
 - (void)bringToFront
@@ -786,7 +788,7 @@ typedef enum {
                     NSArray *userList = [[[NSArray alloc] initWithObjects:userObject, nil] autorelease];
                     [[FMDBConnection instance] insertAllUserObjectDB:userList];
                     
-                    if (self.delegate && [self.delegate respondsToSelector:@selector(loginSuccessfull:)]) {
+//                    if (self.delegate && [self.delegate respondsToSelector:@selector(loginSuccessfull:)]) {
                         [AppManager instance].passwd = _passwordField.text;  //保存一下密码
                         [AppManager instance].userId = [[[resultDict objectForKey:@"Data"] objectForKey:@"Member"] objectForKey:@"VipID"];
 //                        [self.delegate loginSuccessfull:self];
@@ -796,7 +798,7 @@ typedef enum {
                         [AppManager instance].updateCache = YES;
                         
                         [self bindPushServer];
-                    }
+//                    }
                     
                 } else {
                     NSString *msg = [resultDict objectForKey:@"Message"];

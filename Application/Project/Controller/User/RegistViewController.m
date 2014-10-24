@@ -45,18 +45,22 @@
     
     [super viewDidLoad];
     
+//    _mMobileTxt.text = @"13524010590";
+//    _mPswdTxt.text = @"123321";
+//    _mMobileCodeTxt.text = @"1234";
+    
     // Do any additional setup after loading the view from its nib.
     self.navigationItem.title = @"注册";
     self.view.backgroundColor = [UIColor whiteColor];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[ThemeManager shareInstance] getThemeImage:@"button_back.png"] style:UIBarButtonItemStylePlain target:self action:@selector(doClose:)];
-
+    
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
     
     [self addRightBarButtonWithTitle:@""
                               target:self
                               action:nil];
-
+    
     _mGetCodeingBtn.hidden = YES;
     _mGetCodeingNum.hidden = YES;
 }
@@ -80,7 +84,7 @@
                 [[[[UIAlertView alloc] initWithTitle:LocaleStringForKey(NSCommonWarning, nil) message:@"请输入手机号码!" delegate:nil cancelButtonTitle:LocaleStringForKey(NSSureTitle, nil) otherButtonTitles:nil] autorelease] show];
                 return;
             }
-
+            
             _mRequestBtn.hidden = YES;
             _mGetCodeingBtn.hidden = NO;
             _mGetCodeingNum.hidden = NO;
@@ -171,9 +175,9 @@
 - (void)resetPswdByMobileCode
 {
     
-    if (![self checkInputTxt]) {
-        return;
-    }
+    //    if (![self checkInputTxt]) {
+    //        return;
+    //    }
     
     NSMutableDictionary *specialDict = [NSMutableDictionary dictionary];
     
@@ -190,6 +194,40 @@
     
     [connFacade fetchGets:url];
     
+}
+
+- (void)doQiXinLoginAction
+{
+    
+    NSMutableDictionary *specialDict = [NSMutableDictionary dictionary];
+    
+    [specialDict setValue:_mMobileTxt.text forKey:@"Mobile"];
+    [specialDict setValue:_mPswdTxt.text forKey:@"Password"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/%@%@", VALUE_API_PREFIX, API_SERVICE_USER, API_USER_LOGIN];
+    NSString *url = [ProjectAPI getURL:urlStr specialDict:specialDict];
+    DLog(@"url = %@", url);
+    WXWAsyncConnectorFacade *connFacade = [self setupAsyncConnectorForUrl:url
+                                                              contentType:USER_LOGIN_TY];
+    [connFacade fetchGets:url];
+}
+
+- (void)bindPushServer
+{
+    
+    NSMutableDictionary *specialDict = [NSMutableDictionary dictionary];
+    
+    [specialDict setValue:[AppManager instance].deviceToken forKey:@"DeviceToken"];
+    [specialDict setValue:@"2" forKey:@"Role"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/%@%@", VALUE_API_PREFIX, API_SERVICE_USER, API_BIND_PUSH];
+    
+    NSString *url = [ProjectAPI getURL:urlStr specialDict:specialDict];
+    DLog(@"url = %@", url);
+    WXWAsyncConnectorFacade *connFacade = [self setupAsyncConnectorForUrl:url
+                                                              contentType:USER_BIND_TY];
+    
+    [connFacade fetchGets:url];
 }
 
 #pragma mark - ECConnectorDelegate methods
@@ -214,17 +252,14 @@
                                                                            paramID:0];
             
             if (ret == SUCCESS_CODE) {
-            
+                
                 NSDictionary *resultDict = [result objectFromJSONData];
                 NSDictionary *dict = OBJ_FROM_DIC(resultDict, @"Data");
                 
                 [[AppManager instance].userDefaults rememberUsername:_mMobileTxt.text andPassword:_mPswdTxt.text pswdStr:_mPswdTxt.text customerName:_mPswdTxt.text userId:@""];
                 
-                [self dismissModalViewControllerAnimated:YES];
+                [self doQiXinLoginAction];
                 
-                LoginViewController* login=[[LoginViewController alloc] init];
-                login.delegate=[UIApplication sharedApplication].delegate;
-                [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
             }
             
             break;
@@ -240,10 +275,135 @@
             
             if (ret == SUCCESS_CODE) {
                 
-                NSDictionary *resultDict = [result objectFromJSONData];
-                NSDictionary *dict = OBJ_FROM_DIC(resultDict, @"Data");
-                
             }
+            
+            break;
+        }
+            
+        case USER_LOGIN_TY:
+        {
+            [self.view endEditing:YES];
+            
+            ConnectionAndParserResultCode ret = [JSONParser parserResponseJsonData:result
+                                                                              type:contentType
+                                                                               MOC:_MOC
+                                                                 connectorDelegate:self
+                                                                               url:url
+                                                                           paramID:0];
+            
+            if (ret == SUCCESS_CODE) {
+                
+                NSDictionary *resultDict = [result objectFromJSONData];
+                NSDictionary *dataDict = OBJ_FROM_DIC(resultDict, @"Data");
+                NSDictionary *dict = OBJ_FROM_DIC(dataDict, @"Member");
+                
+                if (dict && [dict count] > 0) {
+                    NSString *updateURL = [dict objectForKey:@"updateURL"];
+                    if (!updateURL || [updateURL isEqual:[NSNull null]] || [updateURL isEqual:@"<null>"]) {
+                        
+                    } else {
+                        [AppManager instance].updateURL = updateURL;
+                        DLog(@"%@", [AppManager instance].updateURL);
+                    }
+                    
+                    NSString *isMandatory = [dict objectForKey:@"IsMandatory"];
+                    if (!isMandatory || [isMandatory isEqual:[NSNull null]] || [isMandatory isEqual:@"<null>"]) {
+                        
+                    } else {
+                        [AppManager instance].isMandatory = [isMandatory integerValue];
+                        DLog(@"%d", [AppManager instance].isMandatory);
+                        
+                        //                        if ([AppManager instance].isMandatory == 1) {
+                        //
+                        //                            UIAlertView *updateAlertView = [[UIAlertView alloc] initWithTitle:LocaleStringForKey(NSNoteTitle, nil)
+                        //                                                                                      message:@"有版本更新，您必须更新后才可使用。"
+                        //                                                                                     delegate:self
+                        //                                                                            cancelButtonTitle:LocaleStringForKey(NSCancelTitle, nil)
+                        //                                                                            otherButtonTitles:LocaleStringForKey(NSSureTitle, nil), nil];
+                        //                            updateAlertView.tag = ALERT_TAG_CHOISE_UPDATE;
+                        //
+                        //                            [updateAlertView show];
+                        //                        }
+                    }
+                    
+                    //                    [[AppManager instance] updateLoginSuccess:dict];
+                    
+                    // AppManage
+                    [AppManager instance].userId = [dict objectForKey:@"VipID"];
+                    [AppManager instance].userName = [dict objectForKey:@"VipName"];
+                    [AppManager instance].userEmail = [dict objectForKey:@"Mobile"];
+                    [AppManager instance].userImageUrl = STRING_VALUE_FROM_DIC(dict, @"ImageUrl");
+                    
+                    // Save
+                    UserObject *userObject = [[[UserObject alloc] init] autorelease];
+                    userObject.userId = STRING_VALUE_FROM_DIC(dict, @"VipID");
+                    userObject.userName = STRING_VALUE_FROM_DIC(dict, @"VipName");
+                    userObject.userEmail = STRING_VALUE_FROM_DIC(dict, @"Mobile");
+                    userObject.userTel = STRING_VALUE_FROM_DIC(dict, @"Mobile");
+                    userObject.userImageUrl = STRING_VALUE_FROM_DIC(dict, @"ImageUrl");
+                    
+                    userObject.userGender = 1;//INT_VALUE_FROM_DIC(userDic, @"UserGender");
+                    userObject.chatId = @"";//STRING_VALUE_FROM_DIC(userDic, @"VoipAccount");
+                    userObject.userTitle = @"";//STRING_VALUE_FROM_DIC(userDic, @"JobFunc");
+                    userObject.userRole = @"";//STRING_VALUE_FROM_DIC(userDic, @"RoleName");
+                    userObject.userDept = @"";//STRING_VALUE_FROM_DIC(userDic, @"Dept");
+                    userObject.userCode = @"";//STRING_VALUE_FROM_DIC(userDic, @"user_code");
+                    userObject.userNameEn = @"";//STRING_VALUE_FROM_DIC(userDic, @"user_name_en");
+                    userObject.isFriend = 0;
+                    userObject.isDelete = 0;//INT_VALUE_FROM_DIC(userDic, @"user_status")-1;
+                    userObject.superName = @"";//STRING_VALUE_FROM_DIC(userDic, @"SuperiorName");
+                    
+                    userObject.userBirthDay = @"";//STRING_VALUE_FROM_DIC(userDic, @"UserBirthday");
+                    userObject.userCellphone = @"";//STRING_VALUE_FROM_DIC(userDic, @"UserCellphone");
+                    
+                    // P&G
+                    userObject.channel = @"";//STRING_VALUE_FROM_DIC(userDic, @"Channel");
+                    userObject.function = @"";//STRING_VALUE_FROM_DIC(userDic, @"Dept");
+                    userObject.superEmail = @"";//STRING_VALUE_FROM_DIC(userDic, @"SuperiorName");
+                    userObject.location = @"";//STRING_VALUE_FROM_DIC(userDic, @"Location");
+                    userObject.serviceYear = @"";//STRING_VALUE_FROM_DIC(userDic, @"ServiceYear");
+                    userObject.band = @"";//STRING_VALUE_FROM_DIC(userDic, @"JobFunc");
+                    userObject.subordinateCount = @"";//STRING_VALUE_FROM_DIC(userDic, @"SubordinateCount");
+                    
+                    NSArray *userList = [[[NSArray alloc] initWithObjects:userObject, nil] autorelease];
+                    [[FMDBConnection instance] insertAllUserObjectDB:userList];
+                    
+                    //                    if (self.delegate && [self.delegate respondsToSelector:@selector(loginSuccessfull:)]) {
+                    [AppManager instance].passwd = _mPswdTxt.text;  //保存一下密码
+                    [AppManager instance].userId = [[[resultDict objectForKey:@"Data"] objectForKey:@"Member"] objectForKey:@"VipID"];
+                    //                        [self.delegate loginSuccessfull:self];
+                    
+                    [[AppManager instance].userDefaults rememberUsername:_mMobileTxt.text andPassword:_mPswdTxt.text pswdStr:_mPswdTxt.text customerName:_mPswdTxt.text userId:[AppManager instance].userId];
+                    
+                    [AppManager instance].updateCache = YES;
+                    
+                    [self bindPushServer];
+                    //                    }
+                    
+                } else {
+                    NSString *msg = [resultDict objectForKey:@"Message"];
+                    
+                    [[[[UIAlertView alloc] initWithTitle:LocaleStringForKey(NSNoteTitle, nil) message:msg delegate:nil cancelButtonTitle:LocaleStringForKey(NSSureTitle, nil) otherButtonTitles: nil] autorelease]show];
+                    return;
+                }
+            } else {
+                
+                NSDictionary *resultDict = [result objectFromJSONData];
+                NSString *msg = [resultDict objectForKey:@"Message"];
+                
+                [[[[UIAlertView alloc]initWithTitle:LocaleStringForKey(NSNoteTitle, nil) message:msg delegate:nil cancelButtonTitle:LocaleStringForKey(NSSureTitle, nil) otherButtonTitles: nil] autorelease]show];
+            }
+            
+            break;
+        }
+            
+        case USER_BIND_TY:
+        {
+            [WXWUIUtils closeActivityView];
+            [self dismissModalViewControllerAnimated:YES];
+            
+            ProjectAppDelegate *delegate = (ProjectAppDelegate *)APP_DELEGATE;
+            [delegate goHomePage];
             
             break;
         }
@@ -307,7 +467,7 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if ([textField isEqual:_mMobileTxt]) {
-
+        
         if (range.location > 10)
             return NO; // return NO to not change text
         return YES;

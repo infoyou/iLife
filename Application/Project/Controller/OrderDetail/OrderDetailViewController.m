@@ -1135,9 +1135,18 @@ enum Button_Evaluation_Tag_Enum
 {
     if (alertView.tag==LOGIN_TAG) {
         if (buttonIndex==1) {
-            LoginViewController* login=[[LoginViewController alloc] init];
-            login.delegate=[UIApplication sharedApplication].delegate;
-            [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
+//            LoginViewController* login=[[LoginViewController alloc] init];
+//            login.delegate=[UIApplication sharedApplication].delegate;
+//            [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
+            
+            [AppManager instance].isFromHome = YES;
+            LoginViewController* loginVC = [[[LoginViewController alloc] init] autorelease];
+            
+            UINavigationController *vcNav = [[[UINavigationController alloc] initWithRootViewController:loginVC] autorelease];
+            vcNav.navigationBar.tintColor = TITLESTYLE_COLOR;
+            loginVC.delegate = [UIApplication sharedApplication].delegate;
+            
+            [self presentViewController:vcNav animated:YES completion:nil];
         }
     }
 }

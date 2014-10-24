@@ -92,7 +92,7 @@
             [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"RemoveAllItem" UserID:@"004852E9-7AA1-4C3F-97A3-361B8EA96464" Parameters:@{}]];
         }else if (self.netBase.requestType==(RequestType*)BUY_DELETECART){
             self.netBase.requestType=nil;
-            [AppManager instance].cartCount=0;
+            [AppManager instance].updateCache = YES;
             [self.navigationController popToRootViewControllerAnimated:YES];
             [self.homeVC selectFirstTabBar];
         }else{
@@ -107,6 +107,7 @@
 {
     
 }
+
 #pragma mark-Setup ButtonAction
 -(void)handleCommitOrder
 {
