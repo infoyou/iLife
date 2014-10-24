@@ -277,6 +277,14 @@
     
     [self endSplash:nil];
 
+    [AppManager instance].passwd = [[AppManager instance].userDefaults passwordRemembered];
+    
+    if ([[AppManager instance].userDefaults getSaveUserId] != nil) {
+        [AppManager instance].userId = [[AppManager instance].userDefaults getSaveUserId];
+    } else {
+        [AppManager instance].userId = @"";
+    }
+    
     return YES;
 }
 
@@ -343,10 +351,10 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:UIApplicationDidBecomeActiveNotification object:self];
     
-//    NSString *md5Password = [[AppManager instance].userDefaults passwordRemembered];
-//    if (md5Password && md5Password.length > 0) {
-//        [_userLoginVC autoLogin];
-//    }
+    NSString *md5Password = [[AppManager instance].userDefaults passwordRemembered];
+    if (md5Password && md5Password.length > 0) {
+        [_userLoginVC autoLogin];
+    }
     
     [AppManager instance].passwd = [[AppManager instance].userDefaults passwordRemembered];
     

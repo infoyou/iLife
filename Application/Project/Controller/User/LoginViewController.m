@@ -326,7 +326,6 @@ typedef enum {
 {
     if ([self checkInputTxt])
     {
-       
         [self doQiXinLoginAction];
     }
 //    [self.delegate loginSuccessfull:self];   //跳过登陆验证
@@ -334,13 +333,14 @@ typedef enum {
 
 - (void)doLoginLogic
 {
-    if (_isAutoLogin) {
-        if ([self checkInputTxt])
-        {
-            [self doQiXinLoginAction];
-        }
-    }
-//    [self.delegate loginSuccessfull:self];   //跳过登陆验证
+//    if (_isAutoLogin) {
+//        if ([self checkInputTxt])
+//        {
+//            [self doQiXinLoginAction];
+//        }
+//    }
+    
+    [self.delegate loginSuccessfull:self];   //跳过登陆验证
 }
 
 - (BOOL)checkInputTxt

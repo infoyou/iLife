@@ -284,19 +284,30 @@
                                                                                url:url
                                                                            paramID:0];
             
+            NSDictionary *resultDict = [result objectFromJSONData];
+            
             if (ret == SUCCESS_CODE) {
                 
-                NSDictionary *resultDict = [result objectFromJSONData];
                 NSDictionary *dict = OBJ_FROM_DIC(resultDict, @"Data");
                 
                 [[AppManager instance].userDefaults rememberUsername:_mMobileTxt.text andPassword:_mPswdTxt.text pswdStr:_mPswdTxt.text customerName:_mPswdTxt.text userId:@""];
                 
                 [self doQiXinLoginAction];
                 
+            } else {
+                NSString *msg = [resultDict objectForKey:@"Message"];
+                
+                [[[[UIAlertView alloc] initWithTitle:LocaleStringForKey(NSNoteTitle, nil) message:msg delegate:nil cancelButtonTitle:LocaleStringForKey(NSSureTitle, nil) otherButtonTitles: nil] autorelease]show];
+                
+                [super connectDone:result
+                               url:url
+                       contentType:contentType];
+                
+                return;
             }
             
             break;
-        }
+        } 
             
         case USER_REGIST_MOBILE_CODE_TY: {
             ConnectionAndParserResultCode ret = [JSONParser parserResponseJsonData:result
