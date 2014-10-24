@@ -29,6 +29,9 @@
 @property(nonatomic,retain)UIView* countView;
 @property(nonatomic,retain)UILabel* countLab;
 
+@property(nonatomic,retain)UIView* orderCountView;
+@property(nonatomic,retain)UILabel* orderCountLab;
+
 - (id)initWithFrame:(CGRect)frame delegate:(id<TabDelegate>)delegate;
 
 - (void)refreshBadges;

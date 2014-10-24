@@ -90,6 +90,7 @@
 
 @property (nonatomic) BOOL updateCache;
 @property (nonatomic) NSInteger cartCount;
+@property (nonatomic) NSInteger orderCount;
 
 @property (nonatomic, assign) BOOL aliPayStatus;
 @property (nonatomic, assign) BOOL isFromHome;

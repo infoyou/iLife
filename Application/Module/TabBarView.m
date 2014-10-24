@@ -348,23 +348,43 @@
         [self.tabItemList addObject:item];
     }
     
+    // 购物车
+    {
+        self.countView = [[UIView alloc]initWithFrame:CGRectMake(130, 3, 15, 15)];
+        [self addSubview:self.countView];
+        UIImageView* ImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 15, 15)];
+        ImgView.image = [UIImage imageNamed:@"Farm_circle.png"];
+        [self.countView addSubview:ImgView];
+        
+        self.countLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 15, 15)];
+        [self.countLab setBackgroundColor:[UIColor clearColor]];
+        [self.countLab setFont:[UIFont systemFontOfSize:10.0f]];
+        [self.countLab setTextAlignment:NSTextAlignmentCenter];
+        [self.countLab setTextColor:[UIColor whiteColor]];
+        self.countLab.text = @"0";
+        [self.countView addSubview:self.countLab];
+        
+        self.countView.alpha=0.0f;
+    }
     
-    self.countView=[[UIView alloc]initWithFrame:CGRectMake(130, 3, 15, 15)];
-    [self addSubview:self.countView];
-    UIImageView* ImgView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 15, 15)];
-    ImgView.image=[UIImage imageNamed:@"Farm_circle.png"];
-    [self.countView addSubview:ImgView];
-    
-    self.countLab=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 15, 15)];
-    [self.countLab setBackgroundColor:[UIColor clearColor]];
-    [self.countLab setFont:[UIFont systemFontOfSize:10.0f]];
-    [self.countLab setTextAlignment:NSTextAlignmentCenter];
-    [self.countLab setTextColor:[UIColor whiteColor]];
-    self.countLab.text=@"0";
-    [self.countView addSubview:self.countLab];
-    
-    self.countView.alpha=0.0f;
-
+    // 订单
+    {
+        self.orderCountView = [[UIView alloc]initWithFrame:CGRectMake(210, 3, 15, 15)];
+        [self addSubview:self.orderCountView];
+        UIImageView* ImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 15, 15)];
+        ImgView.image = [UIImage imageNamed:@"Farm_circle.png"];
+        [self.orderCountView addSubview:ImgView];
+        
+        self.orderCountLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 15, 15)];
+        [self.orderCountLab setBackgroundColor:[UIColor clearColor]];
+        [self.orderCountLab setFont:[UIFont systemFontOfSize:10.0f]];
+        [self.orderCountLab setTextAlignment:NSTextAlignmentCenter];
+        [self.orderCountLab setTextColor:[UIColor whiteColor]];
+        self.orderCountLab.text = @"0";
+        [self.orderCountView addSubview:self.orderCountLab];
+        
+        self.orderCountView.alpha=0.0f;
+    }
 }
 
 #pragma mark - lifecycle methods

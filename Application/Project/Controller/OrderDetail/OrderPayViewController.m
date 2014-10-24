@@ -27,6 +27,7 @@
 @implementation OrderPayViewController {
 
     NSMutableDictionary* mImgCacheDic;
+    UserObject *userInfo;
 }
 
 @synthesize totalAmountStr = _totalAmountStr;
@@ -50,9 +51,11 @@
     return self;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
+    
+    userInfo = [[FMDBConnection instance] getUserByUserId:[AppManager instance].userId];
 }
 
 - (void)viewDidLoad
@@ -225,6 +228,7 @@
     UILabel *checkLabel = (UILabel *)[cell viewWithTag:103];
     
     amountLabel.text = [NSString stringWithFormat:@"￥%@", _totalAmountStr];
+    checkLabel.text = [NSString stringWithFormat:@"可用菜票%@元抵用%@元", userInfo.band, userInfo.band];
     
     bgImg.userInteractionEnabled = YES;
     checkBoxImg.userInteractionEnabled = YES;

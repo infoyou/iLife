@@ -231,17 +231,16 @@
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
     BOOL showButFlag = NO;
-    if (indexPath.row != defaultIndex) {
+    AddressItem* address=[_addressArray objectAtIndex:indexPath.row];
+    if ([address.addressIsDefault isEqualToString:@"0"]) {
         showButFlag = YES;
     }
-    
     AddressItem *addressItem = (AddressItem *)[_addressArray objectAtIndex:indexPath.row];
     [cell updataCellData:addressItem showButFlag:showButFlag];
     
     UIView *lineView = [[[UIView alloc] initWithFrame:CGRectMake(11, ADDRESS_CELL_HEIGHT-1, SCREEN_WIDTH-11, 0.6f)] autorelease];
     lineView.backgroundColor = HEX_COLOR(@"0xdddddd");
     [cell.contentView addSubview:lineView];
-    
     return cell;
 
 }
@@ -339,8 +338,16 @@
             
         case SET_DEFAULT_ADDRESS_TY:
         {
-            [_storeTable reloadData];
-            [AppManager instance].updateCache=YES;
+            ConnectionAndParserResultCode ret = [JSONParser parserResponseJsonData:result
+                                                                              type:contentType
+                                                                               MOC:_MOC
+                                                                 connectorDelegate:self
+                                                                               url:url
+                                                                           paramID:0];
+            if (ret == SUCCESS_CODE){
+                [AppManager instance].updateCache=YES;
+                [self getDeliveryAddress];
+            }
             break;
         }
             
@@ -395,6 +402,7 @@
                                                                            paramID:0];
             
             if (ret == SUCCESS_CODE){
+                [AppManager instance].updateCache=YES;
                 [self getDeliveryAddress];
             }
             break;

@@ -337,7 +337,6 @@ typedef enum {
     if (_isAutoLogin) {
         if ([self checkInputTxt])
         {
-           
             [self doQiXinLoginAction];
         }
     }
@@ -448,6 +447,19 @@ typedef enum {
     DLog(@"url = %@", url);
     WXWAsyncConnectorFacade *connFacade = [self setupAsyncConnectorForUrl:url
                                                               contentType:USER_BIND_TY];
+    
+    [connFacade fetchGets:url];
+}
+
+- (void)getUserInfo
+{
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/%@%@", VALUE_API_PREFIX, API_SERVICE_USER, API_MEMBER_INFO];
+    
+    NSString *url = [ProjectAPI getURL:urlStr specialDict:nil];
+    DLog(@"url = %@", url);
+    WXWAsyncConnectorFacade *connFacade = [self setupAsyncConnectorForUrl:url
+                                                              contentType:USER_INFO_TY];
     
     [connFacade fetchGets:url];
 }
@@ -578,6 +590,25 @@ typedef enum {
     
     
     switch (contentType) {
+            
+        case USER_INFO_TY:
+        {
+            NSDictionary *resultDict = [result objectFromJSONData];
+            NSDictionary *dict = OBJ_FROM_DIC(resultDict, @"Data");
+            
+            NSString *strMobile = STRING_VALUE_FROM_DIC(dict, @"Mobile");
+            NSString *strAmount = STRING_VALUE_FROM_DIC(dict, @"Amount");
+            
+            UserObject *userInfo = [[FMDBConnection instance] getUserByUserId:[AppManager instance].userId];
+            
+            userInfo.userTel = strMobile;
+            userInfo.band = strAmount;
+            
+            [[FMDBConnection instance] updateUserObjectDB:userInfo];
+            
+            [self bindPushServer];
+        }
+            break;
             
         case UPDATE_VERSION_TY:
         {
@@ -796,8 +827,8 @@ typedef enum {
                         [[AppManager instance].userDefaults rememberUsername:_nameField.text andPassword:_passwordField.text pswdStr:_passwordField.text customerName:_passwordField.text userId:[AppManager instance].userId];
                         
                         [AppManager instance].updateCache = YES;
-                        
-                        [self bindPushServer];
+                    
+                        [self getUserInfo];
 //                    }
                     
                 } else {

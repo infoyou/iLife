@@ -111,9 +111,10 @@ enum Button_Evaluation_Tag_Enum
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBarHidden = YES;
+    [AppManager instance].orderCount = 0;
     
     if ([AppManager instance].passwd && [[AppManager instance].passwd length]>0) {
-        [self getOrderPayList];
+        [self doOrderState];
     } else {
         [self askWithMessage:@"尚未登录，请先登录" alertTag:LOGIN_TAG];
     }
@@ -296,7 +297,7 @@ enum Button_Evaluation_Tag_Enum
                 totalAmount.text = [NSString stringWithFormat:@"总计: %@元", orderTotal.totalAmount];
                 
                 // --------- cancel enable start
-                if (![@"1" isEqualToString:orderTotal.orderCanPay]) {
+                if (![@"1" isEqualToString:orderTotal.orderCanCancel]) {
                     [cancelBtn setBackgroundColor:HEX_COLOR(@"0xbebebe")];
                     [cancelBtn setEnabled:NO];
                 } else {
@@ -306,7 +307,7 @@ enum Button_Evaluation_Tag_Enum
                 // --------- cancel enable end
                 
                 // --------- pay enable start
-                if (![@"1" isEqualToString:orderTotal.orderCanCancel]) {
+                if (![@"1" isEqualToString:orderTotal.orderCanPay]) {
                     [payBtn setBackgroundColor:HEX_COLOR(@"0xbebebe")];
                     [payBtn setEnabled:NO];
                 } else {
@@ -1024,6 +1025,7 @@ enum Button_Evaluation_Tag_Enum
                     [_orderArray addObject:orderTotal];
                 }
                 
+                [AppManager instance].orderCount = [_orderArray count];
                 
                 [_tableView reloadData];
             }

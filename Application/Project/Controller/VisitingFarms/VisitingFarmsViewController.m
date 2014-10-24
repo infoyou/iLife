@@ -141,7 +141,11 @@
     [MBProgressHUD showMessag:@"加载中……" toView:self.view];
     self.categoryIndex=0;
     [self.selectList removeAllObjects];
-    [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemCategoryList" UserID:[[AppManager instance].userId length]>0?[AppManager instance].userId:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{}]];
+    
+    self.netBase.requestType=(RequestType*)BUY_CARTLIST;
+    [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetCardItemList" UserID:[AppManager instance].userId Parameters:@{}]];
+
+//    [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemCategoryList" UserID:[[AppManager instance].userId length]>0?[AppManager instance].userId:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{}]];
     [[UIApplication sharedApplication].delegate window].userInteractionEnabled=NO;
     _update=YES;
 }
@@ -218,10 +222,11 @@
         if ([[dic objectForKey:@"ResultCode"] integerValue]==0) {
             NSDictionary* d=[self.foodList objectAtIndex:self.foodIndexPath.row];
             NSString* title=[NSString stringWithFormat:@"%@%@",[[[d objectForKey:@"weightOption"] objectAtIndex:self.weightPickerView.selecttedIndex] objectForKey:@"Quantity"],[[[d objectForKey:@"weightOption"] objectAtIndex:self.weightPickerView.selecttedIndex] objectForKey:@"Unit"]];
-            [self.selectList addObject:@{@"ItemId":[d objectForKey:@"ItemId"],@"title":title}];
+            [self.selectList addObject:@{@"ItemId":[d objectForKey:@"ItemId"],@"CategoryID":[[self.categoryList objectAtIndex:self.categoryIndex] objectForKey:@"ItemCategoryID"],@"title":title}];
             UITableViewCell* cell=[self.foodTableView cellForRowAtIndexPath:self.foodIndexPath];
             [self setAddWeightButton:title cell:cell];
             [AppManager instance].cartCount+=1;
+            [self.categoryTableView reloadData];
         }
         self.netBase.requestType=nil;
     }else if (self.netBase.requestType==(RequestType*)BUY_FOODINFORMATION){
@@ -239,12 +244,9 @@
                 [AppManager instance].cartCount=0;
             }
         }
+        self.netBase.requestType=nil;
+        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemCategoryList" UserID:[[AppManager instance].userId length]>0?[AppManager instance].userId:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{}]];
         
-        if ([self.categoryList count]>0) {
-            self.itemCategoryID=[[self.categoryList objectAtIndex:0] objectForKey:@"ItemCategoryID"];
-            self.netBase.requestType=(RequestType*)BUY_FOODLIST;
-            [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemSaleList" UserID:[[AppManager instance].userId length]>0?[AppManager instance].userId:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"ItemCategoryID":self.itemCategoryID}]];
-        }
     }else{
         if ([[dic objectForKey:@"ResultCode"] integerValue]==0) {
             self.categoryList=[NSMutableArray arrayWithArray:[[dic objectForKey:@"Data"] objectForKey:@"ItemType"]];
@@ -256,8 +258,11 @@
             }
             _farmNameLabel.text=[[dic objectForKey:@"Data"] objectForKey:@"CustomerName"];
             [self.categoryTableView reloadData];
-            self.netBase.requestType=(RequestType*)BUY_CARTLIST;
-            [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetCardItemList" UserID:[AppManager instance].userId Parameters:@{}]];
+            if ([self.categoryList count]>0) {
+                self.itemCategoryID=[[self.categoryList objectAtIndex:0] objectForKey:@"ItemCategoryID"];
+                self.netBase.requestType=(RequestType*)BUY_FOODLIST;
+                [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemSaleList" UserID:[[AppManager instance].userId length]>0?[AppManager instance].userId:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"ItemCategoryID":self.itemCategoryID}]];
+            }
         }
     }
 }
@@ -314,6 +319,16 @@
                 [[cell labelWithTag:10] setTextColor:RGBACOLOR(129, 192, 36, 1)];
             }else{
                 [[cell labelWithTag:10] setTextColor:[UIColor blackColor]];
+            }
+            NSString* categoryID=[[self.categoryList objectAtIndex:indexPath.row] objectForKey:@"ItemCategoryID"];
+            NSInteger succ=[self updateCategoryTableView:categoryID];
+            if (succ>0) {
+                [[cell imageViewWithTag:11] setAlpha:1.0f];
+                [[cell labelWithTag:12] setAlpha:1.0f];
+                [cell setText:[NSString stringWithFormat:@"%d",succ] toLabelWithTag:12];
+            }else{
+                [[cell imageViewWithTag:11] setAlpha:0.0f];
+                [[cell labelWithTag:12] setAlpha:0.0f];
             }
         }else{
             [cell setText:@"" toLabelWithTag:10];
@@ -391,30 +406,36 @@
 {
     if (alertView.tag==LOGIN_TAG) {
         if (buttonIndex==1) {
-//            LoginViewController* login=[[LoginViewController alloc]init];
-//            login.delegate=[UIApplication sharedApplication].delegate;
-//            [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
-            
-            [AppManager instance].isFromHome = YES;
-            LoginViewController* loginVC = [[[LoginViewController alloc] init] autorelease];
-            
-            UINavigationController *vcNav = [[[UINavigationController alloc] initWithRootViewController:loginVC] autorelease];
-            vcNav.navigationBar.tintColor = TITLESTYLE_COLOR;
-            loginVC.delegate = [UIApplication sharedApplication].delegate;
-            
-            [self presentViewController:vcNav animated:YES completion:nil];
+            LoginViewController* login=[[LoginViewController alloc]init];
+            login.delegate=[UIApplication sharedApplication].delegate;
+            [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
         }
     }
 }
 
+
+
 #pragma mark-choose select
+-(NSInteger)updateCategoryTableView:(NSString*)categoryID
+{
+    NSInteger sum=0;
+    for (NSDictionary* d in self.selectList) {
+        //
+        NSString* cID=[d objectForKey:@"CategoryID"];
+        if ([categoryID isEqualToString:cID]) {
+            sum++;
+        }
+    }
+    return sum;
+}
 -(void)updateSelectList:(NSArray*)itemList
 {
     if ([itemList count]>0) {
         for (NSDictionary* d in itemList) {
+            NSString* categoryID=[d objectForKey:@"ItemCategoryId"];
             NSArray* list=[d objectForKey:@"ItemCartList"];
             for (NSDictionary* res in list) {
-                [self.selectList addObject:@{@"ItemId":[res objectForKey:@"ItemId"],@"title":[NSString stringWithFormat:@"%@克",[res objectForKey:@"Weight"]]}];
+                [self.selectList addObject:@{@"ItemId":[res objectForKey:@"ItemId"],@"CategoryID":categoryID,@"title":[NSString stringWithFormat:@"%@克",[res objectForKey:@"Weight"]]}];
             }
         }
         [AppManager instance].cartCount=[self.selectList count];
@@ -548,17 +569,23 @@
                       cell:(UITableViewCell*)cell
 {
 //    UITableViewCell* cell=[self.foodTableView cellForRowAtIndexPath:self.foodIndexPath];
-    [[cell buttonWithTag:12] setBackgroundImage:[UIImage imageNamed:@"farm_dialog.png"] forState:UIControlStateNormal];
-    [[cell buttonWithTag:12] setFrame:CGRectMake(213, 17, 50, 25)];
-    [[cell buttonWithTag:12] setTitle:title forState:UIControlStateNormal];
+    [[cell imageViewWithTag:14] setFrame:CGRectMake(213, 17, 50, 25)];
+    [[cell imageViewWithTag:14] setImage:[UIImage imageNamed:@"farm_dialog.png"]];
+    [[cell labelWithTag:15] setAlpha:1.0f];
+    [cell setText:title toLabelWithTag:15];
+//    [[cell buttonWithTag:12] setFrame:CGRectMake(213, 17, 50, 25)];
+//    [[cell buttonWithTag:12] setTitle:title forState:UIControlStateNormal];
 }
 
 
 -(void)resumeAddWeightButton:(UITableViewCell*)cell
 {
-    [[cell buttonWithTag:12] setBackgroundImage:[UIImage imageNamed:@"farm_add.png"] forState:UIControlStateNormal];
-    [[cell buttonWithTag:12] setFrame:CGRectMake(238, 17, 25, 25)];
-    [[cell buttonWithTag:12] setTitle:@"" forState:UIControlStateNormal];
+    [[cell imageViewWithTag:14] setFrame:CGRectMake(238, 17, 25, 25)];
+    [[cell imageViewWithTag:14] setImage:[UIImage imageNamed:@"farm_add.png"]];
+    [[cell labelWithTag:15] setAlpha:0.0f];
+//    [[cell buttonWithTag:12] setBackgroundImage:[UIImage imageNamed:@"farm_add.png"] forState:UIControlStateNormal];
+//    [[cell buttonWithTag:12] setFrame:CGRectMake(238, 17, 25, 25)];
+//    [[cell buttonWithTag:12] setTitle:@"" forState:UIControlStateNormal];
 }
 
 - (void)addAddressView:(UIView*)superView
@@ -613,6 +640,8 @@
     [super viewDidDisappear:animated];
     _update=NO;
 }
+
+
 
 - (void)dealloc {
     [_farmCategoryCellView release];

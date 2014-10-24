@@ -70,9 +70,18 @@
 - (id)initHomepageWithMOC:(NSManagedObjectContext *)MOC
 {
     self = [super initWithMOCWithoutBackButton:MOC];
+    
     if (self) {
         [CommonMethod getInstance].navigationRootViewController = self;
-        [[AppManager instance] addObserver:self forKeyPath:@"cartCount" options:NSKeyValueObservingOptionNew context:nil];
+        [[AppManager instance] addObserver:self
+                                forKeyPath:@"cartCount"
+                                   options:NSKeyValueObservingOptionNew
+                                   context:nil];
+        
+        [[AppManager instance] addObserver:self
+                                forKeyPath:@"orderCount"
+                                   options:NSKeyValueObservingOptionNew
+                                   context:nil];
     }
     return self;
 }
@@ -93,6 +102,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [[AppManager instance] removeObserver:self forKeyPath:@"cartCount"];
+    [[AppManager instance] removeObserver:self forKeyPath:@"orderCount"];
     
     [super dealloc];
 }
@@ -637,8 +647,17 @@
             if ([AppManager instance].cartCount>0) {
                 [self.tabBar.countView setAlpha:1.0f];
                 self.tabBar.countLab.text=[NSString stringWithFormat:@"%d",[AppManager instance].cartCount];
-            }else{
+            } else {
                 [self.tabBar.countView setAlpha:0.0f];
+            }
+        }
+        
+        if ([keyPath isEqualToString:@"orderCount"]) {
+            if ([AppManager instance].orderCount>0) {
+                [self.tabBar.orderCountView setAlpha:1.0f];
+                self.tabBar.orderCountLab.text=[NSString stringWithFormat:@"%d",[AppManager instance].orderCount];
+            } else {
+                [self.tabBar.orderCountView setAlpha:0.0f];
             }
         }
     }

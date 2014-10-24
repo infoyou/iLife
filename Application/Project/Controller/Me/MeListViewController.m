@@ -102,7 +102,6 @@ enum Head_Control_Type
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self getUserInfo];
     
     userInfo = [[FMDBConnection instance] getUserByUserId:[AppManager instance].userId];
     [self.m_meTableView reloadData];
@@ -698,19 +697,6 @@ enum Head_Control_Type
     [connFacade fetchGets:url];
 }
 
-- (void)getUserInfo
-{
-    
-    NSString *urlStr = [NSString stringWithFormat:@"%@/%@%@", VALUE_API_PREFIX, API_SERVICE_USER, API_MEMBER_INFO];
-    
-    NSString *url = [ProjectAPI getURL:urlStr specialDict:nil];
-    DLog(@"url = %@", url);
-    WXWAsyncConnectorFacade *connFacade = [self setupAsyncConnectorForUrl:url
-                                                              contentType:USER_INFO_TY];
-    
-    [connFacade fetchGets:url];
-}
-
 #pragma mark - ECConnectorDelegate methods
 - (void)connectStarted:(NSString *)url
            contentType:(NSInteger)contentType {
@@ -722,23 +708,6 @@ enum Head_Control_Type
 - (void)connectDone:(NSData *)result url:(NSString *)url contentType:(NSInteger)contentType {
     
     switch (contentType) {
-            
-        case USER_INFO_TY:
-        {
-            NSDictionary *resultDict = [result objectFromJSONData];
-            NSDictionary *dict = OBJ_FROM_DIC(resultDict, @"Data");
-
-            NSString *strMobile = STRING_VALUE_FROM_DIC(dict, @"Mobile");
-            NSString *strAmount = STRING_VALUE_FROM_DIC(dict, @"Amount");
-            
-            userInfo.userTel = strMobile;
-            userInfo.band = strAmount;
-            
-            [[FMDBConnection instance] updateUserObjectDB:userInfo];
-            
-            [self.m_meTableView reloadData];
-        }
-            break;
             
         case UPDATE_VERSION_TY:
         {
