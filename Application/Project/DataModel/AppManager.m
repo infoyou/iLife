@@ -61,6 +61,9 @@
 @synthesize loadUserThread;
 @synthesize updateCache;
 
+@synthesize aliPayStatus;
+@synthesize isFromHome;
+
 @synthesize surveyPassRate;
 @synthesize surveyPassType;
 @synthesize surveyItemTopic;

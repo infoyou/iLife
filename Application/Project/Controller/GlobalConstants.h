@@ -43,6 +43,9 @@
 
 #define UIApplicationDidReceivedRomateNotificationName @"UIApplicationDidReceivedRomateNotificationNotification"
 
+#define ALIPAY_APP_SCHEME             @"iLifeAlipay"
+
+
 #if APP_TYPE == APP_TYPE_EMBA
 #define FORGET_PASSWORD_LINK                     @"http://112.124.68.147:5000/Mobile/RetrievePasswordList.aspx"
 #else
@@ -420,6 +423,7 @@ typedef enum {
     API_ORDER_COMPLETED_LIST_TY,//订单
     API_ORDER_CANCEL_TY,//取消订单
     API_ORDER_PAY_TY,//支付订单
+    API_ORDER_PAY_RESULT_TY,//支付订单
     API_ORDER_EVALUATION_TY,//评价订单
     API_SELLER_PRIORITY_TY,//设为常用卖家
     API_SELLER_BLACK_TY,//拉黑卖家

@@ -84,7 +84,7 @@
 {
     
     NSDictionary* dic=[self JSONValue:object];
-    if ([[dic objectForKey:@"IsSuccess"] integerValue]==1) {
+    if ([[dic objectForKey:@"ResultCode"] integerValue]==0) {
         if (self.netBase.requestType==(RequestType*)BUY_COMMITCART) {
             //
             [self confirmWithMessage:@"订单已经生成" title:@""];
@@ -92,6 +92,7 @@
             [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"RemoveAllItem" UserID:@"004852E9-7AA1-4C3F-97A3-361B8EA96464" Parameters:@{}]];
         }else if (self.netBase.requestType==(RequestType*)BUY_DELETECART){
             self.netBase.requestType=nil;
+            [AppManager instance].cartCount=0;
             [self.navigationController popToRootViewControllerAnimated:YES];
             [self.homeVC selectFirstTabBar];
         }else{

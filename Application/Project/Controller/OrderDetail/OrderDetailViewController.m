@@ -11,6 +11,8 @@
 @synthesize orderId = _orderId;
 @synthesize orderNo = _orderNo;
 @synthesize totalAmount = _totalAmount;
+@synthesize orderCanPay = _orderCanPay;
+@synthesize orderCanCancel = _orderCanCancel;
 @synthesize groupArray = _groupArray;
 @end
 
@@ -283,13 +285,35 @@ enum Button_Evaluation_Tag_Enum
                 payBtn.layer.masksToBounds = YES;
                 payBtn.tag = section * 1000 + BTN_ORDER_PAY_TAG;
                 [payBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-
+                
+                OrderTotal *orderTotal = (OrderTotal *)_orderArray[section];
+                
                 UILabel *orderTitle = (UILabel*)[cell viewWithTag:10];
                 UILabel *totalAmount = (UILabel*)[cell viewWithTag:11];
                 
-                OrderTotal *orderTotal = (OrderTotal *)_orderArray[section];
+                // button enable by order status
                 orderTitle.text = [NSString stringWithFormat:@"订单编号: %@", orderTotal.orderNo];
                 totalAmount.text = [NSString stringWithFormat:@"总计: %@元", orderTotal.totalAmount];
+                
+                // --------- cancel enable start
+                if (![@"1" isEqualToString:orderTotal.orderCanPay]) {
+                    [cancelBtn setBackgroundColor:HEX_COLOR(@"0xbebebe")];
+                    [cancelBtn setEnabled:NO];
+                } else {
+                    [cancelBtn setBackgroundColor:HEX_COLOR(@"0xff9449")];
+                    [cancelBtn setEnabled:YES];
+                }
+                // --------- cancel enable end
+                
+                // --------- pay enable start
+                if (![@"1" isEqualToString:orderTotal.orderCanCancel]) {
+                    [payBtn setBackgroundColor:HEX_COLOR(@"0xbebebe")];
+                    [payBtn setEnabled:NO];
+                } else {
+                    [payBtn setBackgroundColor:HEX_COLOR(@"0xff9449")];
+                    [payBtn setEnabled:YES];
+                }
+                // --------- pay enable end
                 
                 return cell.contentView;
             } else {
@@ -757,7 +781,7 @@ enum Button_Evaluation_Tag_Enum
         OrderTotal *orderTotal = (OrderTotal *)_orderArray[section];
 
         OrderPayViewController *vc =
-        [[[OrderPayViewController alloc] initWithMOC:_MOC totalAmount:orderTotal.totalAmount] autorelease];
+        [[[OrderPayViewController alloc] initWithMOC:_MOC orderNo:orderTotal.orderNo totalAmount:orderTotal.totalAmount orderId:orderTotal.orderId] autorelease];
         
         [CommonMethod pushViewController:vc withAnimated:YES];
     }
@@ -951,6 +975,17 @@ enum Button_Evaluation_Tag_Enum
                     orderTotal.orderId = STRING_VALUE_FROM_DIC(totalDic, @"OrderID");
                     orderTotal.orderNo = STRING_VALUE_FROM_DIC(totalDic, @"OrderNo");
                     orderTotal.totalAmount = STRING_VALUE_FROM_DIC(totalDic, @"Amount");
+                    orderTotal.orderCanPay = [NSString stringWithFormat:@"%d", INT_VALUE_FROM_DIC(totalDic, @"OrderCanPay")];
+                    orderTotal.orderCanCancel = [NSString stringWithFormat:@"%d", INT_VALUE_FROM_DIC(totalDic, @"orderCanCancel")];
+
+                    
+                    if (![orderTotal.orderCanPay length]) {
+                        orderTotal.orderCanPay = @"1";
+                    }
+                    
+                    if (![orderTotal.orderCanCancel length]) {
+                        orderTotal.orderCanCancel = @"1";
+                    }
                     
                     NSArray *orderGroupArray = OBJ_FROM_DIC(totalDic, @"OrderGroup");
                     NSMutableArray *groupArray = [NSMutableArray array];
@@ -975,7 +1010,7 @@ enum Button_Evaluation_Tag_Enum
                             orderDetail.realWeight = STRING_VALUE_FROM_DIC(dic, @"RealWeight");
                             orderDetail.realAmount = STRING_VALUE_FROM_DIC(dic, @"RealAmount");
                             orderDetail.isFirst = isFirst;
-                            orderDetail.orderStatus = STRING_VALUE_FROM_DIC(dic, @"Status");
+                            orderDetail.orderStatus = status;
                             
                             [detailArray addObject:orderDetail];
                             
@@ -1095,6 +1130,7 @@ enum Button_Evaluation_Tag_Enum
     [super connectFailed:error url:url contentType:contentType];
 }
 
+#pragma mark - UIAlertViewDelegate method
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (alertView.tag==LOGIN_TAG) {

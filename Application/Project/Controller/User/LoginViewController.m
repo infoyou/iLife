@@ -70,7 +70,7 @@ typedef enum {
     [super viewDidLoad];
     
     [self.view setBackgroundColor:[UIColor whiteColor]];
-    self.navigationController.navigationBarHidden = YES;
+//    self.navigationController.navigationBarHidden = YES;
 
     self.navigationItem.leftBarButtonItem = BAR_IMG_BUTTON([UIImage imageNamed:@"home_btn1.png"], UIBarButtonItemStyleBordered, self, @selector(menuBtnTapped:));
     
@@ -82,6 +82,17 @@ typedef enum {
     [self setLoginVCBtn];
     
 //    [self initLisentingKeyboard];
+    
+    if ([AppManager instance].isFromHome) {
+
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[ThemeManager shareInstance] getThemeImage:@"button_back.png"] style:UIBarButtonItemStylePlain target:self action:@selector(doClose:)];
+        
+        self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+        
+        [self addRightBarButtonWithTitle:@""
+                                  target:self
+                                  action:nil];
+    }
 }
 
 - (void)setData
@@ -104,10 +115,10 @@ typedef enum {
         _nameField.text = emailStr;
         _passwordField.text = pwdStr;
         _companyField.text = [[AppManager instance].userDefaults customerNameRemembered];
-        [autoBtn setImage:IMAGE_WITH_IMAGE_NAME(@"login_auto_sel") forState:UIControlStateNormal];
+        [autoBtn setImage:IMAGE_WITH_IMAGE_NAME(@"pay_checkBox_sel.png") forState:UIControlStateNormal];
     } else {
         _isAutoLogin = NO;
-        [autoBtn setImage:IMAGE_WITH_IMAGE_NAME(@"login_auto_unsel") forState:UIControlStateNormal];
+        [autoBtn setImage:IMAGE_WITH_IMAGE_NAME(@"pay_checkBox.png") forState:UIControlStateNormal];
     }
     
     [self setData];
@@ -201,28 +212,46 @@ typedef enum {
 - (void)setLoginVCBtn
 {
     
-    UIView *autoView = [[[UIView alloc] initWithFrame:CGRectMake(60, 267.f, 238, 22)] autorelease];
+    UIView *autoView = [[[UIView alloc] initWithFrame:CGRectMake(16, 267.f, 287, 22)] autorelease];
     
-    // auto btn
-//    UIButton *autoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [autoBtn setBackgroundColor:[UIColor clearColor]];
-//    [autoBtn setTag:AUTOLOGIN_TYPE];
-//    [autoBtn setImage:IMAGE_WITH_IMAGE_NAME(@"login_auto_unsel") forState:UIControlStateNormal];
-//    [autoBtn setFrame:CGRectMake(0, 0, 22, 22)];
-//    [autoBtn addTarget:self action:@selector(autoLoginClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [autoView addSubview:autoBtn];
+    {
+        // auto btn
+        UIButton *autoBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [autoBtn setBackgroundColor:[UIColor clearColor]];
+        [autoBtn setTag:AUTOLOGIN_TYPE];
+        [autoBtn setImage:IMAGE_WITH_IMAGE_NAME(@"pay_checkBox.png") forState:UIControlStateNormal];
+        [autoBtn setImage:IMAGE_WITH_IMAGE_NAME(@"pay_checkBox_sel.png") forState:UIControlStateHighlighted];
+        [autoBtn setFrame:CGRectMake(0, 0, 22, 22)];
+        [autoBtn addTarget:self action:@selector(autoLoginClick:) forControlEvents:UIControlEventTouchUpInside];
+        [autoBtn setHighlighted:YES];
+        [autoView addSubview:autoBtn];
+        
+        // auto label
+        WXWLabel *autoLabel = [[WXWLabel alloc] initWithFrame:CGRectMake(25, 0, 120, 22) textColor:HEX_COLOR(@"0x82bf24") shadowColor:TRANSPARENT_COLOR];
+        autoLabel.text = LocaleStringForKey(@"记住账号", nil);
+        autoLabel.font = FONT_SYSTEM_SIZE(14);
+        autoLabel.textAlignment = NSTextAlignmentLeft;
+        
+//        autoLabel.userInteractionEnabled = YES;
+//        UITapGestureRecognizer *tapGesture = [[[UITapGestureRecognizer alloc] initWithTarget:self
+//                                                                                      action:@selector(autoLoginClick:)] autorelease];
+//        [autoLabel addGestureRecognizer:tapGesture];
+        [autoView addSubview:autoLabel];
+    }
     
-    // auto label
-    WXWLabel *autoLabel = [[WXWLabel alloc] initWithFrame:CGRectMake(0, 0, 238, 22) textColor:HEX_COLOR(@"0x82bf24") shadowColor:TRANSPARENT_COLOR];
-    autoLabel.text = LocaleStringForKey(@"忘记密码!", nil);
-    autoLabel.font = FONT_SYSTEM_SIZE(14);
-    autoLabel.textAlignment = NSTextAlignmentRight;
-    
-    autoLabel.userInteractionEnabled = YES;
-    UITapGestureRecognizer *tapGesture = [[[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                  action:@selector(findPasswordClick:)] autorelease];
-    [autoLabel addGestureRecognizer:tapGesture];
-    [autoView addSubview:autoLabel];
+    {
+        // 忘记密码
+        WXWLabel *autoLabel = [[WXWLabel alloc] initWithFrame:CGRectMake(144, 0, 143, 22) textColor:HEX_COLOR(@"0x82bf24") shadowColor:TRANSPARENT_COLOR];
+        autoLabel.text = LocaleStringForKey(@"忘记密码!", nil);
+        autoLabel.font = FONT_SYSTEM_SIZE(14);
+        autoLabel.textAlignment = NSTextAlignmentRight;
+        
+        autoLabel.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tapGesture = [[[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                      action:@selector(findPasswordClick:)] autorelease];
+        [autoLabel addGestureRecognizer:tapGesture];
+        [autoView addSubview:autoLabel];
+    }
     
     [self.view addSubview:autoView];
     
@@ -231,8 +260,8 @@ typedef enum {
         UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [loginBtn setBackgroundColor:[UIColor clearColor]];
         [loginBtn setTag:LOGIN_TYPE];
-        [loginBtn setBackgroundImage:IMAGE_WITH_IMAGE_NAME(@"login_btn") forState:UIControlStateNormal];
-        [loginBtn setBackgroundImage:IMAGE_WITH_IMAGE_NAME(@"login_btn_sel") forState:UIControlStateHighlighted];
+        [loginBtn setBackgroundImage:IMAGE_WITH_IMAGE_NAME(@"login_btn.png") forState:UIControlStateNormal];
+        [loginBtn setBackgroundImage:IMAGE_WITH_IMAGE_NAME(@"login_btn_sel.png") forState:UIControlStateHighlighted];
         [loginBtn setTitle:LocaleStringForKey(NSLoginTitle, nil) forState:UIControlStateNormal];
         [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [loginBtn.titleLabel setFont:[UIFont systemFontOfSize:16]];
@@ -266,10 +295,10 @@ typedef enum {
     if (!_isAutoLogin)
     {
         _isAutoLogin = YES;
-        [autoBtn setImage:IMAGE_WITH_IMAGE_NAME(@"login_auto_sel") forState:UIControlStateNormal];
+        [autoBtn setImage:IMAGE_WITH_IMAGE_NAME(@"pay_checkBox_sel.png") forState:UIControlStateNormal];
     } else {
         _isAutoLogin = NO;
-        [autoBtn setImage:IMAGE_WITH_IMAGE_NAME(@"login_auto_unsel") forState:UIControlStateNormal];
+        [autoBtn setImage:IMAGE_WITH_IMAGE_NAME(@"pay_checkBox.png") forState:UIControlStateNormal];
     }
 }
 
@@ -655,6 +684,10 @@ typedef enum {
         {
             [self.delegate loginSuccessfull:self];
             
+            if ([AppManager instance].isFromHome) {
+                [self doClose:nil];
+                [AppManager instance].isFromHome = NO;
+            }
             break;
         }
             
@@ -712,7 +745,6 @@ typedef enum {
                     } else {
                         [[AppManager instance].userDefaults rememberUsername:_nameField.text andPassword:_passwordField.text pswdStr:_passwordField.text customerName:_passwordField.text userId:[AppManager instance].userId];
                     }
-                    
                     
                     // AppManage
                     [AppManager instance].userId = [dict objectForKey:@"VipID"];
@@ -912,6 +944,13 @@ typedef enum {
     }
     
     return YES;
+}
+
+#pragma mark - action
+- (void)doClose:(id)sender {
+    
+    [WXWUIUtils closeActivityView];
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end

@@ -45,6 +45,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
+    [MBProgressHUD showMessag:@"刷新购物车" toView:self.view];
     [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetCardItemList" UserID:[AppManager instance].userId Parameters:@{}]];
     
 }
@@ -84,15 +85,17 @@
     NSDictionary* dic=[self JSONValue:object];
     if (self.netBase.requestType==(RequestType*)BUY_DELETECART) {
         //
-        if ([[dic objectForKey:@"IsSuccess"] integerValue]==1) {
+        if ([[dic objectForKey:@"ResultCode"] integerValue]==0) {
             [[[self.foodList objectAtIndex:self.deleteIndexPath.section] objectForKey:@"ItemCartList"] removeObjectAtIndex:self.deleteIndexPath.row];
 //            [self.foodList removeObjectAtIndex:self.deleteIndexPath.row];
             [self.tableView reloadData];
             [self showtotalPrice];
+            [AppManager instance].updateCache=YES;
+            [AppManager instance].cartCount-=1;
         }
         self.netBase.requestType=nil;
     }else{
-        if ([[dic objectForKey:@"IsSuccess"] integerValue]==1) {
+        if ([[dic objectForKey:@"ResultCode"] integerValue]==0) {
             if ([[[dic objectForKey:@"Data"] objectForKey:@"ItemList"] isEqual:[NSNull null]]||[[dic objectForKey:@"Data"] objectForKey:@"ItemList"]==nil) {
                 self.foodList=[NSMutableArray arrayWithArray:[NSArray array]];
             }else{
@@ -102,11 +105,13 @@
             [self showtotalPrice];
         }
     }
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
 
     
 }
 
 -(void)handleRequestFailedData:(NSError *)error{
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     self.netBase.requestType=nil;
 }
 
@@ -164,10 +169,6 @@
 #pragma mark-setup Button Action
 -(void)handleCommit
 {
-//    if ([self.foodList count]>0) {
-//        self.netBase.requestType=(RequestType*)BUY_COMMITCART;
-//        [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"SubmitDeliveryOrder" UserID:@"004852E9-7AA1-4C3F-97A3-361B8EA96464" Parameters:@{@"TimeID":@"2245555555555555",@"ItemList":@[@{@"SKUId":@"104081001",@"Weight":@"200"}]}]];
-//    }
     if ([self.foodList count]>0) {
         ShoppingTimeViewController* time=[[ShoppingTimeViewController alloc]initWithNibName:@"ShoppingTimeViewController" bundle:nil];
         [self setFoodParam];
@@ -177,12 +178,8 @@
         time.foodParam=self.foodParam;
         [CommonMethod pushViewController:time withAnimated:NO];
     }else{
-        [self confirmWithMessage:@"空订单，请先去逛菜场" title:@""];
+        [self confirmWithMessage:@"请到逛菜场选择商品后进行下单" title:@""];
     }
-   
-//    [self.foodParam removeAllObjects];
-//    self.foodParam=[[NSMutableArray alloc]initWithArray:@[@{@"SKUId":@"104081001",@"Weight":@"200"}]];
-//    [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"SubmitDeliveryOrder" UserID:@"004852E9-7AA1-4C3F-97A3-361B8EA96464" Parameters:@{@"TimeID":@"2245555555555555",@"ItemList":self.foodParam}]];
 }
 
 
@@ -196,6 +193,7 @@
     self.deleteIndexPath=[_tableView indexPathForCell:(UITableViewCell*)view];
     NSString* SkuId=[[[[self.foodList objectAtIndex:self.deleteIndexPath.section] objectForKey:@"ItemCartList"] objectAtIndex:self.deleteIndexPath.row] objectForKey:@"SkuId"];
 //    SkuId=@"1040081044"; //后期需要注释掉
+    [MBProgressHUD showMessag:@"正在删除..." toView:self.view];
     self.netBase.requestType=(RequestType*)BUY_DELETECART;
     [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"RemoveItem" UserID:[AppManager instance].userId Parameters:@{@"SkuId":SkuId}]];
 }

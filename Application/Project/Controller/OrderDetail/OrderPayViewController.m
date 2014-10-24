@@ -14,9 +14,13 @@
     int tableHeight;
     int selIndex;
     BOOL checkFlag;
+    
+    int payStep;
 }
 
 @property (nonatomic, copy) NSString *totalAmountStr;
+@property (nonatomic, copy) NSString *orderId;
+@property (nonatomic, copy) NSString *orderNo;
 
 @end
 
@@ -26,8 +30,10 @@
 }
 
 @synthesize totalAmountStr = _totalAmountStr;
+@synthesize orderNo = _orderNo;
+@synthesize orderId = _orderId;
 
-- (id)initWithMOC:(NSManagedObjectContext *)MOC totalAmount:(NSString *)totalAmount
+- (id)initWithMOC:(NSManagedObjectContext *)MOC orderNo:(NSString *)orderNo totalAmount:(NSString *)totalAmount orderId:(NSString*)orderId
 {
     
     self = [super initNoNeedDisplayEmptyMessageTableWithMOC:MOC
@@ -38,6 +44,7 @@
         tableHeight = 170;
         selIndex = 0;
         _totalAmountStr = totalAmount;
+        _orderNo = orderNo;
     }
     
     return self;
@@ -267,7 +274,6 @@
     int tagValue = view.tag;
     DLog(@"%d is touched",tagValue);
     
-
     if (tagValue == 101 || tagValue == 102) {
        
         UIImageView *checkImgView = (UIImageView *)[mImgCacheDic objectForKey:@"102"];
@@ -281,22 +287,38 @@
     }
 }
 
-#pragma mark - btn Click pay
-- (IBAction)btnClick:(id)send
+#pragma mark - doServerPay
+// orderStep 1，预支付; 2,支付后再次调用
+// payResult 1，成功调用; 2,支付失败
+- (void)doServerPay:(NSString*)orderStep payResult:(NSString*)payResult
 {
     
-    // add notify
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handlePayResultStatus)
-                                                 name:NOTIFY_PAY_RESULT_STATUS
-                                               object:nil];
+    payStep = [orderStep intValue];
     
+    NSMutableDictionary *specialDict = [NSMutableDictionary dictionary];
+    [specialDict setValue:_orderId forKey:@"OrderID"];
+    [specialDict setValue:_totalAmountStr forKey:@"Amount"];
+    [specialDict setValue:@"1" forKey:@"PayTypeID"];
+    [specialDict setValue:orderStep forKey:@"PayOrderStep"];
+    [specialDict setValue:@"0" forKey:@"AmountUsed"];
+    [specialDict setValue:payResult forKey:@"PayResult"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/%@%@", VALUE_API_PREFIX, API_SERVICE_USER, API_ORDER_PAY];
+    NSString *url = [ProjectAPI getURL:urlStr specialDict:specialDict];
+    DLog(@"url = %@", url);
+    WXWAsyncConnectorFacade *connFacade = [self setupAsyncConnectorForUrl:url
+                                                              contentType:API_ORDER_PAY_TY];
+    
+    [connFacade fetchGets:url];
+}
+
+- (void)doAlipay
+{
     /*
      *生成订单信息及签名
      *由于demo的局限性，采用了将私钥放在本地签名的方法，商户可以根据自身情况选择签名方法(为安全起见，在条件允许的前提下，我们推荐从商户服务器获取完整的订单信息)
      */
     
-    NSString *appScheme = @"iLifeAlipay";
     NSString* orderInfo = [self getOrderInfo];
     NSString* signedStr = [self doRsa:orderInfo];
     
@@ -305,7 +327,39 @@
     NSString *orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
                              orderInfo, signedStr, @"RSA"];
     
-    [AlixLibService payOrder:orderString AndScheme:appScheme seletor:@selector(paymentResult:) target:self];
+    [AlixLibService payOrder:orderString AndScheme:ALIPAY_APP_SCHEME seletor:@selector(paymentResult:) target:self];
+}
+
+- (NSString*)doWebRsa
+{
+    NSString *orderNoStr = [NSString stringWithFormat:@"订单:%@", _orderNo];
+    
+    NSString *url = [NSString stringWithFormat:@"%@/AliPay/CreateAliPayUrl.aspx?out_trade_no=%@&subject=%@&body=%@&total_fee=%@", VALUE_API_IP, _orderNo, orderNoStr, orderNoStr, _totalAmountStr];
+    
+    DLog(@"url = %@", url);
+    WXWAsyncConnectorFacade *connFacade = [self setupAsyncConnectorForUrl:url
+                                                              contentType:API_ORDER_PAY_RESULT_TY];
+    
+    [connFacade fetchGets:url];
+}
+
+#pragma mark - btn Click pay
+- (IBAction)btnClick:(id)send
+{
+    
+    if ([_totalAmountStr floatValue] > 0) {
+
+        // add notify
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(handlePayResultStatus)
+                                                     name:NOTIFY_PAY_RESULT_STATUS
+                                                   object:nil];
+        [self doServerPay:@"1" payResult:@"1"];
+    } else {
+        ShowAlert(self, NSLocalizedString(NSNoteTitle, nil), @"支付金额必须大于0.", NSLocalizedString(NSSureTitle, nil));
+    }
+    
+
 }
 
 - (NSString*)getOrderInfo
@@ -315,8 +369,10 @@
     order.seller = SellerID;
     
     order.tradeNO = [self generateTradeNO]; //订单ID（由商家自行制定）
-    order.productName = @"商品标题";
-    order.productDescription = @"商品描述";
+    NSString *orderNoStr = [NSString stringWithFormat:@"订单:%@", _orderNo];
+    
+    order.productName = orderNoStr; //@"商品标题";
+    order.productDescription = orderNoStr; //@"商品描述";
     order.amount = _totalAmountStr;
 //    [NSString stringWithFormat:@"%.2f", product.price]; //商品价格
     order.notifyURL =  @"http%3A%2F%2Fwwww.xxx.com"; //回调URL
@@ -362,6 +418,9 @@
 #else
     AlixPayResult* result = [[AlixPayResult alloc] initWithString:resultd];
 #endif
+    
+    [AppManager instance].aliPayStatus = NO;
+    
     if (result)
     {
         
@@ -379,8 +438,7 @@
             if ([verifier verifyString:result.resultString withSign:result.signString])
             {
                 //验证签名成功，交易结果无篡改
-                
-                ShowAlert(self, NSLocalizedString(NSNoteTitle, nil), @"支付成功\n货物将在18:30-19:00送达\n请注意查收", NSLocalizedString(NSSureTitle, nil));
+                [AppManager instance].aliPayStatus = YES;
             }
         } else {
             //交易失败
@@ -395,7 +453,85 @@
 {
     NSLog(@"handlePayResultStatus");
     
+    if (![AppManager instance].aliPayStatus) {
+        [self doServerPay:@"2" payResult:@"2"];
+    } else {
+        [self doServerPay:@"2" payResult:@"1"];
+    }
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFY_PAY_RESULT_STATUS object:nil];
+}
+
+#pragma mark - ECConnectorDelegate methods
+- (void)connectStarted:(NSString *)url
+           contentType:(NSInteger)contentType {
+    [self showAsyncLoadingView:LocaleStringForKey(NSLoadingTitle, nil) blockCurrentView:YES];
+    
+    [super connectStarted:url contentType:contentType];
+}
+
+- (void)connectDone:(NSData *)result url:(NSString *)url contentType:(NSInteger)contentType {
+    
+    switch (contentType) {
+            
+        case API_ORDER_PAY_RESULT_TY:
+        {
+            NSString *orderString = [[NSString alloc] initWithData:result  encoding:NSUTF8StringEncoding];
+//            NSString *orderString = [result objectFromJSONData];
+            
+            if (![@"false" isEqualToString:orderString]) {
+                
+                [AlixLibService payOrder:orderString AndScheme:ALIPAY_APP_SCHEME seletor:@selector(paymentResult:) target:self];
+            }
+        }
+            break;
+            
+        case API_ORDER_PAY_TY:
+        {
+            ConnectionAndParserResultCode ret = [JSONParser parserResponseJsonData:result
+                                                                              type:contentType
+                                                                               MOC:_MOC
+                                                                 connectorDelegate:self
+                                                                               url:url
+                                                                           paramID:0];
+            
+            if (ret == SUCCESS_CODE) {
+            
+                if (payStep == 1) {
+                    [self doWebRsa];
+                } else {
+                    if ([AppManager instance].aliPayStatus) {
+                        
+                        ShowAlert(self, NSLocalizedString(NSNoteTitle, nil), @"支付成功\n货物将在18:30-19:00送达\n请注意查收", NSLocalizedString(NSSureTitle, nil));
+                    }
+                }
+            }
+            
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
+    [self closeAsyncLoadingView];
+}
+
+- (void)connectCancelled:(NSString *)url
+             contentType:(NSInteger)contentType {
+    
+    [super connectCancelled:url contentType:contentType];
+}
+
+- (void)connectFailed:(NSError *)error
+                  url:(NSString *)url
+          contentType:(NSInteger)contentType {
+    
+    if ([self connectionMessageIsEmpty:error]) {
+        self.connectionErrorMsg = LocaleStringForKey(NSActionFaildMsg, nil);
+    }
+    
+    [super connectFailed:error url:url contentType:contentType];
 }
 
 @end

@@ -887,7 +887,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                     (self.connDic)[url] = connector;
                     
                     [connector asyncGet:url showAlertMsg:_showAlert];
-                    
                 }
             }
         }

@@ -26,6 +26,9 @@
     id<TabDelegate> _delegate;
 }
 
+@property(nonatomic,retain)UIView* countView;
+@property(nonatomic,retain)UILabel* countLab;
+
 - (id)initWithFrame:(CGRect)frame delegate:(id<TabDelegate>)delegate;
 
 - (void)refreshBadges;

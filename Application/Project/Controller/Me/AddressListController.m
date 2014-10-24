@@ -16,7 +16,7 @@
 @synthesize addressId = _addressId;
 @synthesize addressReceiver = _addressReceiver;
 @synthesize receiverMobile = _receiverMobile;
-@synthesize addressCity = _addressCity;
+@synthesize addressCity = _addressCity;   
 @synthesize addressArea = _addressArea;
 @synthesize addressName = _addressName;
 @synthesize addressIsDefault = _addressIsDefault;
@@ -340,6 +340,7 @@
         case SET_DEFAULT_ADDRESS_TY:
         {
             [_storeTable reloadData];
+            [AppManager instance].updateCache=YES;
             break;
         }
             

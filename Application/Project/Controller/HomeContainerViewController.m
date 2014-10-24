@@ -70,6 +70,7 @@
     self = [super initWithMOCWithoutBackButton:MOC];
     if (self) {
         [CommonMethod getInstance].navigationRootViewController = self;
+        [[AppManager instance] addObserver:self forKeyPath:@"cartCount" options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;
 }
@@ -88,6 +89,8 @@
     [_meTypeVC release];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [[AppManager instance] removeObserver:self forKeyPath:@"cartCount"];
     
     [super dealloc];
 }
@@ -444,17 +447,20 @@
 
 - (void)goLogin
 {
-    self.navigationItem.rightBarButtonItems = nil;
-    self.navigationItem.rightBarButtonItem = nil;
+//    self.navigationItem.rightBarButtonItems = nil;
+//    self.navigationItem.rightBarButtonItem = nil;
     
-    LoginViewController* loginVC =[[LoginViewController alloc] init];
+    [AppManager instance].isFromHome = YES;
     
-//    UINavigationController *vcNav = [[[UINavigationController alloc] initWithRootViewController:loginVC] autorelease];
-//    vcNav.navigationBar.tintColor = TITLESTYLE_COLOR;
-//    [self presentViewController:vcNav animated:YES completion:nil];
+    LoginViewController* loginVC = [[[LoginViewController alloc] init] autorelease];
     
+    UINavigationController *vcNav = [[[UINavigationController alloc] initWithRootViewController:loginVC] autorelease];
+    vcNav.navigationBar.tintColor = TITLESTYLE_COLOR;
     loginVC.delegate = [UIApplication sharedApplication].delegate;
-    [[[UIApplication sharedApplication].delegate window] setRootViewController:loginVC];
+    
+    [self presentViewController:vcNav animated:YES completion:nil];
+    
+//    [[[UIApplication sharedApplication].delegate window] setRootViewController:loginVC];
 }
 
 - (void)goProfile
@@ -578,13 +584,7 @@
 //    {"aps":{"alert":"This is Test message.", "sound":"notify.wav", "badge":2,"type":"1"}}
     
     NSDictionary *notifyDict = OBJ_FROM_DIC([AppManager instance].notifyDataDict, @"aps");
-    NSString *typeStr = STRING_VALUE_FROM_DIC(notifyDict, @"type");
-    
-    int typeVal = 0;
-    
-    if (typeStr && typeStr.length > 0) {
-        typeVal = [typeStr intValue];
-    }
+    int typeVal = INT_VALUE_FROM_DIC(notifyDict, @"type");
     
     switch (typeVal) {
         case 0:
@@ -609,6 +609,21 @@
         default:
             break;
     }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (object == [AppManager instance]) {
+        if ([keyPath isEqualToString:@"cartCount"]) {
+            if ([AppManager instance].cartCount>0) {
+                [self.tabBar.countView setAlpha:1.0f];
+                self.tabBar.countLab.text=[NSString stringWithFormat:@"%d",[AppManager instance].cartCount];
+            }else{
+                [self.tabBar.countView setAlpha:0.0f];
+            }
+        }
+    }
+    
 }
 
 @end

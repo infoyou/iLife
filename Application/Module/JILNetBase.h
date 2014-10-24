@@ -23,7 +23,7 @@ typedef enum{
 
 @end
 
-typedef enum{
+typedef enum {
     BUY_FOODLIST=1,
     BUY_PUTINCART=2,
     BUY_DELETECART=3,
@@ -32,6 +32,7 @@ typedef enum{
     BUY_CITY=6,
     BUY_DISTRICT=7,
     BUY_COMMUNITY=8,
+    BUY_CARTLIST=9
 } RequestType;
 
 @interface JILNetBase : NSObject

@@ -88,7 +88,11 @@
 @property (nonatomic, assign) BOOL isLoadAllUserDataDone;
 @property (nonatomic, retain) LoadUserThread *loadUserThread;
 
-@property (nonatomic, assign) BOOL updateCache;
+@property (nonatomic) BOOL updateCache;
+@property (nonatomic) NSInteger cartCount;
+
+@property (nonatomic, assign) BOOL aliPayStatus;
+@property (nonatomic, assign) BOOL isFromHome;
 
 + (AppManager *)instance;
 

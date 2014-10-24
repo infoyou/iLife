@@ -18,7 +18,7 @@ typedef enum{
     ADDRESS_CELL_USER_TAG = 100,
     ADDRESS_CELL_MOBILE_TAG,
     ADDRESS_CELL_NAME_TAG,
-    
+    ADDRESS_CELL_DETAIL_TAG,
     ADDRESS_CELL_ACTION_TAG,
     ADDRESS_CELL_BTN_TAG,
     ADDRESS_CELL_DELBTN_TAG
@@ -43,19 +43,23 @@ typedef enum{
 {
 
     float xGap = 10.f;
-    float yGap = 17.f;
+    float yGap = 10.f;
     
-    CGRect userRect = CGRectMake(xGap, yGap, 70, 15);
-    UILabel *userLbl =[InformationDefault createLblWithFrame:userRect withTextColor:[UIColor blackColor] withFont:[UIFont systemFontOfSize:15] withTag:ADDRESS_CELL_USER_TAG];
+    CGRect userRect = CGRectMake(xGap, yGap, 70, 15);   //接收人名字
+    UILabel *userLbl =[InformationDefault createLblWithFrame:userRect withTextColor:[UIColor blackColor] withFont:[UIFont systemFontOfSize:14] withTag:ADDRESS_CELL_USER_TAG];
     [self addSubview:userLbl];
     
-    CGRect mobileRect = CGRectMake(88, yGap, 150, 15);
-    UILabel *mobileLbl =[InformationDefault createLblWithFrame:mobileRect withTextColor:[UIColor blackColor] withFont:[UIFont systemFontOfSize:15] withTag:ADDRESS_CELL_MOBILE_TAG];
+    CGRect mobileRect = CGRectMake(95, yGap, 150, 15);
+    UILabel *mobileLbl =[InformationDefault createLblWithFrame:mobileRect withTextColor:[UIColor blackColor] withFont:[UIFont systemFontOfSize:14] withTag:ADDRESS_CELL_MOBILE_TAG];
     [self addSubview:mobileLbl];
     
-    CGRect nameRect = CGRectMake(xGap, 44, 233, 15);
-    UILabel *nameLbl =[InformationDefault createLblWithFrame:nameRect withTextColor:[UIColor blackColor] withFont:[UIFont systemFontOfSize:15] withTag:ADDRESS_CELL_NAME_TAG];
+    CGRect nameRect = CGRectMake(xGap, 33, 233, 15);
+    UILabel *nameLbl =[InformationDefault createLblWithFrame:nameRect withTextColor:[UIColor blackColor] withFont:[UIFont systemFontOfSize:14] withTag:ADDRESS_CELL_NAME_TAG];
     [self addSubview:nameLbl];
+    
+    CGRect detailNameRect = CGRectMake(xGap, 56, 233, 15);
+    UILabel *detailnameLbl =[InformationDefault createLblWithFrame:detailNameRect withTextColor:[UIColor blackColor] withFont:[UIFont systemFontOfSize:14] withTag:ADDRESS_CELL_DETAIL_TAG];
+    [self addSubview:detailnameLbl];
     
     CGRect actionRect = CGRectMake(279, 32.0, 30, 15);
     UILabel *actionLbl = [InformationDefault createLblWithFrame:actionRect withTextColor:[UIColor colorWithHexString:@"0x82bf24"] withFont:[UIFont systemFontOfSize:15] withTag:ADDRESS_CELL_ACTION_TAG];
@@ -66,7 +70,7 @@ typedef enum{
 //    [defaultButton setBackgroundImage:[CommonMethod createImageWithColor:[UIColor colorWithHexString:@"0x333333"]] forState:UIControlStateNormal];
     [defaultButton addTarget:self action:@selector(doDefaultButton:) forControlEvents:UIControlEventTouchUpInside];
     defaultButton.tag = ADDRESS_CELL_BTN_TAG;
-    defaultButton.frame = CGRectMake(242, 10, 68, 25);
+    defaultButton.frame = CGRectMake(242, 12, 68, 22);
     [defaultButton setTitleColor:HEX_COLOR(@"0xffffff") forState:UIControlStateNormal];
     defaultButton.titleLabel.font = [UIFont systemFontOfSize:14.0];
     [defaultButton setTitle:LocaleStringForKey(@"设为默认", nil) forState:UIControlStateNormal];
@@ -80,7 +84,7 @@ typedef enum{
     [deleteButton setBackgroundColor:[UIColor colorWithHexString:@"0x82bf24"]];
     [deleteButton addTarget:self action:@selector(delAddressButton:) forControlEvents:UIControlEventTouchUpInside];
     deleteButton.tag = ADDRESS_CELL_DELBTN_TAG;
-    deleteButton.frame = CGRectMake(242, 40, 68, 25);
+    deleteButton.frame = CGRectMake(242, 41, 68, 22);
     [deleteButton setTitleColor:HEX_COLOR(@"0xffffff") forState:UIControlStateNormal];
     deleteButton.titleLabel.font = [UIFont systemFontOfSize:14.0];
     [deleteButton setTitle:LocaleStringForKey(@"删除地址", nil) forState:UIControlStateNormal];
@@ -96,13 +100,15 @@ typedef enum{
     UILabel *userLbl =  (UILabel *)[self viewWithTag:ADDRESS_CELL_USER_TAG];
     UILabel *mobileLbl = (UILabel *)[self viewWithTag:ADDRESS_CELL_MOBILE_TAG];
     UILabel *nameLbl =   (UILabel *)[self viewWithTag:ADDRESS_CELL_NAME_TAG];
+    UILabel *detailNameLbl = (UILabel *)[self viewWithTag:ADDRESS_CELL_DETAIL_TAG];
     UILabel *actionLbl =  (UILabel *)[self viewWithTag:ADDRESS_CELL_ACTION_TAG];
     UIButton *userButton =  (UIButton *)[self viewWithTag:ADDRESS_CELL_BTN_TAG];
     UIButton *delButton = (UIButton *)[self viewWithTag:ADDRESS_CELL_DELBTN_TAG];
     
     [userLbl  setText:addressItem.addressReceiver];
     [mobileLbl setText:addressItem.receiverMobile];
-    [nameLbl   setText:addressItem.addressName];
+    [nameLbl   setText:[NSString stringWithFormat:@"地址:%@%@%@",addressItem.addressCity,addressItem.addressArea,addressItem.addressName]];
+    [detailNameLbl setText:[NSString stringWithFormat:@"详细:%@",addressItem.addressIsDefault]];
     
     if (!showButFlag) {
         delButton.hidden = YES;
@@ -125,6 +131,7 @@ typedef enum{
 - (void)doDefaultButton:(id)action
 {
     [self.delegate clickAddressBtn:self];
+    
 }
 
 - (void)delAddressButton:(UIButton*)sender

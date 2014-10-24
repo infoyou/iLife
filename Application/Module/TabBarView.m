@@ -347,11 +347,30 @@
         
         [self.tabItemList addObject:item];
     }
+    
+    
+    self.countView=[[UIView alloc]initWithFrame:CGRectMake(130, 3, 15, 15)];
+    [self addSubview:self.countView];
+    UIImageView* ImgView=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 15, 15)];
+    ImgView.image=[UIImage imageNamed:@"Farm_circle.png"];
+    [self.countView addSubview:ImgView];
+    
+    self.countLab=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 15, 15)];
+    [self.countLab setBackgroundColor:[UIColor clearColor]];
+    [self.countLab setFont:[UIFont systemFontOfSize:10.0f]];
+    [self.countLab setTextAlignment:NSTextAlignmentCenter];
+    [self.countLab setTextColor:[UIColor whiteColor]];
+    self.countLab.text=@"0";
+    [self.countView addSubview:self.countLab];
+    
+    self.countView.alpha=0.0f;
+
 }
 
 #pragma mark - lifecycle methods
 
 - (void)addShadow {
+    
     UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:self.bounds];
     self.layer.shadowPath = shadowPath.CGPath;
     self.layer.shadowRadius = 1.0f;
@@ -388,7 +407,6 @@
         // [self initSelectedIndicator];
         
         UIView *lineView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 0.5)] autorelease];
-        [lineView setBackgroundColor:[UIColor redColor]];
         [lineView setBackgroundColor:[UIColor colorWithHexString:@"0xb3b3b3"]];
         [self addSubview:lineView];
     }

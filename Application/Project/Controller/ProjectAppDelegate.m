@@ -33,6 +33,8 @@
 
 #import "DirectionMPMoviePlayerViewController.h"
 
+#import "AlixPayResult.h"
+
 @interface ProjectAppDelegate () <CurrentLoginVCDelegate, WXApiDelegate>
 
 @property (nonatomic, retain) BaseNavigationController *homeNC;
@@ -407,6 +409,12 @@
 
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+
+    if( [[url absoluteString] hasPrefix:ALIPAY_APP_SCHEME] )
+    {
+        [self parse:url application:application];
+        return YES;
+    }
     return [WXApi handleOpenURL:url delegate:self];
 }
 
@@ -596,6 +604,67 @@ finish:
 - (void)printLog:(NSString*)log
 {
     DLog(@"Debug %@",log); //用于xcode日志输出
+}
+
+- (void)parse:(NSURL *)url application:(UIApplication *)application {
+    
+    //结果处理
+    AlixPayResult* result = [self handleOpenURL:url];
+    
+    [AppManager instance].aliPayStatus = NO;
+    
+    if (result)
+    {
+        
+        if (result.statusCode == 9000)
+        {
+            /*
+             *用公钥验证签名 严格验证请使用result.resultString与result.signString验签
+             */
+            
+            //交易成功
+            //            NSString* key = @"签约帐户后获取到的支付宝公钥";
+            //			id<DataVerifier> verifier;
+            //            verifier = CreateRSADataVerifier(key);
+            //
+            //			if ([verifier verifyString:result.resultString withSign:result.signString])
+            //            {
+            //                //验证签名成功，交易结果无篡改
+            //			}
+            [AppManager instance].aliPayStatus = YES;
+        }
+        else
+        {
+            //交易失败
+        }
+    }
+    else
+    {
+        //失败
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_PAY_RESULT_STATUS
+                                                        object:self
+                                                      userInfo:nil];
+}
+
+- (AlixPayResult *)resultFromURL:(NSURL *)url {
+    NSString * query = [[url query] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+#if ! __has_feature(objc_arc)
+    return [[[AlixPayResult alloc] initWithString:query] autorelease];
+#else
+    return [[AlixPayResult alloc] initWithString:query];
+#endif
+}
+
+- (AlixPayResult *)handleOpenURL:(NSURL *)url {
+    AlixPayResult * result = nil;
+    
+    if (url != nil && [[url host] compare:@"safepay"] == 0) {
+        result = [self resultFromURL:url];
+    }
+    
+    return result;
 }
 
 @end

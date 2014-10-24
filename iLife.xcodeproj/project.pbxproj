@@ -777,6 +777,8 @@
 		CEA67A2A19EFAAB1004CA7BA /* UISelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA67A0C19EFAAB1004CA7BA /* UISelectCell.m */; };
 		CEA67A2B19EFAAB1004CA7BA /* VideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA67A0E19EFAAB1004CA7BA /* VideoView.m */; };
 		CEA67A2C19EFAAB1004CA7BA /* vm_crypto.m in Sources */ = {isa = PBXBuildFile; fileRef = CEA67A1019EFAAB1004CA7BA /* vm_crypto.m */; };
+		CEBFC01619F90393006901D3 /* Farm_circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEBFC01419F90393006901D3 /* Farm_circle@2x.png */; };
+		CEBFC01719F90393006901D3 /* Farm_circle.png in Resources */ = {isa = PBXBuildFile; fileRef = CEBFC01519F90393006901D3 /* Farm_circle.png */; };
 		CEC7BBDC182BACA1002031CE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC7BBDB182BACA1002031CE /* CFNetwork.framework */; };
 		CECB250E191CB93600D07CA0 /* BasicMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = CECB250B191CB93600D07CA0 /* BasicMapAnnotation.m */; };
 		CECB250F191CB93600D07CA0 /* MMLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CECB250D191CB93600D07CA0 /* MMLocationManager.m */; };
@@ -2169,6 +2171,8 @@
 		CEA67A0F19EFAAB1004CA7BA /* vm_crypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vm_crypto.h; sourceTree = "<group>"; };
 		CEA67A1019EFAAB1004CA7BA /* vm_crypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vm_crypto.m; sourceTree = "<group>"; };
 		CEA67A2D19EFAB6E004CA7BA /* PartnerConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartnerConfig.h; sourceTree = "<group>"; };
+		CEBFC01419F90393006901D3 /* Farm_circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Farm_circle@2x.png"; sourceTree = "<group>"; };
+		CEBFC01519F90393006901D3 /* Farm_circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Farm_circle.png; sourceTree = "<group>"; };
 		CEC7BBDB182BACA1002031CE /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		CECB250A191CB93600D07CA0 /* BasicMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicMapAnnotation.h; sourceTree = "<group>"; };
 		CECB250B191CB93600D07CA0 /* BasicMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicMapAnnotation.m; sourceTree = "<group>"; };
@@ -4525,6 +4529,8 @@
 		CE01C0ED19C80B5E00354F77 /* Farm */ = {
 			isa = PBXGroup;
 			children = (
+				CEBFC01419F90393006901D3 /* Farm_circle@2x.png */,
+				CEBFC01519F90393006901D3 /* Farm_circle.png */,
 				CE0D58B719F5F80700EBCA7C /* farm_address_select.png */,
 				CE0D58B819F5F80700EBCA7C /* farm_address_select@2x.png */,
 				CE0D58B919F5F80700EBCA7C /* farm_close.png */,
@@ -4989,6 +4995,7 @@
 				66D4C2AC19B700B900E755AC /* PlatNotifyDetailViewController.xib in Resources */,
 				6689C5A6195010320059CB69 /* check_no.png in Resources */,
 				CE01C3D919C8330C00354F77 /* farm_dialog.png in Resources */,
+				CEBFC01619F90393006901D3 /* Farm_circle@2x.png in Resources */,
 				66FB562419C18F1E003CF123 /* login_regist.png in Resources */,
 				6689C5BC195010320059CB69 /* write.png in Resources */,
 				CE0D58BB19F5F80700EBCA7C /* farm_address_select.png in Resources */,
@@ -5054,6 +5061,7 @@
 				66FB563119C19166003CF123 /* RegistViewController.xib in Resources */,
 				CE0D58CA19F5F81300EBCA7C /* shoppingcart_square_green@2x.png in Resources */,
 				CE0D58CC19F5F81300EBCA7C /* shoppingcart_square_yellow@2x.png in Resources */,
+				CEBFC01719F90393006901D3 /* Farm_circle.png in Resources */,
 				66E1043A19D4F8F900309161 /* shareSMS.png in Resources */,
 				6689C5BD195010320059CB69 /* write@2x.png in Resources */,
 				CE01C3D219C82A3600354F77 /* FarmFoodCell.xib in Resources */,
