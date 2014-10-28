@@ -140,12 +140,16 @@
         NSArray* nib=[[NSBundle mainBundle] loadNibNamed:@"ShoppongCartCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
+    
     NSDictionary* dic=[[[self.foodList objectAtIndex:indexPath.section] objectForKey:@"ItemCartList"] objectAtIndex:indexPath.row];
     [cell setText:[dic objectForKey:@"ItemName"] toLabelWithTag:10];
     [cell setText:[NSString stringWithFormat:@"%.2f元/500克",[[dic objectForKey:@"Price"] floatValue]] toLabelWithTag:11];
     [cell setText:[NSString stringWithFormat:@"%d克",[[dic objectForKey:@"Weight"] integerValue]] toLabelWithTag:12];
 
     [cell setText:[NSString stringWithFormat:@"金额%.2f元",[[dic objectForKey:@"Amount"] floatValue]] toLabelWithTag:13];
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return cell;
 }
 

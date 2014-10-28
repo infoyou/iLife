@@ -107,8 +107,8 @@ typedef enum{
     
     [userLbl  setText:addressItem.addressReceiver];
     [mobileLbl setText:addressItem.receiverMobile];
-    [nameLbl   setText:[NSString stringWithFormat:@"地址:%@%@%@",addressItem.addressCity,addressItem.addressArea,addressItem.addressName]];
-    [detailNameLbl setText:[NSString stringWithFormat:@"详细:%@",addressItem.addressIsDefault]];
+    [nameLbl   setText:[NSString stringWithFormat:@"地址: %@%@%@", addressItem.addressCity,addressItem.addressArea, addressItem.addressName]];
+    [detailNameLbl setText:[NSString stringWithFormat:@"详细: %@",addressItem.addressName]];
     
     if (!showButFlag) {
         delButton.hidden = YES;

@@ -116,7 +116,7 @@
 // Log
 #define LOG_API_PREFIX          @"http://test.o2omarketing.cn:9100/ApplicationInterface/Project/PG/PGHandler.ashx?action="
 
-#define API_UPDATE_SERVICE      @"QiXinHandler.ashx?action=UpdateVersion"
+#define API_UPDATE_SERVICE      @"AppUpdate"
 #define API_NOTIFY_SERVICE      @"QiXinHandler.ashx?action=SetIOSDeviceToken"
 
 #define API_SERVICE_USER        @"BuyFood/BuyerGateway.ashx?Action="

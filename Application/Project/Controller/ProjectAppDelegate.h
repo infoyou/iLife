@@ -24,6 +24,7 @@ int contactOptState;
 @class HomeContainerViewController;
 @class BaseNavigationController;
 //@class ModelEngineVoip;
+@class SinaWeibo;
 
 @interface ProjectAppDelegate : UIResponder <UIApplicationDelegate> {
   
@@ -31,8 +32,12 @@ int contactOptState;
   
   BOOL _startup;
   
+    SinaWeibo *_sinaWeibo;
+    
   BaseNavigationController *_premiereNav;
 }
+
+@property (readonly, nonatomic) SinaWeibo *sinaWeibo;
 
 @property (nonatomic, retain) HomeContainerViewController *homepageContainer;
 

@@ -15,9 +15,11 @@
 #import "AppManager.h"
 #import "TabBarView.h"
 
+#import "SinaWeibo.h"
+
 #import "UIViewController+JSONValue.h"
 
-@interface HomeContainerViewController () <TabDelegate, MFMessageComposeViewControllerDelegate>
+@interface HomeContainerViewController () <TabDelegate, MFMessageComposeViewControllerDelegate, SinaWeiboDelegate, SinaWeiboRequestDelegate>
 {
     bool isFromTabBar;
     
@@ -26,6 +28,7 @@
     UIView *shareView;
 }
 
+@property (nonatomic, retain) UIView *shareSinaView;
 @property (nonatomic, retain) TabBarView *tabBar;
 @property (nonatomic, retain) UIWindow *statusBarBackground;
 @property (nonatomic, retain) RootViewController *currentVC;
@@ -41,6 +44,7 @@
 
 @implementation HomeContainerViewController
 //@synthesize MOC;
+@synthesize shareSinaView = _shareSinaView;
 
 #pragma mark - init views
 - (void)initTabBar {
@@ -520,6 +524,7 @@
         case 11:
         {
             NSLog(@"weibo click");
+            [self shareBySina];
         }
             break;
             
@@ -533,6 +538,54 @@
         default:
             break;
     }
+}
+
+- (void) addShareView
+{
+    _shareSinaView = [[UIView alloc] initWithFrame:CGRectMake(20, 30, 280, 200)];
+    _shareSinaView.layer.masksToBounds = YES;
+    _shareSinaView.layer.cornerRadius = 6.0;
+    _shareSinaView.layer.borderWidth = 1.0;
+    _shareSinaView.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:_shareSinaView];
+    
+    UIButton *quXiaoButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [quXiaoButton setFrame:CGRectMake(5, 5, 60, 30)];
+    [quXiaoButton setTitle:@"取消" forState:UIControlStateNormal];
+    [quXiaoButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [quXiaoButton addTarget:self action:@selector(removeShare:) forControlEvents:UIControlEventTouchUpInside];
+    [_shareSinaView addSubview:quXiaoButton];
+    
+    UIButton *fenXiangButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [fenXiangButton setFrame:CGRectMake(280-65, 5, 60, 30)];
+    [fenXiangButton setTitle:@"发送" forState:UIControlStateNormal];
+    [fenXiangButton addTarget:self action:@selector(sendShare:) forControlEvents:UIControlEventTouchUpInside];
+    [fenXiangButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [_shareSinaView addSubview:fenXiangButton];
+    
+    UIButton *tuiChuButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [tuiChuButton setFrame:CGRectMake(5, 165, 100, 30)];
+    [tuiChuButton setTitle:@"退出登陆" forState:UIControlStateNormal];
+    [tuiChuButton addTarget:self action:@selector(exitShare:) forControlEvents:UIControlEventTouchUpInside];
+    [tuiChuButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [_shareSinaView addSubview:tuiChuButton];
+    
+    UILabel *label = [[[UILabel alloc] initWithFrame:CGRectMake(55, 5, 280-110, 30)]autorelease];
+    label.textAlignment = UITextAlignmentCenter;
+    label.text = @"新浪微博";
+    label.textColor = [UIColor whiteColor];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont fontWithName:[[UIFont familyNames] objectAtIndex:0] size:20];
+    [_shareSinaView addSubview:label];
+    
+//    _textView = [[UITextView alloc] initWithFrame:CGRectMake(5, 40, 270, 120)];
+//    _textView.layer.cornerRadius = 6.0;
+//    [_textView becomeFirstResponder];
+//    [_textView setTextAlignment:UITextAlignmentLeft];
+//    [_textView setBackgroundColor:[UIColor whiteColor]];
+//    [_textView becomeFirstResponder];
+//    _textView.keyboardType = UIKeyboardTypeASCIICapable;
+//    [_shareView addSubview:_textView];
 }
 
 - (void)btnShareCancelClick:(id)sender
@@ -554,6 +607,44 @@
     [picker release];
     
 }
+
+- (SinaWeibo*)sinaWeibo
+{
+    ProjectAppDelegate *delegate = (ProjectAppDelegate*)[UIApplication sharedApplication].delegate;
+    delegate.sinaWeibo.delegate = self;
+    return delegate.sinaWeibo;
+}
+
+- (void)shareBySina
+{
+    SinaWeibo *sinaWeibo = [self sinaWeibo];
+    
+    BOOL authValid = sinaWeibo.isAuthValid;
+    
+    if (!authValid)
+    {
+        [sinaWeibo logIn];
+    }
+    else
+    {
+        [self addShareView];
+//        [_textView becomeFirstResponder];
+    }
+}
+
+//登陆成功后回调方法
+- (void) sinaweiboDidLogIn:(SinaWeibo *)sinaweibo
+{
+    [self addShareView];
+//    [_textView becomeFirstResponder];
+}
+
+//取消按钮回调方法
+- (void) removeShare:(UIButton*) sender
+{
+    [_shareSinaView removeFromSuperview];
+}
+
 
 - (IBAction)showSMSPicker:(id)sender {
     
@@ -596,9 +687,9 @@
 //            [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
             
             [AppManager instance].isFromHome = YES;
-            LoginViewController* loginVC = [[[LoginViewController alloc] init] autorelease];
+            LoginViewController* loginVC = [[LoginViewController alloc] init];
             
-            UINavigationController *vcNav = [[[UINavigationController alloc] initWithRootViewController:loginVC] autorelease];
+            UINavigationController *vcNav = [[UINavigationController alloc] initWithRootViewController:loginVC];
             vcNav.navigationBar.tintColor = TITLESTYLE_COLOR;
             loginVC.delegate = [UIApplication sharedApplication].delegate;
             

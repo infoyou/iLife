@@ -977,7 +977,7 @@ enum Button_Evaluation_Tag_Enum
                     orderTotal.orderNo = STRING_VALUE_FROM_DIC(totalDic, @"OrderNo");
                     orderTotal.totalAmount = STRING_VALUE_FROM_DIC(totalDic, @"Amount");
                     orderTotal.orderCanPay = [NSString stringWithFormat:@"%d", INT_VALUE_FROM_DIC(totalDic, @"OrderCanPay")];
-                    orderTotal.orderCanCancel = [NSString stringWithFormat:@"%d", INT_VALUE_FROM_DIC(totalDic, @"orderCanCancel")];
+                    orderTotal.orderCanCancel = [NSString stringWithFormat:@"%d", INT_VALUE_FROM_DIC(totalDic, @"OrderCanCancel")];
 
                     
                     if (![orderTotal.orderCanPay length]) {

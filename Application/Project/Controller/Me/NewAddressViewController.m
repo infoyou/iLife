@@ -14,7 +14,8 @@
 #define CITY_TAG 10
 #define AREA_TAG 11
 #define AREAESTATE_TAG 12
-@interface NewAddressViewController ()<JILNetBaseDelegate>
+
+@interface NewAddressViewController ()  <JILNetBaseDelegate, UITextFieldDelegate>
 {
 }
 
@@ -87,7 +88,7 @@
     self.communityArray=[NSArray array];
     self.options=[[NSMutableArray alloc]initWithCapacity:10];
     
-    
+    _mobileNumberTextField.text = [AppManager instance].userEmail;
 }
 
 - (void)setPickerView
@@ -221,13 +222,14 @@
             [self.pickerView setAlpha:1.0f];
         }
             break;
+            
         case 12:
         {
             self.flag=AREAESTATE_TAG;
             self.pickerTitleLab.text=@"小区";
             if ([self.communityArray count]>0) {
                 [self setAreaEstateOptions];
-            }else{
+            } else {
                 [MBProgressHUD showMessag:@"获取小区" toView:self.view];
                 self.netBase.requestType=(RequestType*)BUY_COMMITCART;
                 [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetAreaEstateList" UserID:[AppManager instance].userId Parameters:@{@"AreaId":@"DCF9AC66-3FA8-4BFF-B45A-ACF49D9F68FD"}]];
@@ -275,12 +277,12 @@
     }
 }
 
--(void)handleRequestFailedData:(NSError *)error
+- (void)handleRequestFailedData:(NSError *)error
 {
     [MBProgressHUD hideHUDForView:self.view animated:YES];
 }
 
--(void)setCityOptions
+- (void)setCityOptions
 {
     if ([self.cityArray count]>0) {
         [self.options removeAllObjects];
@@ -302,15 +304,62 @@
     }
 }
 
--(void)setAreaEstateOptions
+- (void)setAreaEstateOptions
 {
-    if ([self.communityArray count]>0) {
+    if ([self.communityArray count] > 0) {
         [self.options removeAllObjects];
         for (NSDictionary* d in self.communityArray) {
             [self.options addObject:[d objectForKey:@"EstateName"]];
         }
+        
         [self.pickerView setOptions:self.options];
     }
 
 }
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    
+    CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
+    
+    CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
+    
+    CGFloat midline = textFieldRect.origin.y + 0.5 * textFieldRect.size.height;
+    
+    CGFloat numerator = midline - viewRect.origin.y - 0.2 * viewRect.size.height;
+    
+    CGFloat denominator = 0.7 * viewRect.size.height;
+    
+    CGFloat heightFraction = numerator / denominator;
+    
+    if (heightFraction < 0.0) {
+        heightFraction = 0.0;
+    } else if (heightFraction > 1.0) {
+        heightFraction = 1.0;
+    }
+    
+    _animatedDistance = floor(216 * heightFraction) + 50;
+    int maxY = CGRectGetMaxY(self.view.frame);
+    
+    NSLog(@"%f", maxY - _animatedDistance);
+    
+    [self upAnimate];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [self downAnimate];
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField{
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
+
 @end

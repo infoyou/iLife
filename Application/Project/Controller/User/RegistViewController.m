@@ -176,9 +176,9 @@
 - (void)resetPswdByMobileCode
 {
     
-    //    if (![self checkInputTxt]) {
-    //        return;
-    //    }
+    if (![self checkInputTxt]) {
+        return;
+    }
     
     NSMutableDictionary *specialDict = [NSMutableDictionary dictionary];
     
@@ -290,7 +290,7 @@
                 
                 NSDictionary *dict = OBJ_FROM_DIC(resultDict, @"Data");
                 
-                [[AppManager instance].userDefaults rememberUsername:_mMobileTxt.text andPassword:_mPswdTxt.text pswdStr:_mPswdTxt.text customerName:_mPswdTxt.text userId:@""];
+                [[AppManager instance].userDefaults rememberUsername:_mMobileTxt.text andPassword:_mPswdTxt.text pswdStr:_mPswdTxt.text emailName:_mMobileTxt.text userId:@""];
                 
                 [self doQiXinLoginAction];
                 
@@ -370,7 +370,7 @@
                         //                        }
                     }
                     
-                    //                    [[AppManager instance] updateLoginSuccess:dict];
+                    // [[AppManager instance] updateLoginSuccess:dict];
                     
                     // AppManage
                     [AppManager instance].userId = [dict objectForKey:@"VipID"];
@@ -417,7 +417,7 @@
                     [AppManager instance].userId = [[[resultDict objectForKey:@"Data"] objectForKey:@"Member"] objectForKey:@"VipID"];
                     //                        [self.delegate loginSuccessfull:self];
                     
-                    [[AppManager instance].userDefaults rememberUsername:_mMobileTxt.text andPassword:_mPswdTxt.text pswdStr:_mPswdTxt.text customerName:_mPswdTxt.text userId:[AppManager instance].userId];
+                    [[AppManager instance].userDefaults rememberUsername:_mMobileTxt.text andPassword:_mPswdTxt.text pswdStr:_mPswdTxt.text emailName:_mMobileTxt.text userId:[AppManager instance].userId];
                     
                     [AppManager instance].updateCache = YES;
                     
@@ -531,6 +531,51 @@
         return YES;
     }
     
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    
+    CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
+    
+    CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
+    
+    CGFloat midline = textFieldRect.origin.y + 0.5 * textFieldRect.size.height;
+    
+    CGFloat numerator = midline - viewRect.origin.y - 0.2 * viewRect.size.height;
+    
+    CGFloat denominator = 0.7 * viewRect.size.height;
+    
+    CGFloat heightFraction = numerator / denominator;
+    
+    if (heightFraction < 0.0) {
+        heightFraction = 0.0;
+    } else if (heightFraction > 1.0) {
+        heightFraction = 1.0;
+    }
+    
+    _animatedDistance = floor(216 * heightFraction) + 50;
+    int maxY = CGRectGetMaxY(self.view.frame);
+    
+    NSLog(@"%f", maxY - _animatedDistance);
+    
+    [self upAnimate];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [self downAnimate];
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField{
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
     return YES;
 }
 

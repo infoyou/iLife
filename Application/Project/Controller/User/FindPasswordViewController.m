@@ -248,8 +248,14 @@
             
             if (ret == SUCCESS_CODE) {
                 
-                NSDictionary *resultDict = [result objectFromJSONData];
-                NSDictionary *dict = OBJ_FROM_DIC(resultDict, @"Data");
+//                NSDictionary *resultDict = [result objectFromJSONData];
+//                NSDictionary *dict = OBJ_FROM_DIC(resultDict, @"Data");
+                
+                
+                [WXWUIUtils showNotificationOnTopWithMsg:LocaleStringForKey(@"修改密码成功!", nil)
+                                          alternativeMsg:nil
+                                                 msgType:SUCCESS_TY
+                                      belowNavigationBar:YES];
                 
                 //执行程序
                 [self dismissModalViewControllerAnimated:YES];
@@ -361,6 +367,51 @@
         return YES;
     }
     
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    
+    CGRect textFieldRect = [self.view.window convertRect:textField.bounds fromView:textField];
+    
+    CGRect viewRect = [self.view.window convertRect:self.view.bounds fromView:self.view];
+    
+    CGFloat midline = textFieldRect.origin.y + 0.5 * textFieldRect.size.height;
+    
+    CGFloat numerator = midline - viewRect.origin.y - 0.2 * viewRect.size.height;
+    
+    CGFloat denominator = 0.7 * viewRect.size.height;
+    
+    CGFloat heightFraction = numerator / denominator;
+    
+    if (heightFraction < 0.0) {
+        heightFraction = 0.0;
+    } else if (heightFraction > 1.0) {
+        heightFraction = 1.0;
+    }
+    
+    _animatedDistance = floor(216 * heightFraction) + 50;
+    int maxY = CGRectGetMaxY(self.view.frame);
+    
+    NSLog(@"%f", maxY - _animatedDistance);
+    
+    [self upAnimate];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [self downAnimate];
+}
+
+- (BOOL)textFieldShouldClear:(UITextField *)textField{
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
     return YES;
 }
 

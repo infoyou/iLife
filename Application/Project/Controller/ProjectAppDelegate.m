@@ -48,6 +48,8 @@
 
 @implementation ProjectAppDelegate
 
+@synthesize sinaWeibo = _sinaWeibo;
+
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
@@ -186,8 +188,10 @@
 //        vcNav.navigationBar.tintColor = TITLESTYLE_COLOR;
 //        
 //        [self.window setRootViewController:vcNav];
-        [self goHomePage];
+        
 // ----------  替换 结束 ----------
+        
+        [self goHomePage];
         
         NSArray *array = [NSArray arrayWithObjects:@"ChatGroupModel", nil];
         [[ProjectDBManager instance] deleteEntity:array MOC:_managedObjectContext];
@@ -277,10 +281,11 @@
     
     [self endSplash:nil];
 
-    [AppManager instance].passwd = [[AppManager instance].userDefaults passwordRemembered];
     
     if ([[AppManager instance].userDefaults getSaveUserId] != nil) {
+        [AppManager instance].passwd = [[AppManager instance].userDefaults passwordRemembered];
         [AppManager instance].userId = [[AppManager instance].userDefaults getSaveUserId];
+        [AppManager instance].userEmail = [[AppManager instance].userDefaults customerNameRemembered];
     } else {
         [AppManager instance].userId = @"";
     }
@@ -356,10 +361,11 @@
         [_userLoginVC autoLogin];
     }
     
-    [AppManager instance].passwd = [[AppManager instance].userDefaults passwordRemembered];
     
     if ([[AppManager instance].userDefaults getSaveUserId] != nil) {
+        [AppManager instance].passwd = [[AppManager instance].userDefaults passwordRemembered];
         [AppManager instance].userId = [[AppManager instance].userDefaults getSaveUserId];
+        [AppManager instance].userEmail = [[AppManager instance].userDefaults customerNameRemembered];
     } else {
         [AppManager instance].userId = @"";
     }

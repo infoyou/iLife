@@ -18,6 +18,7 @@
 @synthesize receiverMobile = _receiverMobile;
 @synthesize addressCity = _addressCity;   
 @synthesize addressArea = _addressArea;
+@synthesize addressEstateName = _addressEstateName;
 @synthesize addressName = _addressName;
 @synthesize addressIsDefault = _addressIsDefault;
 
@@ -28,6 +29,7 @@
     [_receiverMobile release];
     [_addressCity release];
     [_addressArea release];
+    [_addressEstateName release];
     [_addressName release];
     [_addressIsDefault release];
     
@@ -221,12 +223,14 @@
 {
     static NSString *kCellIdentifier = @"AddressListCell";
     AddressListCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
+    
     if (nil == cell)
     {
         cell = [[[AddressListCell alloc] initWithStyle:UITableViewCellStyleDefault
                                        reuseIdentifier:kCellIdentifier
                                   addressClickDelegate:self] autorelease];
     }
+    
     [cell.contentView setBackgroundColor:[UIColor clearColor]];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     
@@ -378,8 +382,9 @@
                     addressItem.addressId = STRING_VALUE_FROM_DIC(dic, @"DeliveryAddressID");
                     addressItem.addressReceiver = STRING_VALUE_FROM_DIC(dic, @"Receiver");
                     addressItem.receiverMobile = STRING_VALUE_FROM_DIC(dic, @"MobileNumber");
-                    addressItem.addressCity = STRING_VALUE_FROM_DIC(dic, @"City");
-                    addressItem.addressArea = STRING_VALUE_FROM_DIC(dic, @"Area");
+                    addressItem.addressCity = STRING_VALUE_FROM_DIC(dic, @"CityName");
+                    addressItem.addressArea = STRING_VALUE_FROM_DIC(dic, @"AreaName");
+                    addressItem.addressEstateName = STRING_VALUE_FROM_DIC(dic, @"EstateName");
                     addressItem.addressName = STRING_VALUE_FROM_DIC(dic, @"DetailedAddress");
                     addressItem.addressIsDefault = STRING_VALUE_FROM_DIC(dic, @"IsDefault");
                     

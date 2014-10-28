@@ -531,9 +531,6 @@
 		669CC37119BED6E900117982 /* pay_checkBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 669CC36D19BED6E900117982 /* pay_checkBox.png */; };
 		669CC37219BED6E900117982 /* pay_option_sel.png in Resources */ = {isa = PBXBuildFile; fileRef = 669CC36E19BED6E900117982 /* pay_option_sel.png */; };
 		669CC37319BED6E900117982 /* pay_option.png in Resources */ = {isa = PBXBuildFile; fileRef = 669CC36F19BED6E900117982 /* pay_option.png */; };
-		669D9A6519A2F65E00C0B0DE /* inter_phone_pressed.wav in Resources */ = {isa = PBXBuildFile; fileRef = 669D9A6119A2F65E00C0B0DE /* inter_phone_pressed.wav */; };
-		669D9A6619A2F65E00C0B0DE /* inter_phone_up.wav in Resources */ = {isa = PBXBuildFile; fileRef = 669D9A6219A2F65E00C0B0DE /* inter_phone_up.wav */; };
-		669D9A6719A2F65E00C0B0DE /* talkroom_connect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 669D9A6319A2F65E00C0B0DE /* talkroom_connect.wav */; };
 		66A38144195192B0009E0C63 /* LoadUserThread.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A38143195192B0009E0C63 /* LoadUserThread.m */; };
 		66A7CF721920D15E00E8A88E /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 66A7CF711920D15E00E8A88E /* MKMapView+ZoomLevel.m */; };
 		66AFF3AB19B9884800AFC4A6 /* OrderStateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66AFF3AA19B9884800AFC4A6 /* OrderStateCell.xib */; };
@@ -715,6 +712,17 @@
 		CE2EA44F190A3C78005C4D71 /* AddressListController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2EA44E190A3C78005C4D71 /* AddressListController.m */; };
 		CE2EA454190A3F39005C4D71 /* AddressListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2EA453190A3F39005C4D71 /* AddressListCell.m */; };
 		CE2EA457190A5CF2005C4D71 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2EA456190A5CF2005C4D71 /* LoginViewController.m */; };
+		CE3A6F7519FE288E006E9423 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3A6F7419FE288E006E9423 /* libiconv.dylib */; };
+		CE3A6F9419FE28BD006E9423 /* libzbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE3A6F8E19FE28BD006E9423 /* libzbar.a */; };
+		CE3A6F9519FE28BE006E9423 /* zbar-back.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3A6F9019FE28BD006E9423 /* zbar-back.png */; };
+		CE3A6F9619FE28BE006E9423 /* zbar-help.html in Resources */ = {isa = PBXBuildFile; fileRef = CE3A6F9119FE28BD006E9423 /* zbar-help.html */; };
+		CE3A6F9719FE28BE006E9423 /* zbar-helpicons.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3A6F9219FE28BD006E9423 /* zbar-helpicons.png */; };
+		CE3A6F9819FE28BE006E9423 /* zbar-samples.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3A6F9319FE28BD006E9423 /* zbar-samples.png */; };
+		CE3A6F9A19FE305E006E9423 /* me_update.png in Resources */ = {isa = PBXBuildFile; fileRef = CE3A6F9919FE305E006E9423 /* me_update.png */; };
+		CE3A6FA419FE396D006E9423 /* SinaWeibo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CE3A6F9C19FE396D006E9423 /* SinaWeibo.bundle */; };
+		CE3A6FA519FE396D006E9423 /* SinaWeibo.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3A6F9E19FE396D006E9423 /* SinaWeibo.m */; };
+		CE3A6FA619FE396D006E9423 /* SinaWeiboAuthorizeView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3A6FA019FE396D006E9423 /* SinaWeiboAuthorizeView.m */; };
+		CE3A6FA719FE396D006E9423 /* SinaWeiboRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CE3A6FA319FE396D006E9423 /* SinaWeiboRequest.m */; };
 		CE46303219CFCDA800F392D2 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = CE46301219CFCDA800F392D2 /* JSONKit.m */; };
 		CE46303319CFCDA800F392D2 /* JSONParser.m in Sources */ = {isa = PBXBuildFile; fileRef = CE46301419CFCDA800F392D2 /* JSONParser.m */; };
 		CE46303519CFCDA800F392D2 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = CE46301819CFCDA800F392D2 /* NSString+SBJSON.m */; };
@@ -782,6 +790,7 @@
 		CEC7BBDC182BACA1002031CE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC7BBDB182BACA1002031CE /* CFNetwork.framework */; };
 		CECB250E191CB93600D07CA0 /* BasicMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = CECB250B191CB93600D07CA0 /* BasicMapAnnotation.m */; };
 		CECB250F191CB93600D07CA0 /* MMLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CECB250D191CB93600D07CA0 /* MMLocationManager.m */; };
+		CEE462F219FF93B400934F51 /* notify.wav in Resources */ = {isa = PBXBuildFile; fileRef = CEE462F119FF93B400934F51 /* notify.wav */; };
 		CEE50AB0191720E00073DA36 /* IdentityAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE50AAF191720E00073DA36 /* IdentityAuthViewController.m */; };
 		CEED2B3D1921F5D5001D48C4 /* UIImage+WaterMark.m in Sources */ = {isa = PBXBuildFile; fileRef = CEED2B381921F5D5001D48C4 /* UIImage+WaterMark.m */; };
 		CEED2B3E1921F5D5001D48C4 /* wiUIImage+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = CEED2B3A1921F5D5001D48C4 /* wiUIImage+Category.m */; };
@@ -1749,9 +1758,6 @@
 		669CC36D19BED6E900117982 /* pay_checkBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pay_checkBox.png; sourceTree = "<group>"; };
 		669CC36E19BED6E900117982 /* pay_option_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pay_option_sel.png; sourceTree = "<group>"; };
 		669CC36F19BED6E900117982 /* pay_option.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pay_option.png; sourceTree = "<group>"; };
-		669D9A6119A2F65E00C0B0DE /* inter_phone_pressed.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = inter_phone_pressed.wav; sourceTree = "<group>"; };
-		669D9A6219A2F65E00C0B0DE /* inter_phone_up.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = inter_phone_up.wav; sourceTree = "<group>"; };
-		669D9A6319A2F65E00C0B0DE /* talkroom_connect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = talkroom_connect.wav; sourceTree = "<group>"; };
 		66A38142195192B0009E0C63 /* LoadUserThread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadUserThread.h; sourceTree = "<group>"; };
 		66A38143195192B0009E0C63 /* LoadUserThread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadUserThread.m; sourceTree = "<group>"; };
 		66A7CF701920D15E00E8A88E /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
@@ -2040,6 +2046,41 @@
 		CE2EA453190A3F39005C4D71 /* AddressListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressListCell.m; sourceTree = "<group>"; };
 		CE2EA455190A5CF2005C4D71 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		CE2EA456190A5CF2005C4D71 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		CE3A6F7419FE288E006E9423 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
+		CE3A6F7A19FE28BD006E9423 /* Decoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoder.h; sourceTree = "<group>"; };
+		CE3A6F7B19FE28BD006E9423 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
+		CE3A6F7C19FE28BD006E9423 /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
+		CE3A6F7D19FE28BD006E9423 /* ImageScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageScanner.h; sourceTree = "<group>"; };
+		CE3A6F7E19FE28BD006E9423 /* Processor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Processor.h; sourceTree = "<group>"; };
+		CE3A6F7F19FE28BD006E9423 /* Scanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Scanner.h; sourceTree = "<group>"; };
+		CE3A6F8019FE28BD006E9423 /* Symbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Symbol.h; sourceTree = "<group>"; };
+		CE3A6F8119FE28BD006E9423 /* Video.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Video.h; sourceTree = "<group>"; };
+		CE3A6F8219FE28BD006E9423 /* Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Window.h; sourceTree = "<group>"; };
+		CE3A6F8319FE28BD006E9423 /* zbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zbar.h; sourceTree = "<group>"; };
+		CE3A6F8419FE28BD006E9423 /* ZBarCameraSimulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarCameraSimulator.h; sourceTree = "<group>"; };
+		CE3A6F8519FE28BD006E9423 /* ZBarCaptureReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarCaptureReader.h; sourceTree = "<group>"; };
+		CE3A6F8619FE28BD006E9423 /* ZBarHelpController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarHelpController.h; sourceTree = "<group>"; };
+		CE3A6F8719FE28BD006E9423 /* ZBarImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarImage.h; sourceTree = "<group>"; };
+		CE3A6F8819FE28BD006E9423 /* ZBarImageScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarImageScanner.h; sourceTree = "<group>"; };
+		CE3A6F8919FE28BD006E9423 /* ZBarReaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderController.h; sourceTree = "<group>"; };
+		CE3A6F8A19FE28BD006E9423 /* ZBarReaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderView.h; sourceTree = "<group>"; };
+		CE3A6F8B19FE28BD006E9423 /* ZBarReaderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarReaderViewController.h; sourceTree = "<group>"; };
+		CE3A6F8C19FE28BD006E9423 /* ZBarSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSDK.h; sourceTree = "<group>"; };
+		CE3A6F8D19FE28BD006E9423 /* ZBarSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZBarSymbol.h; sourceTree = "<group>"; };
+		CE3A6F8E19FE28BD006E9423 /* libzbar.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libzbar.a; sourceTree = "<group>"; };
+		CE3A6F9019FE28BD006E9423 /* zbar-back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-back.png"; sourceTree = "<group>"; };
+		CE3A6F9119FE28BD006E9423 /* zbar-help.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "zbar-help.html"; sourceTree = "<group>"; };
+		CE3A6F9219FE28BD006E9423 /* zbar-helpicons.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-helpicons.png"; sourceTree = "<group>"; };
+		CE3A6F9319FE28BD006E9423 /* zbar-samples.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zbar-samples.png"; sourceTree = "<group>"; };
+		CE3A6F9919FE305E006E9423 /* me_update.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = me_update.png; sourceTree = "<group>"; };
+		CE3A6F9C19FE396D006E9423 /* SinaWeibo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SinaWeibo.bundle; sourceTree = "<group>"; };
+		CE3A6F9D19FE396D006E9423 /* SinaWeibo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaWeibo.h; sourceTree = "<group>"; };
+		CE3A6F9E19FE396D006E9423 /* SinaWeibo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinaWeibo.m; sourceTree = "<group>"; };
+		CE3A6F9F19FE396D006E9423 /* SinaWeiboAuthorizeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaWeiboAuthorizeView.h; sourceTree = "<group>"; };
+		CE3A6FA019FE396D006E9423 /* SinaWeiboAuthorizeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinaWeiboAuthorizeView.m; sourceTree = "<group>"; };
+		CE3A6FA119FE396D006E9423 /* SinaWeiboConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaWeiboConstants.h; sourceTree = "<group>"; };
+		CE3A6FA219FE396D006E9423 /* SinaWeiboRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinaWeiboRequest.h; sourceTree = "<group>"; };
+		CE3A6FA319FE396D006E9423 /* SinaWeiboRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinaWeiboRequest.m; sourceTree = "<group>"; };
 		CE46301019CFCDA800F392D2 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		CE46301119CFCDA800F392D2 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		CE46301219CFCDA800F392D2 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
@@ -2178,6 +2219,7 @@
 		CECB250B191CB93600D07CA0 /* BasicMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicMapAnnotation.m; sourceTree = "<group>"; };
 		CECB250C191CB93600D07CA0 /* MMLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationManager.h; sourceTree = "<group>"; };
 		CECB250D191CB93600D07CA0 /* MMLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationManager.m; sourceTree = "<group>"; };
+		CEE462F119FF93B400934F51 /* notify.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = notify.wav; sourceTree = "<group>"; };
 		CEE50AAE191720E00073DA36 /* IdentityAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityAuthViewController.h; sourceTree = "<group>"; };
 		CEE50AAF191720E00073DA36 /* IdentityAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityAuthViewController.m; sourceTree = "<group>"; };
 		CEED2B371921F5D5001D48C4 /* UIImage+WaterMark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+WaterMark.h"; path = "../Project/UIImage+Category/UIImage+WaterMark.h"; sourceTree = "<group>"; };
@@ -2229,6 +2271,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE3A6F7519FE288E006E9423 /* libiconv.dylib in Frameworks */,
 				6642167F1978BA6C008498D9 /* iflyMSC.framework in Frameworks */,
 				D0180B471814D1260094E365 /* AVFoundation.framework in Frameworks */,
 				D0180B5B1814D16D0094E365 /* AudioToolbox.framework in Frameworks */,
@@ -2254,6 +2297,7 @@
 				D0180B5F1814D1780094E365 /* MediaPlayer.framework in Frameworks */,
 				D0180B4F1814D13C0094E365 /* MessageUI.framework in Frameworks */,
 				D0180B491814D12C0094E365 /* OpenGLES.framework in Frameworks */,
+				CE3A6F9419FE28BD006E9423 /* libzbar.a in Frameworks */,
 				D0180B431814D1180094E365 /* QuartzCore.framework in Frameworks */,
 				CEA679BA19EFA937004CA7BA /* libcrypto.a in Frameworks */,
 				D0180B5D1814D1720094E365 /* Security.framework in Frameworks */,
@@ -2574,6 +2618,8 @@
 		667EDCF71901175C00328E1F /* ThirdPartyLibs */ = {
 			isa = PBXGroup;
 			children = (
+				CE3A6F9B19FE396D006E9423 /* SinaWeibo */,
+				CE3A6F7619FE28BD006E9423 /* ZBarSDK */,
 				CEA679CE19EFAAB1004CA7BA /* CCPVoip */,
 				CEA6799119EFA937004CA7BA /* alipay */,
 				665E243D1976286700A1F471 /* MJPhotoBrowser */,
@@ -3871,6 +3917,7 @@
 		6689C31C195010320059CB69 /* Me */ = {
 			isa = PBXGroup;
 			children = (
+				CE3A6F9919FE305E006E9423 /* me_update.png */,
 				66FB561819C145B1003CF123 /* me_mark.png */,
 				66FB561919C145B1003CF123 /* me_order.png */,
 				66D4C2B919B7FB9700E755AC /* me_address.png */,
@@ -3955,9 +4002,7 @@
 		669D9A6019A2F65D00C0B0DE /* Voice */ = {
 			isa = PBXGroup;
 			children = (
-				669D9A6119A2F65E00C0B0DE /* inter_phone_pressed.wav */,
-				669D9A6219A2F65E00C0B0DE /* inter_phone_up.wav */,
-				669D9A6319A2F65E00C0B0DE /* talkroom_connect.wav */,
+				CEE462F119FF93B400934F51 /* notify.wav */,
 			);
 			path = Voice;
 			sourceTree = "<group>";
@@ -4576,6 +4621,85 @@
 			path = ShoppingCart;
 			sourceTree = "<group>";
 		};
+		CE3A6F7619FE28BD006E9423 /* ZBarSDK */ = {
+			isa = PBXGroup;
+			children = (
+				CE3A6F7719FE28BD006E9423 /* Headers */,
+				CE3A6F8E19FE28BD006E9423 /* libzbar.a */,
+				CE3A6F8F19FE28BD006E9423 /* Resources */,
+			);
+			path = ZBarSDK;
+			sourceTree = "<group>";
+		};
+		CE3A6F7719FE28BD006E9423 /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				CE3A6F7819FE28BD006E9423 /* ZBarSDK */,
+			);
+			path = Headers;
+			sourceTree = "<group>";
+		};
+		CE3A6F7819FE28BD006E9423 /* ZBarSDK */ = {
+			isa = PBXGroup;
+			children = (
+				CE3A6F7919FE28BD006E9423 /* zbar */,
+				CE3A6F8319FE28BD006E9423 /* zbar.h */,
+				CE3A6F8419FE28BD006E9423 /* ZBarCameraSimulator.h */,
+				CE3A6F8519FE28BD006E9423 /* ZBarCaptureReader.h */,
+				CE3A6F8619FE28BD006E9423 /* ZBarHelpController.h */,
+				CE3A6F8719FE28BD006E9423 /* ZBarImage.h */,
+				CE3A6F8819FE28BD006E9423 /* ZBarImageScanner.h */,
+				CE3A6F8919FE28BD006E9423 /* ZBarReaderController.h */,
+				CE3A6F8A19FE28BD006E9423 /* ZBarReaderView.h */,
+				CE3A6F8B19FE28BD006E9423 /* ZBarReaderViewController.h */,
+				CE3A6F8C19FE28BD006E9423 /* ZBarSDK.h */,
+				CE3A6F8D19FE28BD006E9423 /* ZBarSymbol.h */,
+			);
+			path = ZBarSDK;
+			sourceTree = "<group>";
+		};
+		CE3A6F7919FE28BD006E9423 /* zbar */ = {
+			isa = PBXGroup;
+			children = (
+				CE3A6F7A19FE28BD006E9423 /* Decoder.h */,
+				CE3A6F7B19FE28BD006E9423 /* Exception.h */,
+				CE3A6F7C19FE28BD006E9423 /* Image.h */,
+				CE3A6F7D19FE28BD006E9423 /* ImageScanner.h */,
+				CE3A6F7E19FE28BD006E9423 /* Processor.h */,
+				CE3A6F7F19FE28BD006E9423 /* Scanner.h */,
+				CE3A6F8019FE28BD006E9423 /* Symbol.h */,
+				CE3A6F8119FE28BD006E9423 /* Video.h */,
+				CE3A6F8219FE28BD006E9423 /* Window.h */,
+			);
+			path = zbar;
+			sourceTree = "<group>";
+		};
+		CE3A6F8F19FE28BD006E9423 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CE3A6F9019FE28BD006E9423 /* zbar-back.png */,
+				CE3A6F9119FE28BD006E9423 /* zbar-help.html */,
+				CE3A6F9219FE28BD006E9423 /* zbar-helpicons.png */,
+				CE3A6F9319FE28BD006E9423 /* zbar-samples.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		CE3A6F9B19FE396D006E9423 /* SinaWeibo */ = {
+			isa = PBXGroup;
+			children = (
+				CE3A6F9C19FE396D006E9423 /* SinaWeibo.bundle */,
+				CE3A6F9D19FE396D006E9423 /* SinaWeibo.h */,
+				CE3A6F9E19FE396D006E9423 /* SinaWeibo.m */,
+				CE3A6F9F19FE396D006E9423 /* SinaWeiboAuthorizeView.h */,
+				CE3A6FA019FE396D006E9423 /* SinaWeiboAuthorizeView.m */,
+				CE3A6FA119FE396D006E9423 /* SinaWeiboConstants.h */,
+				CE3A6FA219FE396D006E9423 /* SinaWeiboRequest.h */,
+				CE3A6FA319FE396D006E9423 /* SinaWeiboRequest.m */,
+			);
+			path = SinaWeibo;
+			sourceTree = "<group>";
+		};
 		CE47BA6B18FE8865006D5593 /* VPImageCropper */ = {
 			isa = PBXGroup;
 			children = (
@@ -4784,6 +4908,7 @@
 		D01802221814C6A20094E365 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE3A6F7419FE288E006E9423 /* libiconv.dylib */,
 				6642167E1978BA6C008498D9 /* iflyMSC.framework */,
 				666BB67C191A02C700E7F75A /* CoreTelephony.framework */,
 				CEC7BBDB182BACA1002031CE /* CFNetwork.framework */,
@@ -4861,7 +4986,7 @@
 				ORGANIZATIONNAME = com.jit;
 				TargetAttributes = {
 					D018021F1814C6A20094E365 = {
-						DevelopmentTeam = AG64E95Y55;
+						DevelopmentTeam = W37V683YXZ;
 					};
 				};
 			};
@@ -4892,6 +5017,7 @@
 			files = (
 				66AFF3B819B9904C00AFC4A6 /* bad.png in Resources */,
 				6689C545195010320059CB69 /* login_auto_unsel.png in Resources */,
+				CE3A6F9719FE28BE006E9423 /* zbar-helpicons.png in Resources */,
 				6689C598195010320059CB69 /* blank_bg_1.png in Resources */,
 				6689C4A3195010320059CB69 /* fontColor.plist in Resources */,
 				6689C559195010320059CB69 /* mapAnnoView@2x.png in Resources */,
@@ -4908,7 +5034,6 @@
 				66FB561B19C145B1003CF123 /* me_order.png in Resources */,
 				CE01C0FD19C813C900354F77 /* farm_farm@2x.png in Resources */,
 				66E1043B19D4F8F900309161 /* shareWeChat.png in Resources */,
-				669D9A6519A2F65E00C0B0DE /* inter_phone_pressed.wav in Resources */,
 				66D4C2C219B7FB9700E755AC /* me_ticket.png in Resources */,
 				667EE20A1901175E00328E1F /* Done.png in Resources */,
 				CE01C0F119C80B5E00354F77 /* farm_address@2x.png in Resources */,
@@ -4929,6 +5054,7 @@
 				CE0E487919CAD6FB00AB6FF5 /* shoppingcart_commit_normal@2x.png in Resources */,
 				6689C590195010320059CB69 /* alert_bg.png in Resources */,
 				667EE21E1901175E00328E1F /* checkbox1_checked.png in Resources */,
+				CE3A6F9A19FE305E006E9423 /* me_update.png in Resources */,
 				CE01C10019C816E900354F77 /* FarmCategoryCell.xib in Resources */,
 				6689C5AE195010320059CB69 /* download_manager.png in Resources */,
 				665E244C1976286700A1F471 /* MJPhotoBrowser.bundle in Resources */,
@@ -4960,7 +5086,6 @@
 				66E1043E19D4F93300309161 /* ShareView.xib in Resources */,
 				6689C4E0195010320059CB69 /* information_circleMarketing_bottom_bg@2x.png in Resources */,
 				66AFF3BF19B9904C00AFC4A6 /* pay_union.png in Resources */,
-				669D9A6619A2F65E00C0B0DE /* inter_phone_up.wav in Resources */,
 				66AFF3AB19B9884800AFC4A6 /* OrderStateCell.xib in Resources */,
 				669CC37019BED6E900117982 /* pay_checkBox_sel.png in Resources */,
 				669CC35F19BEA5D500117982 /* EvaluationCellSection.xib in Resources */,
@@ -4972,6 +5097,7 @@
 				CE01C0FC19C813C900354F77 /* farm_farm.png in Resources */,
 				6689C5A1195010320059CB69 /* button_commit@2x.png in Resources */,
 				6689C43C195010320059CB69 /* Default.png in Resources */,
+				CE3A6F9619FE28BE006E9423 /* zbar-help.html in Resources */,
 				667ED8471901106100328E1F /* ProjectProp.plist in Resources */,
 				6689C55C195010320059CB69 /* mapPin.png in Resources */,
 				6689C611195010320059CB69 /* TabBar_icon3.png in Resources */,
@@ -4980,10 +5106,10 @@
 				6689C4E4195010320059CB69 /* information_pagecontrol_unselect@2x.png in Resources */,
 				6689C558195010320059CB69 /* mapAnnoView.png in Resources */,
 				66FF1EDA19CC3A2E00CCAA35 /* ShareViewController.xib in Resources */,
-				669D9A6719A2F65E00C0B0DE /* talkroom_connect.wav in Resources */,
 				CE0E487819CAD6FB00AB6FF5 /* shoppingcart_commit_normal.png in Resources */,
 				CE01C3E319C8423E00354F77 /* farm_bg@2x.png in Resources */,
 				CE0E486C19CAC17900AB6FF5 /* ShoppongCartCell.xib in Resources */,
+				CE3A6FA419FE396D006E9423 /* SinaWeibo.bundle in Resources */,
 				6689C56A195010320059CB69 /* me_detail.png in Resources */,
 				CE01C3DF19C840B600354F77 /* FarmWeightPickerView.xib in Resources */,
 				6689C60F195010320059CB69 /* TabBar_icon2.png in Resources */,
@@ -5014,6 +5140,7 @@
 				66B575E4197F4F9F00DB7AE8 /* AboutViewController.xib in Resources */,
 				667EE25B1901175E00328E1F /* UPOMPImage.bundle in Resources */,
 				6689C54E195010320059CB69 /* login_field_bg.png in Resources */,
+				CEE462F219FF93B400934F51 /* notify.wav in Resources */,
 				6689C5BA195010320059CB69 /* release_cache.png in Resources */,
 				6689C4DF195010320059CB69 /* information_circleMarketing_bottom_bg.png in Resources */,
 				667ED8431901106100328E1F /* iLife-Info.plist in Resources */,
@@ -5034,6 +5161,7 @@
 				6689C5B9195010320059CB69 /* personal_info@2x.png in Resources */,
 				CE0D58BE19F5F80700EBCA7C /* farm_close@2x.png in Resources */,
 				669CC36019BEA5D500117982 /* OrderStateCellSection.xib in Resources */,
+				CE3A6F9819FE28BE006E9423 /* zbar-samples.png in Resources */,
 				CE01C3CD19C8281D00354F77 /* farm_vertical.png in Resources */,
 				66AFF3BE19B9904C00AFC4A6 /* pay_cft.png in Resources */,
 				6689C59D195010320059CB69 /* button_cancel@2x.png in Resources */,
@@ -5059,6 +5187,7 @@
 				662BDC2A19D7B1CA0015EE94 /* EditAddressViewController.xib in Resources */,
 				6689C5A5195010320059CB69 /* button_logout@2x.png in Resources */,
 				66FB563119C19166003CF123 /* RegistViewController.xib in Resources */,
+				CE3A6F9519FE28BE006E9423 /* zbar-back.png in Resources */,
 				CE0D58CA19F5F81300EBCA7C /* shoppingcart_square_green@2x.png in Resources */,
 				CE0D58CC19F5F81300EBCA7C /* shoppingcart_square_yellow@2x.png in Resources */,
 				CEBFC01719F90393006901D3 /* Farm_circle.png in Resources */,
@@ -5325,6 +5454,7 @@
 				667EE1311901175E00328E1F /* DCRoundSwitchKnobLayer.m in Sources */,
 				667EE2981901175E00328E1F /* trees.c in Sources */,
 				667EE1D71901175E00328E1F /* GPUImageXYDerivativeFilter.m in Sources */,
+				CE3A6FA719FE396D006E9423 /* SinaWeiboRequest.m in Sources */,
 				66588238192C7BD400292C52 /* KLFTPAccount.m in Sources */,
 				667EE23B1901175E00328E1F /* RegexKitLite.m in Sources */,
 				664DDBEF18FE5126004C7450 /* SkinListViewController.m in Sources */,
@@ -5544,6 +5674,7 @@
 				CEA67A1719EFAAB1004CA7BA /* EmojiConvertor.m in Sources */,
 				CEA67A2719EFAAB1004CA7BA /* SoundEffect.m in Sources */,
 				667EE18B1901175E00328E1F /* GPUImageMissEtikateFilter.m in Sources */,
+				CE3A6FA619FE396D006E9423 /* SinaWeiboAuthorizeView.m in Sources */,
 				665E24511976286700A1F471 /* MJPhotoView.m in Sources */,
 				CEA67A1519EFAAB1004CA7BA /* CustomeAlertView.m in Sources */,
 				667EE15B1901175E00328E1F /* GPUimageDirectionalSobelEdgeDetectionFilter.m in Sources */,
@@ -5649,6 +5780,7 @@
 				667EE1D41901175E00328E1F /* GPUImageVoronoiConsumerFilter.m in Sources */,
 				667EE1431901175E00328E1F /* GPUImageBoxBlurFilter.m in Sources */,
 				667EE1B01901175E00328E1F /* GPUImageSepiaFilter.m in Sources */,
+				CE3A6FA519FE396D006E9423 /* SinaWeibo.m in Sources */,
 				667EE1A41901175E00328E1F /* GPUImagePosterizeFilter.m in Sources */,
 				667EE2051901175E00328E1F /* ContextFilterLogFormatter.m in Sources */,
 				CEA67A1419EFAAB1004CA7BA /* CommonTools.m in Sources */,
@@ -5721,8 +5853,8 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Adam Wang (4R4KNYFRAE)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Adam Wang (4R4KNYFRAE)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ronghao Qiu (H9J9ZWYPZA)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/Resources/ThirdPartyLibs/PLCrashReporter\"",
@@ -5754,7 +5886,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/Resources/ThirdPartyLibs/PLCrashReporter\"";
 				ONLY_ACTIVE_ARCH = NO;
-				PROVISIONING_PROFILE = "f7c88d2f-a662-4ebd-b36f-f1bcbb65593f";
+				PROVISIONING_PROFILE = "28470180-d794-4a19-89d0-a7199359e6e2";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv7 armv7s";
@@ -5778,7 +5910,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Just in Time Marketing Co., LTD.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Just in Time Marketing Co., LTD.";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -5805,7 +5937,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/Resources/ThirdPartyLibs/PLCrashReporter\"";
 				ONLY_ACTIVE_ARCH = NO;
-				PROVISIONING_PROFILE = "4f0bb010-ef37-40b7-8df4-b35524f337ac";
+				PROVISIONING_PROFILE = "9604dd04-9a88-495f-a8ef-82a072731dee";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -5821,8 +5953,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_EMPTY_BODY = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Adam Wang (4R4KNYFRAE)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Adam Wang (4R4KNYFRAE)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ronghao Qiu (H9J9ZWYPZA)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5857,12 +5989,14 @@
 					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/PLCrashReporter",
 					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/CCPVoip/ccpsdk",
 					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/alipay",
+					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/ZBarSDK",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = iLife;
-				PROVISIONING_PROFILE = "017e8184-b510-48a2-9e1d-d8403d0f7f00";
+				PROVISIONING_PROFILE = "ebe41a4b-0e25-4cc8-8360-0beac1acddd8";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv6";
 				WRAPPER_EXTENSION = app;
 			};
@@ -5877,7 +6011,7 @@
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_EMPTY_BODY = NO;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Just in Time Marketing Co., LTD.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Just in Time Marketing Co., LTD.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5909,13 +6043,15 @@
 					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/PLCrashReporter",
 					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/CCPVoip/ccpsdk",
 					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/alipay",
+					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/ZBarSDK",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = iLife;
-				PROVISIONING_PROFILE = "40054afc-a570-450a-b7a7-ed8632973f45";
+				PROVISIONING_PROFILE = "d3e2a17b-19ae-4d87-987a-e8df5142f189";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 armv6";
 				WRAPPER_EXTENSION = app;
 			};

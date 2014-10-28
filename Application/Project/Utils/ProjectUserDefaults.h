@@ -19,7 +19,7 @@
 - (void)rememberUsername:(NSString *)username
              andPassword:(NSString *)password
                  pswdStr:(NSString *)pswdStr
-            customerName:(NSString *)customerName
+               emailName:(NSString *)emailName
                   userId:(NSString *)userId;
 
 @end

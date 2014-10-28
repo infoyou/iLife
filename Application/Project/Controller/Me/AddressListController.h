@@ -35,7 +35,8 @@
 @property (nonatomic, retain)NSString* receiverMobile;
 @property (nonatomic, retain)NSString* addressCity;   //城市
 @property (nonatomic, retain)NSString* addressArea;   //小区
-@property (nonatomic, retain)NSString* addressName;   //小区名
+@property (nonatomic, retain)NSString* addressEstateName;//小区名
+@property (nonatomic, retain)NSString* addressName;   //门牌号
 @property (nonatomic, retain)NSString* addressIsDefault;
 
 @end

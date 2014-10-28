@@ -490,8 +490,8 @@ followUsOnWechatForMoreHelpTitle = "更多帮助，请关注iAlumni公众号";
 languageTitle             = "语言";
 languageSwitchDoneMsg     = "语言切换完成";
 skinSwitchDoneMsg         = "皮肤切换完成";
-signOutTitle              = "注销";
-signOutNotifyMsg          = "您确认要注销吗？";
+signOutTitle              = "退出";
+signOutNotifyMsg          = "您确认要退出吗？";
 languageSwitchFailedMsg   = "切换语言失败，请稍候再试。";
 newsFontSizeTitle         = "新闻字体";
 largeTitle                = "大";
@@ -533,12 +533,12 @@ hotlineTitle      = "帮助热线：";
 callActionSheetTitle = "您要拨打该号码吗？";
 callTitle           = "拨打";
 
-logoutMsgTitle = "您确认注销吗?";
+logoutMsgTitle = "您确认退出吗?";
 deleteTitle = "请删除应用，重新下载安装!";
 noteTitle  = "提示";
 noSupportTitle  = "设备不支持";
 sessionInvalidTitle = "登录超时，请重新登录!";
-logoutTitle = "注销";
+logoutTitle = "退出";
 
 anonymousTitle = "游客登录";
 loginPSWDTitle = "忘记密码?";

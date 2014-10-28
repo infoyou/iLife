@@ -146,7 +146,8 @@ enum Head_Control_Type
 
 - (NSMutableDictionary *)setTitleDictionary
 {
-    NSMutableArray *section0Array = [[[NSMutableArray alloc] initWithObjects:LocaleStringForKey(@"平台通知", nil), LocaleStringForKey(@"常用地址", nil), LocaleStringForKey(@"常用卖家", nil), LocaleStringForKey(@"历史订单", nil), nil] autorelease];
+    NSMutableArray *section0Array = [[[NSMutableArray alloc] initWithObjects:LocaleStringForKey(@"平台通知", nil), LocaleStringForKey(@"常用地址", nil), LocaleStringForKey(@"常用卖家", nil), LocaleStringForKey(@"历史订单", nil), LocaleStringForKey(@"更新版本", nil), nil] autorelease];
+    
     NSMutableArray *section1Array = [[[NSMutableArray alloc]initWithObjects:LocaleStringForKey(NSFeedbackMsg, nil), nil] autorelease];
     NSMutableArray *section2Array = [[[NSMutableArray alloc]initWithObjects:LocaleStringForKey(NSVersionTitle, nil), nil] autorelease];
     NSMutableArray *section3Array = [[[NSMutableArray alloc]initWithObjects:LocaleStringForKey(NSSettingsTitle, nil), nil] autorelease];
@@ -162,7 +163,7 @@ enum Head_Control_Type
 
 - (NSMutableDictionary *)setValueDictionary
 {
-    NSMutableArray *section0Array = [[[NSMutableArray alloc]initWithObjects:@"", @"", @"", @"", nil] autorelease];
+    NSMutableArray *section0Array = [[[NSMutableArray alloc]initWithObjects:@"", @"", @"", @"", @"", nil] autorelease];
     NSMutableArray *section1Array = [[[NSMutableArray alloc]initWithObjects:@"", nil] autorelease];
     
     NSString *version = [NSString stringWithFormat:@"V%@", VERSION];
@@ -180,7 +181,7 @@ enum Head_Control_Type
 
 - (NSMutableDictionary *)setImageDictionary
 {
-    NSMutableArray *section0Array = [[[NSMutableArray alloc] initWithObjects:@"me_notify", @"me_address", @"me_merchants", @"me_order", nil] autorelease];
+    NSMutableArray *section0Array = [[[NSMutableArray alloc] initWithObjects:@"me_notify", @"me_address", @"me_merchants", @"me_order", @"me_update", nil] autorelease];
     NSMutableArray *section1Array = [[[NSMutableArray alloc] initWithObjects:@"me_feedback", nil] autorelease];
     NSMutableArray *section2Array = [[[NSMutableArray alloc] initWithObjects:@"me_update", nil] autorelease];
     NSMutableArray *section3Array = [[[NSMutableArray alloc] initWithObjects:@"me_setting", nil] autorelease];
@@ -212,10 +213,17 @@ enum Head_Control_Type
     float lblHeght = 11.0f;
     UIColor *lblColor = [UIColor colorWithHexString:@"0xb1b1b1"];
     UIFont *font = [UIFont fontWithName:@"HelveticaNeue" size:11];
-    CGRect lblFrame = CGRectMake(0, (kTableFootheight - lblHeght)/2 + 60, SCREEN_WIDTH, lblHeght);
+    
+    int height = kTableFootheight - kMeTypeCellHeight;
+    
+    if (SCREEN_HEIGHT < 568) {
+        height = kTableFootheight - kMeTypeCellHeight - 30;
+    }
+    
+    CGRect lblFrame = CGRectMake(0, height - 30, SCREEN_WIDTH, lblHeght);
     UILabel *visionLbl = [InformationDefault createLblWithFrame:lblFrame withTextColor:lblColor withFont:font withTag:Vision_lbl_Type];
     [visionLbl setTextAlignment:NSTextAlignmentCenter];
-    [visionLbl setText:[NSString stringWithFormat:@"版本号：1.0"]];
+    [visionLbl setText:[NSString stringWithFormat:@"版本号: V%@", VERSION]];
     
     return visionLbl;
 }
@@ -335,7 +343,7 @@ enum Head_Control_Type
 {
     if (section == Me_Section0_Type)
     {
-        return 4;
+        return 5;
     } else {
         return 1;
     }
@@ -391,7 +399,7 @@ enum Head_Control_Type
         [footBGView setBackgroundColor:[UIColor whiteColor]];
         
         [footBGView addSubview:[self createLogoutBtn]];
-//        [footBGView addSubview:[self createVisionLbl]];
+        [footBGView addSubview:[self createVisionLbl]];
 
         return footBGView;
     } else {
@@ -404,11 +412,13 @@ enum Head_Control_Type
 {
     static NSString *kCellIdentifier = @"MeListCell";
     MeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellIdentifier];
+    
     if (nil == cell)
     {
         cell = [[[MeTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                                 reuseIdentifier:kCellIdentifier] autorelease];
     }
+    
     [cell.contentView setBackgroundColor:[UIColor clearColor]];
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 //    [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
@@ -459,7 +469,10 @@ enum Head_Control_Type
                 // 历史订单
                 HistoryOrderListViewController *merchantsVC = [[[HistoryOrderListViewController alloc] initWithMOC:_MOC parentVC:nil] autorelease];
                 [CommonMethod pushViewController:merchantsVC withAnimated:YES];
+            } else if(row == 4) {
+                [self doUpdateSoftAction];
             }
+                
         }
             break;
        
@@ -662,7 +675,7 @@ enum Head_Control_Type
 - (void)doLogout
 {
     DLog(@"LOG OUT CLICK....");
-    [[AppManager instance].userDefaults rememberUsername:[[AppManager instance].userDefaults usernameRemembered] andPassword:@"" pswdStr:@"" customerName:@"" userId:@""];
+    [[AppManager instance].userDefaults rememberUsername:[[AppManager instance].userDefaults usernameRemembered] andPassword:@"" pswdStr:@"" emailName:@"" userId:@""];
     [AppManager instance].userId = @"";
     [AppManager instance].passwd = @"";
     
@@ -686,9 +699,13 @@ enum Head_Control_Type
 {
     
     NSMutableDictionary *specialDict = [NSMutableDictionary dictionary];
-    [specialDict setValue:APP_NAME forKey:@"AppName"];
+    [specialDict setValue:VERSION forKey:@"Vcode"];
+    [specialDict setValue:@"1" forKey:@"PackName"];
+    [specialDict setValue:@"1" forKey:@"ChannelId"];
+    [specialDict setValue:@"ios" forKey:@"AppType"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/%@", VALUE_API_PREFIX, API_UPDATE_SERVICE];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/%@%@", VALUE_API_PREFIX, API_SERVICE_USER, API_UPDATE_SERVICE];
+    
     NSString *url = [ProjectAPI getURL:urlStr specialDict:specialDict];
     DLog(@"url = %@", url);
     WXWAsyncConnectorFacade *connFacade = [self setupAsyncConnectorForUrl:url
@@ -723,11 +740,26 @@ enum Head_Control_Type
                 [self.view endEditing:YES];
                 
                 NSDictionary *resultDict = [result objectFromJSONData];
-                NSDictionary *dict = OBJ_FROM_DIC(resultDict, @"Data");
+                NSDictionary *dataDict = OBJ_FROM_DIC(resultDict, @"Data");
+                
+                NSDictionary *dict = OBJ_FROM_DIC(dataDict, @"AppVersion");
                 
                 if (dict && [dict count] > 0) {
-                    NSString *updateURL = [dict objectForKey:@"UpdateURL"];
-                    NSString *updateContent = [dict objectForKey:@"UpdateContent"];
+                    
+                    NSString *isUpdate = [dict objectForKey:@"IsUpdate"];
+                    if (!isUpdate || [isUpdate isEqual:[NSNull null]] || [isUpdate isEqual:@"<null>"]) {
+                    } else {
+                        int isUpdate = INT_VALUE_FROM_DIC(dict, @"IsUpdate");
+                        
+                        if (isUpdate != 1) {
+                            [[[[UIAlertView alloc] initWithTitle:LocaleStringForKey(NSNoteTitle, nil) message:@"当前版本是最新版本."/*@"The current version is the latest."*/ delegate:nil cancelButtonTitle:LocaleStringForKey(NSSureTitle, nil) otherButtonTitles:nil] autorelease] show];
+                            
+                            return;
+                        }
+                    }
+                    
+                    NSString *updateURL = [dict objectForKey:@"DownLoadUrl"];
+                    NSString *updateContent = [dict objectForKey:@"Tip"];
                     
                     if (!updateURL || [updateURL isEqual:[NSNull null]] || [updateURL isEqual:@"<null>"]) {
                         
@@ -736,12 +768,12 @@ enum Head_Control_Type
                         DLog(@"%@", [AppManager instance].updateURL);
                     }
                     
-                    NSString *isMandatory = [dict objectForKey:@"IsMandatoryUpdate"];
+                    NSString *isMandatory = [dict objectForKey:@"IsForce"];
                     if (!isMandatory || [isMandatory isEqual:[NSNull null]] || [isMandatory isEqual:@"<null>"]) {
                         
 //                        [self doLoginLogic];
                     } else {
-                        [AppManager instance].isMandatory = INT_VALUE_FROM_DIC(dict, @"IsMandatoryUpdate");
+                        [AppManager instance].isMandatory = INT_VALUE_FROM_DIC(dict, @"IsForce");
                         DLog(@"%d", [AppManager instance].isMandatory);
                         
                         NSString *msgContent = nil;
@@ -777,9 +809,10 @@ enum Head_Control_Type
                         [updateAlertView show];
                     }
                 }
-            } else if (ret == 101){
-                [[[[UIAlertView alloc] initWithTitle:LocaleStringForKey(NSNoteTitle, nil) message:@"当前版本是最新版本."/*@"The current version is the latest."*/ delegate:nil cancelButtonTitle:LocaleStringForKey(NSSureTitle, nil) otherButtonTitles:nil] autorelease]show];
+            } else if (ret == 101) {
+                [[[[UIAlertView alloc] initWithTitle:LocaleStringForKey(NSNoteTitle, nil) message:@"当前版本是最新版本."/*@"The current version is the latest."*/ delegate:nil cancelButtonTitle:LocaleStringForKey(NSSureTitle, nil) otherButtonTitles:nil] autorelease] show];
             }
+            
             break;
         }
 

@@ -46,6 +46,7 @@
         selIndex = 0;
         _totalAmountStr = totalAmount;
         _orderNo = orderNo;
+        _orderId = orderId;
     }
     
     return self;
@@ -131,7 +132,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 3;
+    return 1; //3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

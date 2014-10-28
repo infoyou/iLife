@@ -45,7 +45,7 @@
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Dd-qX-VfT">
                     <rect key="frame" x="56" y="95" width="242" height="40"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="hMz-Ib-hki"/>
                     </connections>

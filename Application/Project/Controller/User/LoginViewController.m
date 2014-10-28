@@ -276,8 +276,8 @@ typedef enum {
         UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [loginBtn setBackgroundColor:[UIColor clearColor]];
         [loginBtn setTag:LOGIN_TYPE];
-        [loginBtn setBackgroundImage:IMAGE_WITH_IMAGE_NAME(@"login_regist") forState:UIControlStateNormal];
-        [loginBtn setBackgroundImage:IMAGE_WITH_IMAGE_NAME(@"login_regist") forState:UIControlStateHighlighted];
+        [loginBtn setBackgroundImage:IMAGE_WITH_IMAGE_NAME(@"login_btn.png") forState:UIControlStateNormal];
+        [loginBtn setBackgroundImage:IMAGE_WITH_IMAGE_NAME(@"login_btn_sel.png") forState:UIControlStateHighlighted];
         [loginBtn setTitle:LocaleStringForKey(NSLoginRegister, nil) forState:UIControlStateNormal];
         [loginBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [loginBtn.titleLabel setFont:[UIFont systemFontOfSize:16]];
@@ -385,7 +385,7 @@ typedef enum {
     
     if (_nameField.text.length > 0 && md5Password.length > 0) {
         
-        [[AppManager instance].userDefaults rememberUsername:[[AppManager instance].userDefaults usernameRemembered] andPassword:[[AppManager instance].userDefaults passwordRemembered] pswdStr:[[AppManager instance].userDefaults passwordStrRemembered] customerName:_companyField.text userId:[[AppManager instance].userDefaults getSaveUserId]];
+        [[AppManager instance].userDefaults rememberUsername:[[AppManager instance].userDefaults usernameRemembered] andPassword:[[AppManager instance].userDefaults passwordRemembered] pswdStr:[[AppManager instance].userDefaults passwordStrRemembered] emailName:[[AppManager instance].userDefaults customerNameRemembered] userId:[[AppManager instance].userDefaults getSaveUserId]];
         _isAutoLogin = YES;
     }
     
@@ -504,7 +504,8 @@ typedef enum {
 }
 
 #pragma mark - keyboard show or hidden
--(void)autoMovekeyBoard:(float)h withDuration:(float)duration{
+-(void)autoMovekeyBoard:(float)h withDuration:(float)duration
+{
     
     [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         
@@ -552,7 +553,6 @@ typedef enum {
     [self autoMovekeyBoard:keyboardRect.size.height withDuration:animationDuration];
 }
 
-
 - (void)keyboardWillHide:(NSNotification *)notification {
     
     NSDictionary* userInfo = [notification userInfo];
@@ -566,13 +566,6 @@ typedef enum {
     [animationDurationValue getValue:&animationDuration];
     
     [self autoMovekeyBoard:0 withDuration:animationDuration];
-}
-
-- (void)hideKeyboard {
-    
-    //[self.inputToolbar.textView resignFirstResponder];
-    //keyboardIsVisible = NO;
-    //[self moveInputBarWithKeyboardHeight:0.0 withDuration:0.0];
 }
 
 #pragma mark - ECConnectorDelegate methods
@@ -774,9 +767,9 @@ typedef enum {
                     
                     if (_isAutoLogin)
                     {
-                        [[AppManager instance].userDefaults rememberUsername:_nameField.text andPassword:_passwordField.text pswdStr:_passwordField.text customerName:_passwordField.text userId:[[AppManager instance].userDefaults getSaveUserId]];
+                        [[AppManager instance].userDefaults rememberUsername:_nameField.text andPassword:_passwordField.text pswdStr:_passwordField.text emailName:[AppManager instance].userEmail userId:[[AppManager instance].userDefaults getSaveUserId]];
                     } else {
-                        [[AppManager instance].userDefaults rememberUsername:_nameField.text andPassword:_passwordField.text pswdStr:_passwordField.text customerName:_passwordField.text userId:[AppManager instance].userId];
+                        [[AppManager instance].userDefaults rememberUsername:_nameField.text andPassword:_passwordField.text pswdStr:_passwordField.text emailName:[AppManager instance].userEmail userId:[AppManager instance].userId];
                     }
                     
                     // AppManage
@@ -824,7 +817,7 @@ typedef enum {
                         [AppManager instance].userId = [[[resultDict objectForKey:@"Data"] objectForKey:@"Member"] objectForKey:@"VipID"];
 //                        [self.delegate loginSuccessfull:self];
                         
-                        [[AppManager instance].userDefaults rememberUsername:_nameField.text andPassword:_passwordField.text pswdStr:_passwordField.text customerName:_passwordField.text userId:[AppManager instance].userId];
+                        [[AppManager instance].userDefaults rememberUsername:_nameField.text andPassword:_passwordField.text pswdStr:_passwordField.text emailName:_nameField.text userId:[AppManager instance].userId];
                         
                         [AppManager instance].updateCache = YES;
                     

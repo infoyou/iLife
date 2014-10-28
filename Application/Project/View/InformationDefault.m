@@ -24,7 +24,7 @@
     return btn;
 }
 
-+ (UIImageView *)createImgViewWithFrame:(CGRect)frame withImage:(UIImage *)bgImg  withColor:(UIColor *)imgColor withTag:(int)tag
++ (UIImageView *)createImgViewWithFrame:(CGRect)frame withImage:(UIImage *)bgImg withColor:(UIColor *)imgColor withTag:(int)tag
 {
     UIImageView *image = [[[UIImageView alloc] initWithFrame:frame] autorelease];
     [image setImage:bgImg];

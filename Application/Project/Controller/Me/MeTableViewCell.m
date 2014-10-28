@@ -63,9 +63,9 @@ enum MeType_Cell_Type
     UILabel *titleLbl = (UILabel *)[self viewWithTag:MeCell_Title_Type];
     [titleLbl setText:[NSString stringWithFormat:@"%@",contentStr]];
     
-    if ([contentStr isEqualToString:LocaleStringForKey(@"平台通知", nil)]) {
-        [self setCellMarkIcon];
-    }
+//    if ([contentStr isEqualToString:LocaleStringForKey(@"平台通知", nil)]) {
+//        [self setCellMarkIcon];
+//    }
 }
 
 - (void)setCellTextVal:(NSString *)valStr

@@ -53,7 +53,7 @@
 }
 
 - (NSString *)customerNameRemembered {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:@"customerName"];
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"emailName"];
 }
 
 - (NSString *)getSaveUserId {
@@ -63,7 +63,7 @@
 - (void)rememberUsername:(NSString *)username
 			  andPassword:(NSString *)password
                  pswdStr:(NSString *)pswdStr
-            customerName:(NSString *)customerName
+            emailName:(NSString *)emailName
                   userId:(NSString *)userId
 {
 	NSUserDefaults *_def = [NSUserDefaults standardUserDefaults];
@@ -72,13 +72,13 @@
 		[_def removeObjectForKey:@"username"];
 		[_def removeObjectForKey:@"password"];
         [_def removeObjectForKey:@"pswdStr"];
-        [_def removeObjectForKey:@"customerName"];
+        [_def removeObjectForKey:@"emailName"];
         [_def removeObjectForKey:@"userId"];
 	} else {
 		[_def setObject:username forKey:@"username"];
 		[_def setObject:password forKey:@"password"];
         [_def setObject:pswdStr forKey:@"pswdStr"];
-        [_def setObject:customerName forKey:@"customerName"];
+        [_def setObject:emailName forKey:@"emailName"];
         [_def setObject:userId forKey:@"userId"];
 	}
     

@@ -7,7 +7,7 @@
 //
 
 #import "MerchantsListViewController.h"
-
+#import "ZBarSDK.h"
 
 #define KSEARCHBAR_HEIGHT   44.0f
 #define kTableSectionHeight 11.f
@@ -97,6 +97,8 @@
     [self.view addSubview:[self setStoreTable]];
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [_tableView setAlpha:0];
+    
+    [self addRightBarButtonWithTitle:@"+创建" target:self action:@selector(addNewAddress:)];
     
     _merchantArray = [[NSMutableArray alloc] initWithCapacity:10];
     
@@ -308,6 +310,13 @@
     
     switch (contentType) {
             
+        case API_SELLER_PRIORITY_TY:
+        {
+            [self getPrioritySeller];
+            
+            break;
+        }
+            
         case GET_PRIORITY_SELLER_TY:
         {
             ConnectionAndParserResultCode ret = [JSONParser parserResponseJsonData:result
@@ -321,6 +330,10 @@
                 
                 NSDictionary *resultDict = [result objectFromJSONData];
                 NSDictionary *dict = OBJ_FROM_DIC(resultDict, @"Data");
+                
+                if (_merchantArray && [_merchantArray count]>0) {
+                    [_merchantArray removeAllObjects];
+                }
                 
                 NSArray *list = OBJ_FROM_DIC(dict, @"PrioritySeller");
                 for (NSDictionary *dic in list) {
@@ -367,6 +380,64 @@
     }
     
     [super connectFailed:error url:url contentType:contentType];
+}
+
+- (void)addNewAddress:(id)sender {
+    
+    /*扫描二维码部分：
+     导入ZBarSDK文件并引入一下框架
+     AVFoundation.framework
+     CoreMedia.framework
+     CoreVideo.framework
+     QuartzCore.framework
+     libiconv.dylib
+     引入头文件#import “ZBarSDK.h” 即可使用
+     当找到条形码时，会执行代理方法
+     
+     - (void) imagePickerController: (UIImagePickerController*) reader didFinishPickingMediaWithInfo: (NSDictionary*) info
+     
+     最后读取并显示了条形码的图片和内容。*/
+    
+    ZBarReaderViewController *reader = [ZBarReaderViewController new];
+    reader.readerDelegate = self;
+    reader.supportedOrientationsMask = ZBarOrientationMaskAll;
+    
+    ZBarImageScanner *scanner = reader.scanner;
+    
+    [scanner setSymbology: ZBAR_I25
+                   config: ZBAR_CFG_ENABLE
+                       to: 0];
+    
+    [self presentModalViewController: reader
+                            animated: YES];
+    [reader release];
+
+}
+
+- (void) imagePickerController: (UIImagePickerController*) reader
+ didFinishPickingMediaWithInfo: (NSDictionary*) info
+{
+    id<NSFastEnumeration> results =
+    [info objectForKey: ZBarReaderControllerResults];
+    ZBarSymbol *symbol = nil;
+    for(symbol in results)
+        break;
+    
+    [reader dismissModalViewControllerAnimated: YES];
+    
+    NSString *resultStr =  symbol.data ;    
+    NSLog(@"resultStr = %@", resultStr);
+    
+    NSDictionary *specialDict = [resultStr objectFromJSONString];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/%@%@", VALUE_API_PREFIX, API_SERVICE_USER, API_SELLER_PRIORITY];
+    NSString *url = [ProjectAPI getURL:urlStr specialDict:specialDict];
+    DLog(@"url = %@", url);
+    WXWAsyncConnectorFacade *connFacade = [self setupAsyncConnectorForUrl:url
+                                                              contentType:API_SELLER_PRIORITY_TY];
+    
+    [connFacade fetchGets:url];
+
 }
 
 @end
