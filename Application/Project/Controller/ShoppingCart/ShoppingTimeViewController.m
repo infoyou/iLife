@@ -87,7 +87,8 @@
     if ([[dic objectForKey:@"ResultCode"] integerValue]==0) {
         if (self.netBase.requestType==(RequestType*)BUY_COMMITCART) {
             //
-            [self confirmWithMessage:@"订单已经生成" title:@""];
+//            [self confirmWithMessage:@"订单已经生成" title:@""];
+            [self confirmWithMessage:[dic objectForKey:@"Message"] title:@""];
             self.netBase.requestType=(RequestType*)BUY_DELETECART;
             [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"RemoveAllItem" UserID:@"004852E9-7AA1-4C3F-97A3-361B8EA96464" Parameters:@{}]];
         }else if (self.netBase.requestType==(RequestType*)BUY_DELETECART){

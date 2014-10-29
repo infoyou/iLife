@@ -5000,7 +5000,7 @@
 				ORGANIZATIONNAME = com.jit;
 				TargetAttributes = {
 					D018021F1814C6A20094E365 = {
-						DevelopmentTeam = W37V683YXZ;
+						DevelopmentTeam = AG64E95Y55;
 					};
 				};
 			};
@@ -5971,7 +5971,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_EMPTY_BODY = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Adam Wang (4R4KNYFRAE)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6028,7 +6028,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_EMPTY_BODY = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Just in Time Marketing Co., LTD.";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (

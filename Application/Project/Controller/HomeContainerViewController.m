@@ -353,6 +353,12 @@
 // 购物车
 - (void)selectSecondTabBar
 {
+    if ([[AppManager instance].passwd length]>0) {
+    } else {
+        [self askWithMessage:@"未登录，请先登录" alertTag:1];
+        return;
+    }
+    
     if ([self.currentVC isKindOfClass:[ShoppingCartViewController class]]) {
         return;
     }
@@ -361,21 +367,23 @@
     self.navigationItem.rightBarButtonItems = nil;
     self.navigationItem.rightBarButtonItem = nil;
     
-//    if (!self.shoppingCartVC)
-//        _shoppingCartVC = [[ShoppingCartViewController alloc] initWithMOC:_MOC viewHeight:[self contentHeight] homeContainerVC:self];
-//    [self arrangeCurrentVC:self.shoppingCartVC];
-    
     if ([[AppManager instance].passwd length]>0) {
         if (!self.shoppingCartVC)
             _shoppingCartVC = [[ShoppingCartViewController alloc] initWithMOC:_MOC viewHeight:[self contentHeight] homeContainerVC:self];
         [self arrangeCurrentVC:self.shoppingCartVC];
-    }else{
+    } else {
         [self askWithMessage:@"未登录，请先登录" alertTag:1];
     }
 }
 
 // 订单
 - (void)selectThirdTabBar {
+    
+    if ([[AppManager instance].passwd length]>0) {
+    } else {
+        [self askWithMessage:@"未登录，请先登录" alertTag:1];
+        return;
+    }
     
     if ([self.currentVC isKindOfClass:[OrderDetailViewController class]]) {
         return;
@@ -694,9 +702,6 @@
 {
     if (alertView.tag==LOGIN_TAG) {
         if (buttonIndex==1) {
-//            LoginViewController* login=[[LoginViewController alloc]init];
-//            login.delegate=[UIApplication sharedApplication].delegate;
-//            [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
             
             [AppManager instance].isFromHome = YES;
             LoginViewController* loginVC = [[LoginViewController alloc] init];
@@ -706,6 +711,8 @@
             loginVC.delegate = [UIApplication sharedApplication].delegate;
             
             [self presentViewController:vcNav animated:YES completion:nil];
+        } else {
+            [self.tabBar switchTabHighlightStatus:TAB_BAR_FIRST_TAG];
         }
     }
 }
