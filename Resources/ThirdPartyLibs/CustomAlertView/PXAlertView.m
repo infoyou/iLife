@@ -406,7 +406,7 @@ static const CGFloat AlertViewButtonHeight = 44;
     animation.removedOnCompletion = NO;
     animation.duration = .3;
     
-    [self.alertView.layer addAnimation:animation forKey:@"showAlert"];
+    [self.alertView.layer addAnimation:animation forKey:@"showAlertShow"];
 }
 
 - (void)dismissAlertAnimation

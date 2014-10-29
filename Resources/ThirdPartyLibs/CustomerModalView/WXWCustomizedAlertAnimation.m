@@ -83,7 +83,7 @@ static CGFloat kTransitionDuration = 0.3;
     animation.removedOnCompletion = NO;
     animation.duration = .3;
     
-    [view.layer addAnimation:animation forKey:@"showAlert"];
+    [view.layer addAnimation:animation forKey:@"showAlertShow"];
 }
 
 

@@ -972,7 +972,7 @@ static CommonMethod *instance = nil;
 
 #pragma mark -- alert view
 
-+ (void)showAlert:(id)delegate  title:(NSString *)title tip:(NSString *)tip
++ (void)showAlertShow:(id)delegate  title:(NSString *)title tip:(NSString *)tip
 {
     
     WXWCustomeAlertView *customeAlertView = [[WXWCustomeAlertView alloc]init];

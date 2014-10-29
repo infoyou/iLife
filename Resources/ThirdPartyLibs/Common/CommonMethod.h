@@ -135,7 +135,7 @@
 + (BOOL)is6System;
 
 //------------show alter
-+ (void)showAlert:(id)delegate  title:(NSString *)title tip:(NSString *)tip;
++ (void)showAlertShow:(id)delegate  title:(NSString *)title tip:(NSString *)tip;
 + (void)preferenceFTPSettings:(NSDictionary *)dic;
 
 //--------------------------study-----

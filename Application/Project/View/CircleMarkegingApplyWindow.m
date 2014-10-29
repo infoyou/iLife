@@ -236,7 +236,7 @@
     animations.fillMode = kCAFillModeForwards;
     animations.removedOnCompletion = NO;
     animations.duration = .3;
-    [myView.layer addAnimation:animations forKey:@"showAlert"];
+    [myView.layer addAnimation:animations forKey:@"showAlertShow"];
 }
 
 - (void)dismiss:(AlertDoneType)type{

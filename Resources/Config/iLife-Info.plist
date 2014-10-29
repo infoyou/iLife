@@ -16,11 +16,21 @@
 		<string>Icon-Small@2x.png</string>
 		<string>Icon.png</string>
 		<string>Icon@2x.png</string>
+		<string>IconM.png</string>
 	</array>
 	<key>CFBundleIcons</key>
-	<dict/>
-	<key>CFBundleIcons~ipad</key>
-	<dict/>
+	<dict>
+		<key>item 0</key>
+		<string>Icon-Small.png</string>
+		<key>item 1</key>
+		<string>Icon-Small@2x.png</string>
+		<key>item 2</key>
+		<string>Icon.png</string>
+		<key>item 3</key>
+		<string>Icon@2x.png</string>
+		<key>item 4</key>
+		<string>IconM.png</string>
+	</dict>
 	<key>CFBundleIdentifier</key>
 	<string>com.jit.iLifeApp</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -82,8 +92,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

@@ -791,6 +791,9 @@
 		CECB250E191CB93600D07CA0 /* BasicMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = CECB250B191CB93600D07CA0 /* BasicMapAnnotation.m */; };
 		CECB250F191CB93600D07CA0 /* MMLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CECB250D191CB93600D07CA0 /* MMLocationManager.m */; };
 		CEE462F219FF93B400934F51 /* notify.wav in Resources */ = {isa = PBXBuildFile; fileRef = CEE462F119FF93B400934F51 /* notify.wav */; };
+		CEE462F619FFA11E00934F51 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = CEE462F419FFA11E00934F51 /* Icon-Small.png */; };
+		CEE462F719FFA11E00934F51 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEE462F519FFA11E00934F51 /* Icon-Small@2x.png */; };
+		CEE462F919FFA65700934F51 /* IconM.png in Resources */ = {isa = PBXBuildFile; fileRef = CEE462F819FFA65700934F51 /* IconM.png */; };
 		CEE50AB0191720E00073DA36 /* IdentityAuthViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE50AAF191720E00073DA36 /* IdentityAuthViewController.m */; };
 		CEED2B3D1921F5D5001D48C4 /* UIImage+WaterMark.m in Sources */ = {isa = PBXBuildFile; fileRef = CEED2B381921F5D5001D48C4 /* UIImage+WaterMark.m */; };
 		CEED2B3E1921F5D5001D48C4 /* wiUIImage+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = CEED2B3A1921F5D5001D48C4 /* wiUIImage+Category.m */; };
@@ -2220,6 +2223,9 @@
 		CECB250C191CB93600D07CA0 /* MMLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationManager.h; sourceTree = "<group>"; };
 		CECB250D191CB93600D07CA0 /* MMLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationManager.m; sourceTree = "<group>"; };
 		CEE462F119FF93B400934F51 /* notify.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = notify.wav; sourceTree = "<group>"; };
+		CEE462F419FFA11E00934F51 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		CEE462F519FFA11E00934F51 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		CEE462F819FFA65700934F51 /* IconM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IconM.png; sourceTree = "<group>"; };
 		CEE50AAE191720E00073DA36 /* IdentityAuthViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentityAuthViewController.h; sourceTree = "<group>"; };
 		CEE50AAF191720E00073DA36 /* IdentityAuthViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentityAuthViewController.m; sourceTree = "<group>"; };
 		CEED2B371921F5D5001D48C4 /* UIImage+WaterMark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+WaterMark.h"; path = "../Project/UIImage+Category/UIImage+WaterMark.h"; sourceTree = "<group>"; };
@@ -3848,6 +3854,9 @@
 		6689C1EB195010320059CB69 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				CEE462F819FFA65700934F51 /* IconM.png */,
+				CEE462F419FFA11E00934F51 /* Icon-Small.png */,
+				CEE462F519FFA11E00934F51 /* Icon-Small@2x.png */,
 				6689C1EC195010320059CB69 /* Default-568h.png */,
 				6689C1EE195010320059CB69 /* Default.png */,
 				6689C1EF195010320059CB69 /* Icon.png */,
@@ -5030,6 +5039,7 @@
 				6689C5B4195010320059CB69 /* newVersion.png in Resources */,
 				6689C59C195010320059CB69 /* button_cancel.png in Resources */,
 				CE01C0F019C80B5E00354F77 /* farm_address.png in Resources */,
+				CEE462F919FFA65700934F51 /* IconM.png in Resources */,
 				6689C4DE195010320059CB69 /* information_aloneMarketing_logo@2x.png in Resources */,
 				66FB561B19C145B1003CF123 /* me_order.png in Resources */,
 				CE01C0FD19C813C900354F77 /* farm_farm@2x.png in Resources */,
@@ -5185,8 +5195,10 @@
 				CE0E487119CAC54F00AB6FF5 /* shoppingcart_fork@2x.png in Resources */,
 				6689C5B1195010320059CB69 /* feed@2x.png in Resources */,
 				662BDC2A19D7B1CA0015EE94 /* EditAddressViewController.xib in Resources */,
+				CEE462F619FFA11E00934F51 /* Icon-Small.png in Resources */,
 				6689C5A5195010320059CB69 /* button_logout@2x.png in Resources */,
 				66FB563119C19166003CF123 /* RegistViewController.xib in Resources */,
+				CEE462F719FFA11E00934F51 /* Icon-Small@2x.png in Resources */,
 				CE3A6F9519FE28BE006E9423 /* zbar-back.png in Resources */,
 				CE0D58CA19F5F81300EBCA7C /* shoppingcart_square_green@2x.png in Resources */,
 				CE0D58CC19F5F81300EBCA7C /* shoppingcart_square_yellow@2x.png in Resources */,
