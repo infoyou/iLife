@@ -209,7 +209,7 @@ enum Button_Order_State_Tag_Enum
                 
                 HistoryOrderTotal *orderTotal = (HistoryOrderTotal *)_orderArray[section];
                 orderTitle.text = [NSString stringWithFormat:@"订单编号: %@", orderTotal.orderNo];
-                totalAmount.text = [NSString stringWithFormat:@"总计: %@元", orderTotal.totalAmount];
+                totalAmount.text = [NSString stringWithFormat:@"总价: %@元", orderTotal.totalAmount];
                 orderTime.text = orderTotal.orderTime;
                 
                 return cell.contentView;

@@ -9,6 +9,8 @@
 #import "MerchantsListViewController.h"
 #import "ZBarSDK.h"
 
+#import "ALSweepViewController.h"
+
 #define KSEARCHBAR_HEIGHT   44.0f
 #define kTableSectionHeight 11.f
 
@@ -98,7 +100,7 @@
     [self.view setBackgroundColor:[UIColor whiteColor]];
     [_tableView setAlpha:0];
     
-    [self addRightBarButtonWithTitle:@"+创建" target:self action:@selector(addNewAddress:)];
+    [self addRightBarButtonWithTitle:@"+添加" target:self action:@selector(addNewAddress:)];
     
     _merchantArray = [[NSMutableArray alloc] initWithCapacity:10];
     
@@ -383,6 +385,7 @@
 }
 
 - (void)addNewAddress:(id)sender {
+    
     
     /*扫描二维码部分：
      导入ZBarSDK文件并引入一下框架

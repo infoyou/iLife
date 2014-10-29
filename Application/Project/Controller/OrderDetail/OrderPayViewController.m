@@ -16,11 +16,19 @@
     BOOL checkFlag;
     
     int payStep;
+    
+    double totalAmountVal;
+    double ticketAmountVal;
+    
+    BOOL isNeed3rdPay;
 }
 
 @property (nonatomic, copy) NSString *totalAmountStr;
 @property (nonatomic, copy) NSString *orderId;
 @property (nonatomic, copy) NSString *orderNo;
+
+@property (nonatomic, copy) NSString *currentTickent;
+@property (nonatomic, copy) NSString *currentPayAmount;
 
 @end
 
@@ -33,6 +41,8 @@
 @synthesize totalAmountStr = _totalAmountStr;
 @synthesize orderNo = _orderNo;
 @synthesize orderId = _orderId;
+@synthesize currentTickent = _currentTickent;
+@synthesize currentPayAmount = _currentPayAmount;
 
 - (id)initWithMOC:(NSManagedObjectContext *)MOC orderNo:(NSString *)orderNo totalAmount:(NSString *)totalAmount orderId:(NSString*)orderId
 {
@@ -47,6 +57,8 @@
         _totalAmountStr = totalAmount;
         _orderNo = orderNo;
         _orderId = orderId;
+        
+        isNeed3rdPay = NO;
     }
     
     return self;
@@ -56,7 +68,9 @@
 {
     [super viewWillAppear:animated];
     
-    userInfo = [[FMDBConnection instance] getUserByUserId:[AppManager instance].userId];
+    [self getUserInfo];
+    
+//    userInfo = [[FMDBConnection instance] getUserByUserId:[AppManager instance].userId];
 }
 
 - (void)viewDidLoad
@@ -229,7 +243,12 @@
     UILabel *checkLabel = (UILabel *)[cell viewWithTag:103];
     
     amountLabel.text = [NSString stringWithFormat:@"￥%@", _totalAmountStr];
-    checkLabel.text = [NSString stringWithFormat:@"可用菜票%@元抵用%@元", userInfo.band, userInfo.band];
+    
+    if (totalAmountVal >= totalAmountVal) {
+        checkLabel.text = [NSString stringWithFormat:@"可用菜票%@元抵用%@元", userInfo.band, _totalAmountStr];
+    } else {
+        checkLabel.text = [NSString stringWithFormat:@"可用菜票%@元抵用%@元", userInfo.band, userInfo.band];
+    }
     
     bgImg.userInteractionEnabled = YES;
     checkBoxImg.userInteractionEnabled = YES;
@@ -243,7 +262,7 @@
     [self addTapGestureRecognizer:checkBoxImg];
     [self addTapGestureRecognizer:checkLabel];
     
-//    checkBoxImg.highlighted = checkFlag;
+    checkBoxImg.highlighted = checkFlag;
     
     return cell.contentView;
 }
@@ -263,6 +282,7 @@
 
 #pragma mark - for gesture
 - (void)addTapGestureRecognizer:(UIView*)targetImageview {
+    
     UITapGestureRecognizer *swipeGR = [[[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                action:@selector(imageviewTouchEvents:)] autorelease];
     swipeGR.delegate = self;
@@ -302,15 +322,16 @@
     
     NSMutableDictionary *specialDict = [NSMutableDictionary dictionary];
     [specialDict setValue:_orderId forKey:@"OrderID"];
-    [specialDict setValue:_totalAmountStr forKey:@"Amount"];
+    [specialDict setValue:_currentPayAmount forKey:@"Amount"];
     [specialDict setValue:@"1" forKey:@"PayTypeID"];
     [specialDict setValue:orderStep forKey:@"PayOrderStep"];
-    [specialDict setValue:@"0" forKey:@"AmountUsed"];
+    [specialDict setValue:_currentTickent forKey:@"AmountUsed"];
     [specialDict setValue:payResult forKey:@"PayResult"];
     
     NSString *urlStr = [NSString stringWithFormat:@"%@/%@%@", VALUE_API_PREFIX, API_SERVICE_USER, API_ORDER_PAY];
     NSString *url = [ProjectAPI getURL:urlStr specialDict:specialDict];
     DLog(@"url = %@", url);
+    
     WXWAsyncConnectorFacade *connFacade = [self setupAsyncConnectorForUrl:url
                                                               contentType:API_ORDER_PAY_TY];
     
@@ -348,23 +369,50 @@
     [connFacade fetchGets:url];
 }
 
+- (void)payByAlipay:(NSString *)ticketAmount payAmount:(NSString *)payAmount
+{
+    
+    isNeed3rdPay = YES;
+    
+    _currentTickent = ticketAmount;
+    _currentPayAmount = payAmount;
+    
+    // 支付宝 支付
+    // add notify
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handlePayResultStatus)
+                                                 name:NOTIFY_PAY_RESULT_STATUS
+                                               object:nil];
+    [self doServerPay:@"1" payResult:@"1"];
+}
+
 #pragma mark - btn Click pay
 - (IBAction)btnClick:(id)send
 {
     
-    if ([_totalAmountStr floatValue] > 0) {
+    if (totalAmountVal > 0) {
 
-        // add notify
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(handlePayResultStatus)
-                                                     name:NOTIFY_PAY_RESULT_STATUS
-                                                   object:nil];
-        [self doServerPay:@"1" payResult:@"1"];
+        if(!checkFlag)
+        {
+            // 不用抵用卷
+            [self payByAlipay:@"0" payAmount:_totalAmountStr];
+        } else {
+            if (ticketAmountVal >= totalAmountVal) {
+                // 抵用卷 支付
+                
+                
+                _currentTickent = _totalAmountStr;
+                _currentPayAmount = @"0";
+                
+                isNeed3rdPay = NO;
+                [self doServerPay:@"1" payResult:@"1"];
+            } else {
+                [self payByAlipay:userInfo.band payAmount:[NSString stringWithFormat:@"%f", (totalAmountVal-ticketAmountVal)]];
+            }
+        }
     } else {
         ShowAlert(self, NSLocalizedString(NSNoteTitle, nil), @"支付金额必须大于0.", NSLocalizedString(NSSureTitle, nil));
     }
-    
-
 }
 
 - (NSString*)getOrderInfo
@@ -456,7 +504,7 @@
 
 - (void)handlePayResultStatus
 {
-    NSLog(@"handlePayResultStatus");
+    NSLog(@"handle Pay Result Status");
     
     if (![AppManager instance].aliPayStatus) {
         [self doServerPay:@"2" payResult:@"2"];
@@ -465,6 +513,19 @@
     }
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NOTIFY_PAY_RESULT_STATUS object:nil];
+}
+
+- (void)getUserInfo
+{
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/%@%@", VALUE_API_PREFIX, API_SERVICE_USER, API_MEMBER_INFO];
+    
+    NSString *url = [ProjectAPI getURL:urlStr specialDict:nil];
+    DLog(@"url = %@", url);
+    WXWAsyncConnectorFacade *connFacade = [self setupAsyncConnectorForUrl:url
+                                                              contentType:USER_INFO_TY];
+    
+    [connFacade fetchGets:url];
 }
 
 #pragma mark - ECConnectorDelegate methods
@@ -479,6 +540,28 @@
     
     switch (contentType) {
             
+        case USER_INFO_TY:
+        {
+            NSDictionary *resultDict = [result objectFromJSONData];
+            NSDictionary *dict = OBJ_FROM_DIC(resultDict, @"Data");
+            
+            NSString *strMobile = STRING_VALUE_FROM_DIC(dict, @"Mobile");
+            NSString *strAmount = STRING_VALUE_FROM_DIC(dict, @"Amount");
+            
+            userInfo = [[FMDBConnection instance] getUserByUserId:[AppManager instance].userId];
+            
+            userInfo.userTel = strMobile;
+            userInfo.band = strAmount;
+            
+            [[FMDBConnection instance] updateUserObjectDB:userInfo];
+            
+            ticketAmountVal = [userInfo.band doubleValue];
+            totalAmountVal = [_totalAmountStr doubleValue];
+            
+            [self.tableView reloadData];
+        }
+            break;
+
         case API_ORDER_PAY_RESULT_TY:
         {
             NSString *orderString = [[NSString alloc] initWithData:result  encoding:NSUTF8StringEncoding];
@@ -502,12 +585,20 @@
             
             if (ret == SUCCESS_CODE) {
             
-                if (payStep == 1) {
-                    [self doWebRsa];
-                } else {
-                    if ([AppManager instance].aliPayStatus) {
-                        
+                if (!isNeed3rdPay) {
+                    if (payStep == 1) {
+                        [self doServerPay:@"2" payResult:@"1"];
+                    } else {
                         ShowAlert(self, NSLocalizedString(NSNoteTitle, nil), @"支付成功\n货物将在18:30-19:00送达\n请注意查收", NSLocalizedString(NSSureTitle, nil));
+                    }
+                } else {
+                    if (payStep == 1) {
+                        [self doWebRsa];
+                    } else {
+                        if ([AppManager instance].aliPayStatus) {
+                            
+                            ShowAlert(self, NSLocalizedString(NSNoteTitle, nil), @"支付成功\n货物将在18:30-19:00送达\n请注意查收", NSLocalizedString(NSSureTitle, nil));
+                        }
                     }
                 }
             }

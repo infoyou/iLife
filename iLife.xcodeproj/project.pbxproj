@@ -790,6 +790,7 @@
 		CEC7BBDC182BACA1002031CE /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEC7BBDB182BACA1002031CE /* CFNetwork.framework */; };
 		CECB250E191CB93600D07CA0 /* BasicMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = CECB250B191CB93600D07CA0 /* BasicMapAnnotation.m */; };
 		CECB250F191CB93600D07CA0 /* MMLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CECB250D191CB93600D07CA0 /* MMLocationManager.m */; };
+		CED42ED31A00CFFA00F738F9 /* ALSweepViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CED42ED21A00CFFA00F738F9 /* ALSweepViewController.m */; };
 		CEE462F219FF93B400934F51 /* notify.wav in Resources */ = {isa = PBXBuildFile; fileRef = CEE462F119FF93B400934F51 /* notify.wav */; };
 		CEE462F619FFA11E00934F51 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = CEE462F419FFA11E00934F51 /* Icon-Small.png */; };
 		CEE462F719FFA11E00934F51 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CEE462F519FFA11E00934F51 /* Icon-Small@2x.png */; };
@@ -2222,6 +2223,8 @@
 		CECB250B191CB93600D07CA0 /* BasicMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicMapAnnotation.m; sourceTree = "<group>"; };
 		CECB250C191CB93600D07CA0 /* MMLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMLocationManager.h; sourceTree = "<group>"; };
 		CECB250D191CB93600D07CA0 /* MMLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMLocationManager.m; sourceTree = "<group>"; };
+		CED42ED11A00CFFA00F738F9 /* ALSweepViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ALSweepViewController.h; sourceTree = "<group>"; };
+		CED42ED21A00CFFA00F738F9 /* ALSweepViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ALSweepViewController.m; sourceTree = "<group>"; };
 		CEE462F119FF93B400934F51 /* notify.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = notify.wav; sourceTree = "<group>"; };
 		CEE462F419FFA11E00934F51 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
 		CEE462F519FFA11E00934F51 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
@@ -4176,6 +4179,8 @@
 				66D4C2B319B711A300E755AC /* MerchantsListCell.m */,
 				66D4C2B419B711A300E755AC /* MerchantsListViewController.h */,
 				66D4C2B519B711A300E755AC /* MerchantsListViewController.m */,
+				CED42ED11A00CFFA00F738F9 /* ALSweepViewController.h */,
+				CED42ED21A00CFFA00F738F9 /* ALSweepViewController.m */,
 				66FF1EC619CBC13900CCAA35 /* HistoryOrderListCell.h */,
 				66FF1EC719CBC13900CCAA35 /* HistoryOrderListCell.m */,
 				66FF1EC819CBC13900CCAA35 /* HistoryOrderListViewController.h */,
@@ -5745,6 +5750,7 @@
 				CE46304019CFCDA800F392D2 /* SBJsonUTF8Stream.m in Sources */,
 				66D6F8DF18F510CD0041E205 /* BusinessItemDetail.m in Sources */,
 				667EE2641901175E00328E1F /* WXWSystemInfoManager.m in Sources */,
+				CED42ED31A00CFFA00F738F9 /* ALSweepViewController.m in Sources */,
 				6610C17D1900EFBF00B65B0E /* BaseConfigurableCell.m in Sources */,
 				66D6F8F318F510CD0041E205 /* EventApplyMemberList.m in Sources */,
 				667EE1321901175E00328E1F /* DCRoundSwitchOutlineLayer.m in Sources */,
@@ -5965,7 +5971,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_EMPTY_BODY = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ronghao Qiu (H9J9ZWYPZA)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Adam Wang (4R4KNYFRAE)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6005,7 +6011,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = iLife;
-				PROVISIONING_PROFILE = "ebe41a4b-0e25-4cc8-8360-0beac1acddd8";
+				PROVISIONING_PROFILE = "017e8184-b510-48a2-9e1d-d8403d0f7f00";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -6060,7 +6066,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = iLife;
-				PROVISIONING_PROFILE = "d3e2a17b-19ae-4d87-987a-e8df5142f189";
+				PROVISIONING_PROFILE = "40054afc-a570-450a-b7a7-ed8632973f45";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;

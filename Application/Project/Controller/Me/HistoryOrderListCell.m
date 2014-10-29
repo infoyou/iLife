@@ -60,7 +60,7 @@ typedef enum{
     
     [userLbl  setText:[NSString stringWithFormat:@"日期: %@", orderItem.orderTime]];
     [mobileLbl setText:[NSString stringWithFormat:@"编号: %@", orderItem.orderNo]];
-    [priceLbl setText:[NSString stringWithFormat:@"总计: %@元", orderItem.amount]];
+    [priceLbl setText:[NSString stringWithFormat:@"总价: %@元", orderItem.amount]];
     
 }
 

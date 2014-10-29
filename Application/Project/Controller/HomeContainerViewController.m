@@ -617,6 +617,17 @@
 
 - (void)shareBySina
 {
+    NSString *transUrl = [NSString stringWithFormat:@"sinaweibo://*"];
+    
+    if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:transUrl]]) {
+        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:transUrl]];
+    } else {
+        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://itunes.apple.com/cn/artist/sina-corporation-nasdaq-sina/id291478092?mt=8"]];
+    }
+    
+    /*
     SinaWeibo *sinaWeibo = [self sinaWeibo];
     
     BOOL authValid = sinaWeibo.isAuthValid;
@@ -630,6 +641,7 @@
         [self addShareView];
 //        [_textView becomeFirstResponder];
     }
+     */
 }
 
 //登陆成功后回调方法

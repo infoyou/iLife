@@ -151,10 +151,10 @@
     
     self.priceLabel=[[UILabel alloc]initWithFrame:CGRectMake(220, 10, 100, 25)];
     [self.priceLabel setLabelWithSize:14.0f Color:[UIColor colorWithRGBHex:0xcc3333]];
-    self.priceLabel.text=[NSString stringWithFormat:@"总计¥%.2f元",self.totalPrice];
+    self.priceLabel.text=[NSString stringWithFormat:@"总价 ¥%.2f元",self.totalPrice];
     [superView addSubview:self.priceLabel];
-
 }
+
 -(void)setSquareView:(UIView*)superView
 {
     for (int i=0; i<3; i++) {

@@ -137,8 +137,8 @@
 }
 
 
-#pragma mark-UpdateData
--(void)requestUpdateData
+#pragma mark - UpdateData
+- (void)requestUpdateData
 {
     [MBProgressHUD showMessag:@"加载中……" toView:self.view];
     self.categoryIndex=0;
@@ -330,7 +330,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if ([tableView isEqual:self.categoryTableView]) {
-        return 55.f;
+        return 71.f;
     }else{
         return 60.f;
     }
@@ -359,8 +359,16 @@
         if (indexPath.row<[self.categoryList count]) {
             NSMutableString* categoryName=[[NSMutableString alloc]initWithString:[[self.categoryList objectAtIndex:indexPath.row] objectForKey:@"ItemCategoryName"]];;
             [cell labelWithTag:10].numberOfLines=[categoryName length];
-            [categoryName insertString:@"\n" atIndex:1];
+            
+            if (categoryName.length > 2) {
+                [categoryName insertString:@"\n" atIndex:1];
+                [categoryName insertString:@"\n" atIndex:3];
+            } else {
+                [categoryName insertString:@"\n" atIndex:1];
+            }
+            
             [cell setText:categoryName toLabelWithTag:10];
+            
             if (indexPath.row==self.categoryIndex) {
                 [[cell labelWithTag:10] setTextColor:RGBACOLOR(129, 192, 36, 1)];
             }else{

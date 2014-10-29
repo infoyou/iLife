@@ -294,7 +294,7 @@ enum Button_Evaluation_Tag_Enum
                 
                 // button enable by order status
                 orderTitle.text = [NSString stringWithFormat:@"订单编号: %@", orderTotal.orderNo];
-                totalAmount.text = [NSString stringWithFormat:@"总计: %@元", orderTotal.totalAmount];
+                totalAmount.text = [NSString stringWithFormat:@"总价: %@元", orderTotal.totalAmount];
                 
                 // --------- cancel enable start
                 if (![@"1" isEqualToString:orderTotal.orderCanCancel]) {
