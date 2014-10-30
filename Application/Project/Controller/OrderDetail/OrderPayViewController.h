@@ -18,7 +18,7 @@
  @param error nil
  @result id
  */
-- (id)initWithMOC:(NSManagedObjectContext *)MOC orderNo:(NSString *)orderNo  totalAmount:(NSString *)totalAmount orderId:(NSString*)orderId;
+- (id)initWithMOC:(NSManagedObjectContext *)MOC orderNo:(NSString *)orderNo  totalAmount:(NSString *)totalAmount orderId:(NSString*)orderId deliveryTime:(NSString *)deliveryTime;
 
 - (void)updateOrderAmount:(NSString *)totalAmount;
 

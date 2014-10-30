@@ -26,6 +26,7 @@
 @property (nonatomic, copy) NSString *totalAmountStr;
 @property (nonatomic, copy) NSString *orderId;
 @property (nonatomic, copy) NSString *orderNo;
+@property (nonatomic, copy) NSString *deliveryTime;
 
 @property (nonatomic, copy) NSString *currentTickent;
 @property (nonatomic, copy) NSString *currentPayAmount;
@@ -41,10 +42,11 @@
 @synthesize totalAmountStr = _totalAmountStr;
 @synthesize orderNo = _orderNo;
 @synthesize orderId = _orderId;
+@synthesize deliveryTime = _deliveryTime;
 @synthesize currentTickent = _currentTickent;
 @synthesize currentPayAmount = _currentPayAmount;
 
-- (id)initWithMOC:(NSManagedObjectContext *)MOC orderNo:(NSString *)orderNo totalAmount:(NSString *)totalAmount orderId:(NSString*)orderId
+- (id)initWithMOC:(NSManagedObjectContext *)MOC orderNo:(NSString *)orderNo totalAmount:(NSString *)totalAmount orderId:(NSString*)orderId deliveryTime:(NSString *)deliveryTime
 {
     
     self = [super initNoNeedDisplayEmptyMessageTableWithMOC:MOC
@@ -589,7 +591,11 @@
                     if (payStep == 1) {
                         [self doServerPay:@"2" payResult:@"1"];
                     } else {
-                        ShowAlert(self, NSLocalizedString(NSNoteTitle, nil), @"支付成功\n货物将在18:30-19:00送达\n请注意查收", NSLocalizedString(NSSureTitle, nil));
+                        NSString *msg = [NSString stringWithFormat:@"支付成功\n货物将在%@送达\n请注意查收", self.deliveryTime];
+                        ShowAlert(self,
+                                  NSLocalizedString(NSNoteTitle, nil),
+                                  msg,
+                                  NSLocalizedString(NSSureTitle, nil));
                     }
                 } else {
                     if (payStep == 1) {
@@ -597,7 +603,12 @@
                     } else {
                         if ([AppManager instance].aliPayStatus) {
                             
-                            ShowAlert(self, NSLocalizedString(NSNoteTitle, nil), @"支付成功\n货物将在18:30-19:00送达\n请注意查收", NSLocalizedString(NSSureTitle, nil));
+                            NSString *msg = [NSString stringWithFormat:@"支付成功\n货物将在%@送达\n请注意查收", self.deliveryTime];
+                            
+                            ShowAlert(self,
+                                      NSLocalizedString(NSNoteTitle, nil),
+                                      msg,
+                                      NSLocalizedString(NSSureTitle, nil));
                         }
                     }
                 }

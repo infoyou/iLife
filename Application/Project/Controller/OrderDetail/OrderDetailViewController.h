@@ -35,10 +35,11 @@
 {}
 
 @property (nonatomic, retain)NSString* orderId;
+@property (nonatomic, retain)NSString* orderNo;
 @property (nonatomic, retain)NSString* orderCanPay;
 @property (nonatomic, retain)NSString* orderCanCancel;
-@property (nonatomic, retain)NSString* orderNo;
 @property (nonatomic, retain)NSString* totalAmount;
+@property (nonatomic, retain)NSString* deliveryTime;
 @property (nonatomic, retain)NSMutableArray* groupArray;
 @end
 

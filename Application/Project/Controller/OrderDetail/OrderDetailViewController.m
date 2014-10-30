@@ -14,6 +14,7 @@
 @synthesize orderCanPay = _orderCanPay;
 @synthesize orderCanCancel = _orderCanCancel;
 @synthesize groupArray = _groupArray;
+@synthesize deliveryTime = _deliveryTime;
 @end
 
 @implementation OrderDetail
@@ -782,7 +783,7 @@ enum Button_Evaluation_Tag_Enum
         OrderTotal *orderTotal = (OrderTotal *)_orderArray[section];
 
         OrderPayViewController *vc =
-        [[[OrderPayViewController alloc] initWithMOC:_MOC orderNo:orderTotal.orderNo totalAmount:orderTotal.totalAmount orderId:orderTotal.orderId] autorelease];
+        [[[OrderPayViewController alloc] initWithMOC:_MOC orderNo:orderTotal.orderNo totalAmount:orderTotal.totalAmount orderId:orderTotal.orderId deliveryTime:orderTotal.deliveryTime] autorelease];
         
         [CommonMethod pushViewController:vc withAnimated:YES];
     }
@@ -978,7 +979,7 @@ enum Button_Evaluation_Tag_Enum
                     orderTotal.totalAmount = STRING_VALUE_FROM_DIC(totalDic, @"Amount");
                     orderTotal.orderCanPay = [NSString stringWithFormat:@"%d", INT_VALUE_FROM_DIC(totalDic, @"OrderCanPay")];
                     orderTotal.orderCanCancel = [NSString stringWithFormat:@"%d", INT_VALUE_FROM_DIC(totalDic, @"OrderCanCancel")];
-
+                    orderTotal.deliveryTime = STRING_VALUE_FROM_DIC(totalDic, @"DeliveryTime");
                     
                     if (![orderTotal.orderCanPay length]) {
                         orderTotal.orderCanPay = @"1";
