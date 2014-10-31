@@ -59,6 +59,7 @@
         _totalAmountStr = totalAmount;
         _orderNo = orderNo;
         _orderId = orderId;
+        _deliveryTime = deliveryTime;
         
         isNeed3rdPay = NO;
     }
@@ -591,7 +592,7 @@
                     if (payStep == 1) {
                         [self doServerPay:@"2" payResult:@"1"];
                     } else {
-                        NSString *msg = [NSString stringWithFormat:@"支付成功\n货物将在%@送达\n请注意查收", self.deliveryTime];
+                        NSString *msg = [NSString stringWithFormat:@"支付成功\n货物将在%@送达\n请注意查收", _deliveryTime];
                         ShowAlert(self,
                                   NSLocalizedString(NSNoteTitle, nil),
                                   msg,
@@ -603,7 +604,7 @@
                     } else {
                         if ([AppManager instance].aliPayStatus) {
                             
-                            NSString *msg = [NSString stringWithFormat:@"支付成功\n货物将在%@送达\n请注意查收", self.deliveryTime];
+                            NSString *msg = [NSString stringWithFormat:@"支付成功\n货物将在%@送达\n请注意查收", _deliveryTime];
                             
                             ShowAlert(self,
                                       NSLocalizedString(NSNoteTitle, nil),

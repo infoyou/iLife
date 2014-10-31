@@ -48,11 +48,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Application/Project/Controller/OrderDetail/OrderPayViewController.m"
-            timestampString = "436346964.003102"
+            timestampString = "436353955.24902"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "464"
-            endingLineNumber = "464"
+            startingLineNumber = "465"
+            endingLineNumber = "465"
             landmarkName = "-paymentResultDelegate:"
             landmarkType = "5">
          </BreakpointContent>
@@ -64,11 +64,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Application/Project/Controller/OrderDetail/OrderPayViewController.m"
-            timestampString = "436346964.003102"
+            timestampString = "436353955.24902"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "517"
-            endingLineNumber = "517"
+            startingLineNumber = "518"
+            endingLineNumber = "518"
             landmarkName = "-handlePayResultStatus"
             landmarkType = "5">
          </BreakpointContent>
@@ -368,11 +368,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Application/Project/Controller/OrderDetail/OrderPayViewController.m"
-            timestampString = "436346964.003102"
+            timestampString = "436353955.24902"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "337"
-            endingLineNumber = "337"
+            startingLineNumber = "338"
+            endingLineNumber = "338"
             landmarkName = "-doServerPay:payResult:"
             landmarkType = "5">
          </BreakpointContent>
@@ -384,11 +384,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Application/Project/Controller/OrderDetail/OrderPayViewController.m"
-            timestampString = "436346964.003102"
+            timestampString = "436353955.24902"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "574"
-            endingLineNumber = "574"
+            startingLineNumber = "575"
+            endingLineNumber = "575"
             landmarkName = "-connectDone:url:contentType:"
             landmarkType = "5">
          </BreakpointContent>
@@ -896,11 +896,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Application/Project/Controller/OrderDetail/OrderPayViewController.m"
-            timestampString = "436346964.003102"
+            timestampString = "436353955.24902"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "400"
-            endingLineNumber = "400"
+            startingLineNumber = "401"
+            endingLineNumber = "401"
             landmarkName = "-btnClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -912,11 +912,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Application/Project/Controller/OrderDetail/OrderPayViewController.m"
-            timestampString = "436346964.003102"
+            timestampString = "436353955.24902"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "395"
-            endingLineNumber = "395"
+            startingLineNumber = "396"
+            endingLineNumber = "396"
             landmarkName = "-btnClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -928,11 +928,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Application/Project/Controller/OrderDetail/OrderPayViewController.m"
-            timestampString = "436346964.003102"
+            timestampString = "436353955.24902"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "410"
-            endingLineNumber = "410"
+            startingLineNumber = "411"
+            endingLineNumber = "411"
             landmarkName = "-btnClick:"
             landmarkType = "5">
          </BreakpointContent>
@@ -998,6 +998,38 @@
             startingLineNumber = "716"
             endingLineNumber = "716"
             landmarkName = "-alertView:clickedButtonAtIndex:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Application/Project/Controller/OrderDetail/OrderDetailViewController.m"
+            timestampString = "436353690.745109"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "984"
+            endingLineNumber = "984"
+            landmarkName = "-connectDone:url:contentType:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Application/Project/Controller/OrderDetail/OrderPayViewController.m"
+            timestampString = "436353941.009433"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "595"
+            endingLineNumber = "595"
+            landmarkName = "-connectDone:url:contentType:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

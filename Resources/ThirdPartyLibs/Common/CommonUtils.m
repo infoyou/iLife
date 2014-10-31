@@ -802,6 +802,10 @@
             return @"已评价";
             break;
             
+        case ORDER_PENDING:
+            return @"待处理";
+            break;
+            
         default:
             break;
     }

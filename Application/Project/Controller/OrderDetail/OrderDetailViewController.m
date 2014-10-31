@@ -412,8 +412,8 @@ enum Button_Evaluation_Tag_Enum
             
             OrderDetail *orderDetail = orderDetailArray[0];
             skuName.text = orderDetail.itemName;
-            weight.text = [NSString stringWithFormat:@"%@%@", orderDetail.realWeight, orderDetail.itemUnit];
-            price.text = [NSString stringWithFormat:@"已购%@%@/%@元", orderDetail.purchaseWeight, orderDetail.itemUnit, orderDetail.realAmount];
+            weight.text = [NSString stringWithFormat:@"%@%@", orderDetail.purchaseWeight, orderDetail.itemUnit];
+            price.text = [NSString stringWithFormat:@"已购%@%@/%@元", orderDetail.realWeight, orderDetail.itemUnit, orderDetail.realAmount];
             orderState.text = [CommonUtils getOrderStateName:[[NSString stringWithFormat:@"%@",orderDetail.orderStatus] intValue]];
             
             if (orderDetail.isFirst && row != 0) {

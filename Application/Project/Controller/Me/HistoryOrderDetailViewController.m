@@ -17,6 +17,7 @@
 @synthesize weight = _weight;
 @synthesize realWeight = _realWeight;
 @synthesize itemAmount = _itemAmount;
+@synthesize itemUnit = _itemUnit;
 @synthesize status = _status;
 
 @end
@@ -286,7 +287,7 @@ enum Button_Order_State_Tag_Enum
             
             skuName.text = orderDetail.itemName;
             weight.text = [NSString stringWithFormat:@"%@克", orderDetail.realWeight];
-            price.text = [NSString stringWithFormat:@"已购%@克/%@元", orderDetail.weight, orderDetail.itemAmount];
+            price.text = [NSString stringWithFormat:@"已购%@%@/%@元", orderDetail.weight, orderDetail.itemUnit, orderDetail.itemAmount];
             state.text = [CommonUtils getOrderStateName:[[NSString stringWithFormat:@"%@",orderDetail.status] intValue]];
             
             if ([state.text isEqualToString:@"抢光了"]) {
@@ -375,6 +376,8 @@ enum Button_Order_State_Tag_Enum
                             orderDetail.realWeight = STRING_VALUE_FROM_DIC(dic, @"RealWeight");
                             orderDetail.weight = STRING_VALUE_FROM_DIC(dic, @"Weight");
                             orderDetail.itemAmount = STRING_VALUE_FROM_DIC(dic, @"ItemAmount");
+                            orderDetail.itemUnit = STRING_VALUE_FROM_DIC(dic, @"ItemUnit");
+                            
                             orderDetail.status = status;
                             
                             [orderDetailArray addObject:orderDetail];

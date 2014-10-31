@@ -57,6 +57,7 @@
 @property (nonatomic, retain)NSString* weight;
 @property (nonatomic, retain)NSString* realWeight;
 @property (nonatomic, retain)NSString* itemAmount;
+@property (nonatomic, retain)NSString* itemUnit;
 @property (nonatomic, retain)NSString* status;
 
 @end

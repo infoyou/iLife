@@ -218,6 +218,7 @@ enum Order_States_Enum
     ORDER_CANVASS_DONE = 15,//	已揽货
     ORDER_CANVASS_UNDONE = 16,//	未揽货
     ORDER_EVALUATED = 17,//	已评价
+    ORDER_PENDING = 18, //待处理
 };
 
 //聊天的类型
