@@ -182,13 +182,13 @@
 - (void)saveAddress:(id)sender
 {
     if ([self.nameTextField.text length]==0||[self.mobileNumberTextField.text length]==0||[self.cityTextField.text length]==0||[self.districtTextField.text length]==0||[self.communityTextField.text length]==0||[self.detailAddressTextField.text length]==0) {
-        ShowAlert(self, NSLocalizedString(NSNoteTitle, nil), @"所有填写项不能为空", NSLocalizedString(NSSureTitle, nil));
+        ShowAlertWithOneButton(self, NSLocalizedString(NSNoteTitle, nil), @"所有填写项不能为空", NSLocalizedString(NSSureTitle, nil));
 
     }else{
         [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"NewDeliveryAddress" UserID:[AppManager instance].userId Parameters:@{@"MobileNumber":self.mobileNumberTextField.text,@"Receiver":self.nameTextField.text,@"CityID":self.cityID,@"AreaID":self.areaID,@"EstateId":self.estateID,@"DetailedAddress":self.detailAddressTextField.text}]];
     }
 //    [self.netBase RequestOperationWithRequestType:NET_GET param:[self getParamWithAction:@"NewDeliveryAddress" UserID:[AppManager instance].userId Parameters:@{@"MobileNumber":@"13585645523",@"Receiver":@"allen",@"CityID":self.cityID,@"AreaID":self.areaID,@"DetailedAddress":@"延平路121号"}]];
-//    ShowAlert(self, NSLocalizedString(NSNoteTitle, nil), @"非常抱歉,该地址附近没有菜场配送.", NSLocalizedString(NSSureTitle, nil));
+//    ShowAlertWithOneButton(self, NSLocalizedString(NSNoteTitle, nil), @"非常抱歉,该地址附近没有菜场配送.", NSLocalizedString(NSSureTitle, nil));
 }
 
 - (IBAction)selectAddress:(UIButton *)sender {
@@ -271,7 +271,7 @@
             [self.navigationController popViewControllerAnimated:YES];
             
         }else{
-            ShowAlert(self, NSLocalizedString(NSNoteTitle, nil), @"非常抱歉,该地址附近没有菜场配送.", NSLocalizedString(NSSureTitle, nil));
+            ShowAlertWithOneButton(self, NSLocalizedString(NSNoteTitle, nil), @"非常抱歉,该地址附近没有菜场配送.", NSLocalizedString(NSSureTitle, nil));
         }
 
     }

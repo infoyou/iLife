@@ -11,49 +11,30 @@
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>6C4E947692E79725AA78C21BE9A3E51FB41F7F42</key>
-		<string>http://git.aladingyidong.com:99/svn/iLife/IOS/iLife</string>
-		<key>813e8fc1-9f83-0c43-acd4-cf9372002559++2252</key>
-		<string>http://git.aladingyidong.com:99/svn/iLife/IOS/iLife</string>
+		<string>https://github.com/infoyou/iLife.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>iLife/iLife.xcodeproj</string>
+	<string>iLife.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>6C4E947692E79725AA78C21BE9A3E51FB41F7F42</key>
-		<string>../../../../iLife</string>
-		<key>813e8fc1-9f83-0c43-acd4-cf9372002559++2252</key>
-		<string>../../..</string>
-	</dict>
-	<key>IDESourceControlProjectRepositoryRootDictionary</key>
-	<dict>
-		<key>6C4E947692E79725AA78C21BE9A3E51FB41F7F42</key>
-		<string>http://git.aladingyidong.com:99/svn/iLife</string>
-		<key>813e8fc1-9f83-0c43-acd4-cf9372002559++2252</key>
-		<string>http://git.aladingyidong.com:99/svn/iLife</string>
+		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>http://git.aladingyidong.com:99/svn/iLife/IOS/iLife/iLife/iLife.xcodeproj</string>
+	<string>https://github.com/infoyou/iLife.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>813e8fc1-9f83-0c43-acd4-cf9372002559++2252</string>
+	<string>6C4E947692E79725AA78C21BE9A3E51FB41F7F42</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.subversion</string>
+			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>6C4E947692E79725AA78C21BE9A3E51FB41F7F42</string>
 			<key>IDESourceControlWCCName</key>
 			<string>iLife</string>
-		</dict>
-		<dict>
-			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
-			<string>public.vcs.subversion</string>
-			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>813e8fc1-9f83-0c43-acd4-cf9372002559++2252</string>
-			<key>IDESourceControlWCCName</key>
-			<string>Project</string>
 		</dict>
 	</array>
 </dict>

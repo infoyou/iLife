@@ -1051,10 +1051,10 @@
 		667EDD8C1901175C00328E1F /* CMPopTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPopTipView.h; sourceTree = "<group>"; };
 		667EDD8D1901175C00328E1F /* CMPopTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPopTipView.m; sourceTree = "<group>"; };
 		667EDD8F1901175C00328E1F /* CommonHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonHeader.h; sourceTree = "<group>"; };
-		667EDD901901175C00328E1F /* CommonMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonMethod.h; sourceTree = "<group>"; };
-		667EDD911901175C00328E1F /* CommonMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonMethod.m; sourceTree = "<group>"; };
+		667EDD901901175C00328E1F /* CommonMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CommonMethod.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		667EDD911901175C00328E1F /* CommonMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CommonMethod.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		667EDD921901175C00328E1F /* CommonUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonUtils.h; sourceTree = "<group>"; };
-		667EDD931901175C00328E1F /* CommonUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonUtils.m; sourceTree = "<group>"; };
+		667EDD931901175C00328E1F /* CommonUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CommonUtils.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		667EDD941901175C00328E1F /* HardwareInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HardwareInfo.h; sourceTree = "<group>"; };
 		667EDD951901175C00328E1F /* HardwareInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HardwareInfo.m; sourceTree = "<group>"; };
 		667EDD961901175C00328E1F /* TextConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextConstants.h; sourceTree = "<group>"; };
@@ -1540,7 +1540,7 @@
 		667EE03B1901175D00328E1F /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		667EE03C1901175D00328E1F /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		667EE03D1901175D00328E1F /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
-		667EE0401901175D00328E1F /* BaseConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseConstants.h; path = ../../Resources/ThirdPartyLibs/wxwlib/Constants/BaseConstants.h; sourceTree = "<group>"; };
+		667EE0401901175D00328E1F /* BaseConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = BaseConstants.h; path = ../../Resources/ThirdPartyLibs/wxwlib/Constants/BaseConstants.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		667EE0421901175D00328E1F /* WXWLocationFetcherDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXWLocationFetcherDelegate.h; sourceTree = "<group>"; };
 		667EE0431901175D00328E1F /* WXWLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXWLocationManager.h; sourceTree = "<group>"; };
 		667EE0441901175D00328E1F /* WXWLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXWLocationManager.m; sourceTree = "<group>"; };
@@ -1756,7 +1756,7 @@
 		669CC36119BEAF3700117982 /* orderStateDetail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orderStateDetail.png; sourceTree = "<group>"; };
 		669CC36319BEC9AD00117982 /* bad_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bad_sel.png; sourceTree = "<group>"; };
 		669CC36519BED3A700117982 /* OrderPayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPayViewController.h; sourceTree = "<group>"; };
-		669CC36619BED3A700117982 /* OrderPayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPayViewController.m; sourceTree = "<group>"; };
+		669CC36619BED3A700117982 /* OrderPayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = OrderPayViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		669CC36A19BED51500117982 /* OrderPayCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderPayCell.xib; sourceTree = "<group>"; };
 		669CC36C19BED6E900117982 /* pay_checkBox_sel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pay_checkBox_sel.png; sourceTree = "<group>"; };
 		669CC36D19BED6E900117982 /* pay_checkBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pay_checkBox.png; sourceTree = "<group>"; };
@@ -1793,13 +1793,13 @@
 		66C675AD196D1226006CCEC4 /* MatchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchListViewController.h; path = ../Project/Controller/Common/MatchListViewController.h; sourceTree = "<group>"; };
 		66C675AE196D1226006CCEC4 /* MatchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchListViewController.m; path = ../Project/Controller/Common/MatchListViewController.m; sourceTree = "<group>"; };
 		66D4C11319B5A60700E755AC /* OrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailViewController.h; sourceTree = "<group>"; };
-		66D4C11419B5A60700E755AC /* OrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailViewController.m; sourceTree = "<group>"; };
+		66D4C11419B5A60700E755AC /* OrderDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = OrderDetailViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		66D4C11619B5A60700E755AC /* ShoppingCartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCartViewController.h; sourceTree = "<group>"; };
 		66D4C11719B5A60700E755AC /* ShoppingCartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCartViewController.m; sourceTree = "<group>"; };
 		66D4C11919B5A60700E755AC /* VisitingFarmsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitingFarmsViewController.h; sourceTree = "<group>"; };
 		66D4C11A19B5A60700E755AC /* VisitingFarmsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitingFarmsViewController.m; sourceTree = "<group>"; };
 		66D4C11E19B5A9E000E755AC /* CircleMarkegingApplyWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleMarkegingApplyWindow.h; sourceTree = "<group>"; };
-		66D4C11F19B5A9E000E755AC /* CircleMarkegingApplyWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleMarkegingApplyWindow.m; sourceTree = "<group>"; };
+		66D4C11F19B5A9E000E755AC /* CircleMarkegingApplyWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CircleMarkegingApplyWindow.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		66D4C12119B5AA7600E755AC /* InformationDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InformationDefault.h; sourceTree = "<group>"; };
 		66D4C12219B5AA7600E755AC /* InformationDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InformationDefault.m; sourceTree = "<group>"; };
 		66D4C12419B5AB2D00E755AC /* CircleMarkegingApplyWindowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleMarkegingApplyWindowCell.h; sourceTree = "<group>"; };
@@ -1972,7 +1972,7 @@
 		66E1043919D4F8F900309161 /* shareWeibo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shareWeibo.png; sourceTree = "<group>"; };
 		66E1043D19D4F93300309161 /* ShareView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareView.xib; sourceTree = "<group>"; };
 		66E1043F19D518F500309161 /* NewAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAddressViewController.h; sourceTree = "<group>"; };
-		66E1044019D518F500309161 /* NewAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAddressViewController.m; sourceTree = "<group>"; };
+		66E1044019D518F500309161 /* NewAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NewAddressViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		66E1044119D518F500309161 /* NewAddressViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewAddressViewController.xib; sourceTree = "<group>"; };
 		66E8E73A1973A7740049882F /* JDStatusBarNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDStatusBarNotification.h; sourceTree = "<group>"; };
 		66E8E73B1973A7740049882F /* JDStatusBarNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JDStatusBarNotification.m; sourceTree = "<group>"; };
@@ -2120,7 +2120,7 @@
 		CE47BA6F18FE8876006D5593 /* MeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeTableViewCell.h; sourceTree = "<group>"; };
 		CE47BA7018FE8876006D5593 /* MeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeTableViewCell.m; sourceTree = "<group>"; };
 		CE47BA7118FE8876006D5593 /* MeListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeListViewController.h; sourceTree = "<group>"; };
-		CE47BA7218FE8876006D5593 /* MeListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeListViewController.m; sourceTree = "<group>"; };
+		CE47BA7218FE8876006D5593 /* MeListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MeListViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CE52C9B918F6AFFE00D0067A /* HotNewsModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotNewsModal.h; sourceTree = "<group>"; };
 		CE52C9BA18F6AFFE00D0067A /* HotNewsModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotNewsModal.m; sourceTree = "<group>"; };
 		CE81EABE190E43DC00EFAD55 /* SelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectView.h; sourceTree = "<group>"; };
@@ -2164,9 +2164,9 @@
 		CEA679D919EFAAB1004CA7BA /* CommonTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonTools.h; sourceTree = "<group>"; };
 		CEA679DA19EFAAB1004CA7BA /* CommonTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommonTools.m; sourceTree = "<group>"; };
 		CEA679DB19EFAAB1004CA7BA /* CustomeAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomeAlertView.h; sourceTree = "<group>"; };
-		CEA679DC19EFAAB1004CA7BA /* CustomeAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomeAlertView.m; sourceTree = "<group>"; };
-		CEA679DD19EFAAB1004CA7BA /* CustomizedAlertAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomizedAlertAnimation.h; sourceTree = "<group>"; };
-		CEA679DE19EFAAB1004CA7BA /* CustomizedAlertAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomizedAlertAnimation.m; sourceTree = "<group>"; };
+		CEA679DC19EFAAB1004CA7BA /* CustomeAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CustomeAlertView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		CEA679DD19EFAAB1004CA7BA /* CustomizedAlertAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CustomizedAlertAnimation.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		CEA679DE19EFAAB1004CA7BA /* CustomizedAlertAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CustomizedAlertAnimation.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		CEA679DF19EFAAB1004CA7BA /* EmojiConvertor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmojiConvertor.h; sourceTree = "<group>"; };
 		CEA679E019EFAAB1004CA7BA /* EmojiConvertor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmojiConvertor.m; sourceTree = "<group>"; };
 		CEA679E119EFAAB1004CA7BA /* HPGrowingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPGrowingTextView.h; sourceTree = "<group>"; };
@@ -5000,7 +5000,7 @@
 				ORGANIZATIONNAME = com.jit;
 				TargetAttributes = {
 					D018021F1814C6A20094E365 = {
-						DevelopmentTeam = AG64E95Y55;
+						DevelopmentTeam = W37V683YXZ;
 					};
 				};
 			};
@@ -5872,7 +5872,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Ronghao Qiu (H9J9ZWYPZA)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/Resources/ThirdPartyLibs/PLCrashReporter\"",
@@ -5929,7 +5929,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Just in Time Marketing Co., LTD.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5971,7 +5971,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_EMPTY_BODY = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: WEIXUN INFORMATION TECHNOLOGY CO .,LTD (W37V683YXZ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6011,7 +6011,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = iLife;
-				PROVISIONING_PROFILE = "017e8184-b510-48a2-9e1d-d8403d0f7f00";
+				PROVISIONING_PROFILE = "ebe41a4b-0e25-4cc8-8360-0beac1acddd8";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -6028,8 +6028,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_EMPTY_BODY = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: WEIXUN INFORMATION TECHNOLOGY CO .,LTD (W37V683YXZ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: WEIXUN INFORMATION TECHNOLOGY CO .,LTD (W37V683YXZ)";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6066,7 +6066,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = iLife;
-				PROVISIONING_PROFILE = "40054afc-a570-450a-b7a7-ed8632973f45";
+				PROVISIONING_PROFILE = "d3e2a17b-19ae-4d87-987a-e8df5142f189";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;

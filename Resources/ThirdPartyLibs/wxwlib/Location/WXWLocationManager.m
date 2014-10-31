@@ -228,7 +228,7 @@
     if (![WXWSystemInfoManager instance].locationFetched) {
       
       if (_showAlertMsg) {
-        ShowAlert(self, LocaleStringForKey(NSNoteTitle, nil), LocaleStringForKey(NSLocationSevDisabledMsg, nil), LocaleStringForKey(NSOKTitle, nil));
+        ShowAlertWithOneButton(self, LocaleStringForKey(NSNoteTitle, nil), LocaleStringForKey(NSLocationSevDisabledMsg, nil), LocaleStringForKey(NSOKTitle, nil));
       }
 		} else if (error.code == kCLErrorLocationUnknown) {
       // ignore this error and continue
