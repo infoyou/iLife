@@ -46,6 +46,8 @@
 #define ALIPAY_APP_SCHEME             @"iLifeAlipay"
 
 
+#define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+
 #if APP_TYPE == APP_TYPE_EMBA
 #define FORGET_PASSWORD_LINK                     @"http://112.124.68.147:5000/Mobile/RetrievePasswordList.aspx"
 #else

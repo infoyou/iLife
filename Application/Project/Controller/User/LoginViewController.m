@@ -712,6 +712,7 @@ typedef enum {
             
             if ([AppManager instance].isFromHome) {
                 [self doClose:nil];
+                
                 [AppManager instance].isFromHome = NO;
             }
             break;
@@ -976,6 +977,7 @@ typedef enum {
 - (void)doClose:(id)sender {
     
     [WXWUIUtils closeActivityView];
+    [self dismissViewControllerAnimated:YES completion:nil];
     [self dismissModalViewControllerAnimated:YES];
 }
 

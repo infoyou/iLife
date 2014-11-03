@@ -8,7 +8,7 @@
 
 #import "MerchantsListViewController.h"
 #import "ZBarSDK.h"
-
+#import "HomeContainerViewController.h"
 #import "ALSweepViewController.h"
 
 #define KSEARCHBAR_HEIGHT   44.0f
@@ -33,7 +33,7 @@
 
 @end
 
-@interface MerchantsListViewController () <UISearchBarDelegate>
+@interface MerchantsListViewController () <UISearchBarDelegate, ZBarReaderDelegate>
 {
     UISearchBar *_searchBar;
     UITableView *_storeTable;
@@ -90,7 +90,6 @@
     }
     return self;
 }
-
 
 - (void)viewDidLoad
 {
@@ -387,7 +386,8 @@
 - (void)addNewAddress:(id)sender {
     
     
-    /*扫描二维码部分：
+    /*
+     扫描二维码部分：
      导入ZBarSDK文件并引入一下框架
      AVFoundation.framework
      CoreMedia.framework
@@ -399,7 +399,8 @@
      
      - (void) imagePickerController: (UIImagePickerController*) reader didFinishPickingMediaWithInfo: (NSDictionary*) info
      
-     最后读取并显示了条形码的图片和内容。*/
+     最后读取并显示了条形码的图片和内容。
+     */
     
     ZBarReaderViewController *reader = [ZBarReaderViewController new];
     reader.readerDelegate = self;
@@ -407,18 +408,18 @@
     
     ZBarImageScanner *scanner = reader.scanner;
     
-    [scanner setSymbology: ZBAR_I25
-                   config: ZBAR_CFG_ENABLE
-                       to: 0];
+    [scanner setSymbology:ZBAR_I25
+                   config:ZBAR_CFG_ENABLE
+                       to:0];
+   
+    [self presentModalViewController:reader
+                            animated:YES];
     
-    [self presentModalViewController: reader
-                            animated: YES];
     [reader release];
 
 }
 
-- (void) imagePickerController: (UIImagePickerController*) reader
- didFinishPickingMediaWithInfo: (NSDictionary*) info
+- (void)imagePickerController:(UIImagePickerController*)reader didFinishPickingMediaWithInfo:(NSDictionary*)info
 {
     id<NSFastEnumeration> results =
     [info objectForKey: ZBarReaderControllerResults];
@@ -426,7 +427,7 @@
     for(symbol in results)
         break;
     
-    [reader dismissModalViewControllerAnimated: YES];
+    [reader dismissModalViewControllerAnimated:YES];
     
     NSString *resultStr =  symbol.data ;    
     NSLog(@"resultStr = %@", resultStr);
@@ -440,7 +441,12 @@
                                                               contentType:API_SELLER_PRIORITY_TY];
     
     [connFacade fetchGets:url];
+}
 
+- (void)readerControllerDidFailToRead:(ZBarReaderController*)reader
+                             withRetry:(BOOL)retry
+{
+    [reader dismissModalViewControllerAnimated:YES];
 }
 
 @end

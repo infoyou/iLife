@@ -491,8 +491,6 @@
     loginVC.delegate = [UIApplication sharedApplication].delegate;
     
     [self presentViewController:vcNav animated:YES completion:nil];
-    
-//    [[[UIApplication sharedApplication].delegate window] setRootViewController:loginVC];
 }
 
 - (void)goProfile

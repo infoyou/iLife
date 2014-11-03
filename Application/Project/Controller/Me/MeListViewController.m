@@ -679,6 +679,9 @@ enum Head_Control_Type
     [AppManager instance].userId = @"";
     [AppManager instance].passwd = @"";
     
+    [AppManager instance].cartCount = 0;
+    [AppManager instance].orderCount = 0;
+    
     // Clear current user data
     [WXWCoreDataUtils deleteEntitiesFromMOC:_MOC entityName:@"TodoList" predicate:nil];
     [WXWCoreDataUtils deleteEntitiesFromMOC:_MOC entityName:@"SurveyDetail" predicate:nil];
@@ -692,7 +695,6 @@ enum Head_Control_Type
     HomeContainerViewController *homeVC = (HomeContainerViewController *)self.parentVC;
     [homeVC selectFirstTabBar];
     [homeVC modifyFromTabBarFlag];
-    
 }
 
 - (void)doUpdateSoftAction

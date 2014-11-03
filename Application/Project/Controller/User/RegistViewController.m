@@ -555,7 +555,7 @@
         heightFraction = 1.0;
     }
     
-    _animatedDistance = floor(216 * heightFraction) + 50;
+    _animatedDistance = floor(216 * heightFraction) + 50 - 20;
     int maxY = CGRectGetMaxY(self.view.frame);
     
     NSLog(@"%f", maxY - _animatedDistance);
