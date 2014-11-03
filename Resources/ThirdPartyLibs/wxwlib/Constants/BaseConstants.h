@@ -96,7 +96,7 @@ typedef enum {
 #define FONT_BOLD_SYSTEM_SIZE(size) [UIFont boldSystemFontOfSize:(size)]
 
 #pragma mark - Alert
-#define ShowAlert(Delegate,TITLE,MSG,But) [[[[UIAlertView alloc] initWithTitle:(TITLE) \
+#define ShowAlertWithOneButton(Delegate,TITLE,MSG,But) [[[[UIAlertView alloc] initWithTitle:(TITLE) \
 message:(MSG) \
 delegate:Delegate \
 cancelButtonTitle:But \

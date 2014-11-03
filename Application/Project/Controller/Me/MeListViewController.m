@@ -522,7 +522,7 @@ enum Head_Control_Type
 
 - (void)shareBySMS {
     if (![MFMessageComposeViewController canSendText]) {
-        ShowAlert(self,LocaleStringForKey(NSNoteTitle, nil), LocaleStringForKey(NSNoSupportTitle, nil), LocaleStringForKey(NSOKTitle, nil));
+        ShowAlertWithOneButton(self,LocaleStringForKey(NSNoteTitle, nil), LocaleStringForKey(NSNoSupportTitle, nil), LocaleStringForKey(NSOKTitle, nil));
         return;
     }
     

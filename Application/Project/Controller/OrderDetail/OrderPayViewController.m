@@ -414,7 +414,7 @@
             }
         }
     } else {
-        ShowAlert(self, NSLocalizedString(NSNoteTitle, nil), @"支付金额必须大于0.", NSLocalizedString(NSSureTitle, nil));
+        ShowAlertWithOneButton(self, NSLocalizedString(NSNoteTitle, nil), @"支付金额必须大于0.", NSLocalizedString(NSSureTitle, nil));
     }
 }
 
@@ -593,7 +593,7 @@
                         [self doServerPay:@"2" payResult:@"1"];
                     } else {
                         NSString *msg = [NSString stringWithFormat:@"支付成功\n货物将在%@送达\n请注意查收", _deliveryTime];
-                        ShowAlert(self,
+                        ShowAlertWithOneButton(self,
                                   NSLocalizedString(NSNoteTitle, nil),
                                   msg,
                                   NSLocalizedString(NSSureTitle, nil));
@@ -606,7 +606,7 @@
                             
                             NSString *msg = [NSString stringWithFormat:@"支付成功\n货物将在%@送达\n请注意查收", _deliveryTime];
                             
-                            ShowAlert(self,
+                            ShowAlertWithOneButton(self,
                                       NSLocalizedString(NSNoteTitle, nil),
                                       msg,
                                       NSLocalizedString(NSSureTitle, nil));
