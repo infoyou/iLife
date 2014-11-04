@@ -89,6 +89,7 @@
 @property (nonatomic, retain) LoadUserThread *loadUserThread;
 
 @property (nonatomic) BOOL updateCache;
+@property (nonatomic) BOOL updateFoodCache;
 @property (nonatomic) NSInteger cartCount;
 @property (nonatomic) NSInteger orderCount;
 

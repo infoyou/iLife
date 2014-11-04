@@ -46,8 +46,6 @@
 #define ALIPAY_APP_SCHEME             @"iLifeAlipay"
 
 
-#define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
-
 #if APP_TYPE == APP_TYPE_EMBA
 #define FORGET_PASSWORD_LINK                     @"http://112.124.68.147:5000/Mobile/RetrievePasswordList.aspx"
 #else
@@ -220,7 +218,7 @@ enum Order_States_Enum
     ORDER_CANVASS_DONE = 15,//	已揽货
     ORDER_CANVASS_UNDONE = 16,//	未揽货
     ORDER_EVALUATED = 17,//	已评价
-    ORDER_PENDING = 18, //待处理
+    ORDER_PENDING = 18 , //待处理
 };
 
 //聊天的类型

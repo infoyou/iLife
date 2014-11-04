@@ -541,7 +541,7 @@
     NSRange range = [passwordStr rangeOfCharacterFromSet:notAllowedChars];
     if (range.location != NSNotFound && range.length > 0) {
         
-        ShowAlertWithOneButton(nil, nil,
+        ShowAlert(nil, nil,
                   LocaleStringForKey(NSPwdFormatIncorrectMsg, nil),
                   LocaleStringForKey(NSSureTitle, nil));
         
@@ -801,7 +801,7 @@
         case ORDER_EVALUATED:
             return @"已评价";
             break;
-            
+        
         case ORDER_PENDING:
             return @"待处理";
             break;

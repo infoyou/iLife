@@ -389,6 +389,8 @@ typedef enum {
         _isAutoLogin = YES;
     }
     
+    [AppManager instance].updateCache=YES;
+    [AppManager instance].updateFoodCache=YES;
     [self bringToFront];
     [self doLoginLogic];
     
@@ -712,7 +714,6 @@ typedef enum {
             
             if ([AppManager instance].isFromHome) {
                 [self doClose:nil];
-                
                 [AppManager instance].isFromHome = NO;
             }
             break;
@@ -821,6 +822,7 @@ typedef enum {
                         [[AppManager instance].userDefaults rememberUsername:_nameField.text andPassword:_passwordField.text pswdStr:_passwordField.text emailName:_nameField.text userId:[AppManager instance].userId];
                         
                         [AppManager instance].updateCache = YES;
+                        [AppManager instance].updateFoodCache = YES;
                     
                         [self getUserInfo];
 //                    }
@@ -977,7 +979,6 @@ typedef enum {
 - (void)doClose:(id)sender {
     
     [WXWUIUtils closeActivityView];
-    [self dismissViewControllerAnimated:YES completion:nil];
     [self dismissModalViewControllerAnimated:YES];
 }
 

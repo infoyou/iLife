@@ -28,7 +28,7 @@
 @property(nonatomic,retain)UITableView* foodTableView;
 @property(nonatomic,retain)NSMutableArray* categoryList;
 @property(nonatomic,retain)NSMutableArray* foodList;
-//@property(nonatomic,retain)NSMutableArray* selectList;
+@property(nonatomic,retain)NSMutableDictionary* foodDic;
 @property(nonatomic,retain)NSMutableDictionary* selectDict;
 @property(nonatomic,retain)NSString* cacheDir;
 @property(nonatomic)NSInteger categoryIndex;
@@ -111,11 +111,9 @@
     self.cacheDir = [paths objectAtIndex:0];
     self.cacheDir=[self.cacheDir stringByAppendingPathComponent:@"Cache/cache.rtf"];
     self.categoryIndex=0;
-//    self.selectList = [[NSMutableArray alloc]initWithCapacity:10];
     self.selectDict = [[NSMutableDictionary alloc] initWithCapacity:10];
     
     
-    //    [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemCategoryList" UserID:@"004852E9-7AA1-4C3F-97A3-361B8EA96464" Parameters:@{}]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -142,13 +140,9 @@
 {
     [MBProgressHUD showMessag:@"加载中……" toView:self.view];
     self.categoryIndex=0;
-//    [self.selectList removeAllObjects];
     [self.selectDict removeAllObjects];
-    
     self.netBase.requestType=(RequestType*)BUY_CARTLIST;
     [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetCardItemList" UserID:[AppManager instance].userId Parameters:@{}]];
-    
-    //    [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemCategoryList" UserID:[[AppManager instance].userId length]>0?[AppManager instance].userId:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{}]];
     [[UIApplication sharedApplication].delegate window].userInteractionEnabled=NO;
     _update=YES;
 }
@@ -167,7 +161,7 @@
 -(void)updateCache
 {
     //获取Documents文件夹目录
-    if (self.categoryList&&self.foodList) {
+    if (self.categoryList&&self.foodDic) {
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *docDir = [paths objectAtIndex:0];
         //获取文件管理器
@@ -178,12 +172,11 @@
         [fileManager createDirectoryAtPath:DocPath withIntermediateDirectories:YES attributes:nil error:nil];
         
         NSDictionary* cache = @{@"categoryList":self.categoryList,
-                                @"foodList":self.foodList,
+                                @"foodDic":self.foodDic,
                                 @"CustomerName":_farmNameLabel.text,
                                 @"Address":_addressLabel.text,
                                 @"categoryIndex":[NSString stringWithFormat:@"%d",self.categoryIndex],
                                 @"selectList":self.selectDict /*self.selectList*/};
-        
         NSData *data=[NSKeyedArchiver archivedDataWithRootObject:cache];
         [fileManager createFileAtPath:[DocPath stringByAppendingString:@"/cache.rtf"] contents:data attributes:nil];
     }
@@ -199,15 +192,11 @@
     NSData* data=[NSData dataWithContentsOfFile:self.cacheDir];
     NSDictionary* dic=[NSKeyedUnarchiver unarchiveObjectWithData:data];
     self.categoryList=[NSMutableArray arrayWithArray:[dic objectForKey:@"categoryList"]];
-    self.foodList=[NSMutableArray arrayWithArray:[dic objectForKey:@"foodList"]];
-    self.categoryIndex=[[dic objectForKey:@"categoryIndex"] integerValue];
+    self.foodDic=[NSMutableDictionary dictionaryWithDictionary:[dic objectForKey:@"foodDic"]];
     
-//    self.selectList=[NSMutableArray arrayWithArray:[dic objectForKey:@"selectList"]];
-//    if (self.selectList!=nil && ![self.selectList isEqual:[NSNull null]]) {
-//        [AppManager instance].cartCount=[self.selectList count];
-//    } else {
-//        [AppManager instance].cartCount=0;
-//    }
+    self.categoryIndex=[[dic objectForKey:@"categoryIndex"] integerValue];
+    self.itemCategoryID=[[self.categoryList objectAtIndex:self.categoryIndex] objectForKey:@"ItemCategoryID"];
+    self.foodList=[NSMutableArray arrayWithArray:[self.foodDic objectForKey:self.itemCategoryID]];
     
     self.selectDict = [NSMutableDictionary dictionaryWithDictionary:[dic objectForKey:@"selectList"]];
     if (self.selectDict != nil && ![self.selectDict isEqual:[NSNull null]]) {
@@ -215,7 +204,6 @@
     } else {
         [AppManager instance].cartCount = 0;
     }
-    
     [self.categoryTableView reloadData];
     [self.foodTableView reloadData];
     
@@ -237,9 +225,14 @@
         [MBProgressHUD hideHUDForView:self.view animated:YES];
         if ([[dic objectForKey:@"ResultCode"] integerValue]==0) {
             self.foodList=[[dic objectForKey:@"Data"] objectForKey:@"ItemSaleInfo"];
-            [self.foodTableView reloadData];
+            [self.foodDic setObject:self.foodList forKey:self.itemCategoryID];
             [self updateCache];
-            [AppManager instance].updateCache=NO;
+            NSData* data=[NSData dataWithContentsOfFile:self.cacheDir];
+            NSDictionary* dic=[NSKeyedUnarchiver unarchiveObjectWithData:data];
+            self.foodDic=[NSMutableDictionary dictionaryWithDictionary:[dic objectForKey:@"foodDic"]];
+            [self.foodTableView reloadData];
+            
+//            [AppManager instance].updateCache=NO;
         }
         [[UIApplication sharedApplication].delegate window].userInteractionEnabled=YES;
         self.netBase.requestType=nil;
@@ -253,18 +246,12 @@
             NSString *itemIdKey = [d objectForKey:@"ItemId"];
             
             if (![self.selectDict objectForKey:itemIdKey]) {
-                
-//                [self.selectList addObject:@{@"ItemId":itemIdKey, @"CategoryID":[[self.categoryList objectAtIndex:self.categoryIndex] objectForKey:@"ItemCategoryID"], @"title":title}];
-                
                 [self.selectDict setObject:@{@"ItemId":itemIdKey, @"CategoryID":[[self.categoryList objectAtIndex:self.categoryIndex] objectForKey:@"ItemCategoryID"], @"title":title} forKey:itemIdKey];
             }
             
-            
             UITableViewCell* cell=[self.foodTableView cellForRowAtIndexPath:self.foodIndexPath];
             [self setAddWeightButton:title cell:cell];
-//            [AppManager instance].cartCount+=1;
             [AppManager instance].cartCount = [self.selectDict count];
-            
             [self.categoryTableView reloadData];
         }
         self.netBase.requestType=nil;
@@ -291,13 +278,7 @@
         if ([[dic objectForKey:@"ResultCode"] integerValue]==0) {
             self.categoryList=[NSMutableArray arrayWithArray:[[dic objectForKey:@"Data"] objectForKey:@"ItemType"]];
             if ([[[dic objectForKey:@"Data"] objectForKey:@"DefaultAddress"] length]>0) {
-                
-//                if ([[AppManager instance].passwd length]>0) {
-                    _addressLabel.text=[[dic objectForKey:@"Data"] objectForKey:@"DefaultAddress"];
-//                }else{
-//                    _addressLabel.text=@"请增加您的收货地址";
-//                }
-                
+                _addressLabel.text=[[dic objectForKey:@"Data"] objectForKey:@"DefaultAddress"];
                 _hasAddress=YES;
             }else{
                 _hasAddress=NO;
@@ -305,7 +286,10 @@
             _farmNameLabel.text=[[dic objectForKey:@"Data"] objectForKey:@"CustomerName"];
             [self.categoryTableView reloadData];
             if ([self.categoryList count]>0) {
-                self.itemCategoryID=[[self.categoryList objectAtIndex:0] objectForKey:@"ItemCategoryID"];
+                if ([AppManager instance].updateFoodCache) {
+                    [self updateFoodListCache];
+                }
+                self.itemCategoryID=[[self.categoryList objectAtIndex:self.categoryIndex] objectForKey:@"ItemCategoryID"];
                 self.netBase.requestType=(RequestType*)BUY_FOODLIST;
                 [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemSaleList" UserID:[[AppManager instance].userId length]>0?[AppManager instance].userId:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"ItemCategoryID":self.itemCategoryID}]];
             }
@@ -419,11 +403,25 @@
     if ([tableView isEqual:self.categoryTableView]) {
         if (indexPath.row<[self.categoryList count]) {
             if (indexPath.row!=self.categoryIndex) {
+                //刷新菜单
                 self.categoryIndex=indexPath.row;
-                [self.categoryTableView reloadData];
-                [MBProgressHUD showMessag:@"加载中……" toView:self.view];
-                self.netBase.requestType=(RequestType*)BUY_FOODLIST;
-                [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemSaleList" UserID:[[AppManager instance].userId length]>0?[AppManager instance].userId:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"ItemCategoryID":[[self.categoryList objectAtIndex:indexPath.row] objectForKey:@"ItemCategoryID"]}]];
+                self.itemCategoryID=[[self.categoryList objectAtIndex:self.categoryIndex] objectForKey:@"ItemCategoryID"];
+                if ([self.foodDic objectForKey:self.itemCategoryID]==nil||[[self.foodDic objectForKey:self.itemCategoryID] isEqual:[NSNull null]]||[[self.foodDic objectForKey:self.itemCategoryID] count]==0) {
+                    [self updateFoodList:indexPath];
+                    
+                }else{
+                    if ([AppManager instance].updateFoodCache) {
+                        [self updateFoodList:indexPath];
+                    }else{
+                        //读取缓存
+//                        self.categoryIndex=indexPath.row;
+//                        self.itemCategoryID=[[self.categoryList objectAtIndex:self.categoryIndex] objectForKey:@"ItemCategoryID"];
+                        [self.categoryTableView reloadData];
+                        [self.foodList removeAllObjects];
+                        self.foodList=[NSMutableArray arrayWithArray:[self.foodDic objectForKey:self.itemCategoryID]];
+                        [self.foodTableView reloadData];
+                    }
+                }
             }
         }
     }else{
@@ -432,6 +430,7 @@
         [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"ShowItemDesc" UserID:[[AppManager instance].userId length]>0?[AppManager instance].userId:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"ItemID":itemID}]];
     }
 }
+
 
 
 - (IBAction)selectFoodWeight:(UIButton *)sender {
@@ -468,17 +467,37 @@
 
 
 #pragma mark-choose select
+-(void)updateFoodListCache
+{
+    [self.foodDic removeAllObjects];
+    self.foodDic=[[NSMutableDictionary alloc]initWithCapacity:[self.categoryList count]];
+    for (NSDictionary* d in self.categoryList) {
+        [self.foodDic setObject:[NSNull null] forKey:[d objectForKey:@"ItemCategoryID"]];
+    }
+    [self updateCache];
+    [AppManager instance].updateFoodCache=NO;
+}
+
+-(void)updateFoodList:(NSIndexPath*)indexPath
+{
+    self.categoryIndex=indexPath.row;
+    self.itemCategoryID=[[self.categoryList objectAtIndex:self.categoryIndex] objectForKey:@"ItemCategoryID"];
+    [self.categoryTableView reloadData];
+    [MBProgressHUD showMessag:@"加载中……" toView:self.view];
+    self.netBase.requestType=(RequestType*)BUY_FOODLIST;
+    [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemSaleList" UserID:[[AppManager instance].userId length]>0?[AppManager instance].userId:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"ItemCategoryID":self.itemCategoryID}]];
+}
+
+
 -(NSInteger)updateCategoryTableView:(NSString*)categoryID
 {
     NSInteger sum=0;
-//    for (NSDictionary* d in self.selectList) {
     for (NSString* key in self.selectDict) {
         NSString* categoryId=[[self.selectDict objectForKey:key] objectForKey:@"CategoryID"];
         if ([categoryID isEqualToString:categoryId]) {
             sum++;
         }
     }
-    
     return sum;
 }
 
@@ -492,12 +511,9 @@
             for (NSDictionary* res in list) {
                 
                 NSString *itemIdKey = [res objectForKey:@"ItemId"];
-//                [self.selectList addObject:@{@"ItemId":[res objectForKey:@"ItemId"],@"CategoryID":categoryID,@"title":[NSString stringWithFormat:@"%@克",[res objectForKey:@"Weight"]]}];
-                
                 [self.selectDict setObject:@{@"ItemId":itemIdKey, @"CategoryID":categoryID, @"title":[NSString stringWithFormat:@"%@克",[res objectForKey:@"Weight"]]} forKey:itemIdKey];
             }
         }
-        
         [AppManager instance].cartCount=[self.selectDict count];
     }
 }
@@ -507,13 +523,11 @@
     if ([self.selectDict count]==0) {
         return nil;
     }else{
-//        for (NSDictionary* dic in self.selectDict) {
         for (NSString* key in self.selectDict) {
             if ([key isEqualToString:itemID]) {
                 return [self.selectDict objectForKey:key];
             }
         }
-        
         return nil;
     }
 }
@@ -623,21 +637,15 @@
     }else{
         [self askWithMessage:@"尚未登录，请先登录" alertTag:LOGIN_TAG];
     }
-    
-    //    [CommonMethod pushViewController:editAddress withAnimated:NO];
-    
 }
 
 - (void)setAddWeightButton:(NSString*)title
                       cell:(UITableViewCell*)cell
 {
-    //    UITableViewCell* cell=[self.foodTableView cellForRowAtIndexPath:self.foodIndexPath];
     [[cell imageViewWithTag:14] setFrame:CGRectMake(213, 17, 50, 25)];
     [[cell imageViewWithTag:14] setImage:[UIImage imageNamed:@"farm_dialog.png"]];
     [[cell labelWithTag:15] setAlpha:1.0f];
     [cell setText:title toLabelWithTag:15];
-    //    [[cell buttonWithTag:12] setFrame:CGRectMake(213, 17, 50, 25)];
-    //    [[cell buttonWithTag:12] setTitle:title forState:UIControlStateNormal];
 }
 
 
@@ -646,9 +654,6 @@
     [[cell imageViewWithTag:14] setFrame:CGRectMake(238, 17, 25, 25)];
     [[cell imageViewWithTag:14] setImage:[UIImage imageNamed:@"farm_add.png"]];
     [[cell labelWithTag:15] setAlpha:0.0f];
-    //    [[cell buttonWithTag:12] setBackgroundImage:[UIImage imageNamed:@"farm_add.png"] forState:UIControlStateNormal];
-    //    [[cell buttonWithTag:12] setFrame:CGRectMake(238, 17, 25, 25)];
-    //    [[cell buttonWithTag:12] setTitle:@"" forState:UIControlStateNormal];
 }
 
 - (void)addAddressView:(UIView*)superView
@@ -662,7 +667,6 @@
     [superView addSubview:addressline];
     
     _addressLabel=[[UILabel alloc]initWithFrame:CGRectMake(40, 0, 300, 34)];
-    //    [_addressLabel setBackgroundColor:[UIColor blueColor]];
     _addressLabel.text=@"";
     _addressLabel.textColor=[UIColor redColor];
     _addressLabel.font=[UIFont systemFontOfSize:15.0f];
@@ -699,6 +703,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [AppManager instance].updateCache=NO;
+//    [AppManager instance].updateFoodCache=NO;
     [self updateCache];
 }
 

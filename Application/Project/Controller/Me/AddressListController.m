@@ -350,6 +350,7 @@
                                                                            paramID:0];
             if (ret == SUCCESS_CODE){
                 [AppManager instance].updateCache=YES;
+                [AppManager instance].updateFoodCache=YES;
                 [self getDeliveryAddress];
             }
             break;
@@ -408,6 +409,7 @@
             
             if (ret == SUCCESS_CODE){
                 [AppManager instance].updateCache=YES;
+                [AppManager instance].updateFoodCache=YES;
                 [self getDeliveryAddress];
             }
             break;

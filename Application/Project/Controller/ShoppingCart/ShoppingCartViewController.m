@@ -146,7 +146,7 @@
     NSString* unit=[NSString stringWithFormat:@"%@%@",[[dic objectForKey:@"ItemType"] integerValue]==0?@"500":@"",[dic objectForKey:@"ItemUnit"]];
     [cell setText:[NSString stringWithFormat:@"%.2f元/%@",[[dic objectForKey:@"Price"] floatValue],unit] toLabelWithTag:11];
     [cell setText:[NSString stringWithFormat:@"%d%@",[[dic objectForKey:@"Weight"] integerValue],[dic objectForKey:@"ItemUnit"]] toLabelWithTag:12];
-    
+
     [cell setText:[NSString stringWithFormat:@"金额%.2f元",[[dic objectForKey:@"Amount"] floatValue]] toLabelWithTag:13];
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
