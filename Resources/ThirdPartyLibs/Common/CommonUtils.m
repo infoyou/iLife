@@ -541,7 +541,7 @@
     NSRange range = [passwordStr rangeOfCharacterFromSet:notAllowedChars];
     if (range.location != NSNotFound && range.length > 0) {
         
-        ShowAlert(nil, nil,
+        ShowAlertWithOneButton(nil, nil,
                   LocaleStringForKey(NSPwdFormatIncorrectMsg, nil),
                   LocaleStringForKey(NSSureTitle, nil));
         

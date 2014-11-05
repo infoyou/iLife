@@ -719,22 +719,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Application/Project/Controller/VisitingFarms/VisitingFarmsViewController.m"
-            timestampString = "436256223.050883"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "430"
-            endingLineNumber = "430"
-            landmarkName = "-tableView:didSelectRowAtIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Application/Project/Controller/Me/MerchantsListViewController.m"
             timestampString = "436439198.466713"
             startingColumnNumber = "9223372036854775807"
@@ -758,22 +742,6 @@
             startingLineNumber = "868"
             endingLineNumber = "868"
             landmarkName = "-connectFailed:url:contentType:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Application/Project/Controller/VisitingFarms/VisitingFarmsViewController.m"
-            timestampString = "436256223.050883"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "501"
-            endingLineNumber = "501"
-            landmarkName = "-updateSelectList:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
