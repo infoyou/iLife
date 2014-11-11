@@ -552,6 +552,7 @@
 		66B575E4197F4F9F00DB7AE8 /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 66B575E2197F4F9F00DB7AE8 /* AboutViewController.xib */; };
 		66B575E7197F4FC800DB7AE8 /* MeSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66B575E6197F4FC800DB7AE8 /* MeSettingController.m */; };
 		66B575EF197F845B00DB7AE8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66B575EE197F845B00DB7AE8 /* Images.xcassets */; };
+		66C3CDF81A11DCDD00BBBED1 /* share_buyer.png in Resources */ = {isa = PBXBuildFile; fileRef = 66C3CDF71A11DCDD00BBBED1 /* share_buyer.png */; };
 		66C675AF196D1226006CCEC4 /* MatchListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66C675AE196D1226006CCEC4 /* MatchListViewController.m */; };
 		66D4C11B19B5A60700E755AC /* OrderDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D4C11419B5A60700E755AC /* OrderDetailViewController.m */; };
 		66D4C11C19B5A60700E755AC /* ShoppingCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 66D4C11719B5A60700E755AC /* ShoppingCartViewController.m */; };
@@ -1790,6 +1791,7 @@
 		66B575E5197F4FC800DB7AE8 /* MeSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeSettingController.h; sourceTree = "<group>"; };
 		66B575E6197F4FC800DB7AE8 /* MeSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeSettingController.m; sourceTree = "<group>"; };
 		66B575EE197F845B00DB7AE8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Config/Images.xcassets; sourceTree = "<group>"; };
+		66C3CDF71A11DCDD00BBBED1 /* share_buyer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = share_buyer.png; sourceTree = "<group>"; };
 		66C675AD196D1226006CCEC4 /* MatchListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MatchListViewController.h; path = ../Project/Controller/Common/MatchListViewController.h; sourceTree = "<group>"; };
 		66C675AE196D1226006CCEC4 /* MatchListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MatchListViewController.m; path = ../Project/Controller/Common/MatchListViewController.m; sourceTree = "<group>"; };
 		66D4C11319B5A60700E755AC /* OrderDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailViewController.h; sourceTree = "<group>"; };
@@ -4578,6 +4580,7 @@
 		66FF1EDB19CC3AF200CCAA35 /* Share */ = {
 			isa = PBXGroup;
 			children = (
+				66C3CDF71A11DCDD00BBBED1 /* share_buyer.png */,
 				66E1043719D4F8F900309161 /* shareSMS.png */,
 				66E1043819D4F8F900309161 /* shareWeChat.png */,
 				66E1043919D4F8F900309161 /* shareWeibo.png */,
@@ -5216,6 +5219,7 @@
 				667EE2071901175E00328E1F /* README.txt in Resources */,
 				6689C5AC195010320059CB69 /* download.png in Resources */,
 				CE0D58C919F5F81300EBCA7C /* shoppingcart_square_green.png in Resources */,
+				66C3CDF81A11DCDD00BBBED1 /* share_buyer.png in Resources */,
 				6689C5B8195010320059CB69 /* personal_info.png in Resources */,
 				6689C5AF195010320059CB69 /* download_manager@2x.png in Resources */,
 				CE0D58CE19F5F81300EBCA7C /* shoppingcart_tick@2x.png in Resources */,
@@ -5971,7 +5975,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_EMPTY_BODY = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Adam Wang (4R4KNYFRAE)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Ronghao Qiu (H9J9ZWYPZA)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6011,7 +6015,7 @@
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = iLife;
-				PROVISIONING_PROFILE = "603790ca-e579-45f4-8cfb-e9f852cdb52c";
+				PROVISIONING_PROFILE = "ebe41a4b-0e25-4cc8-8360-0beac1acddd8";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -6028,7 +6032,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_EMPTY_BODY = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Just in Time Marketing Co., LTD.";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: WEIXUN INFORMATION TECHNOLOGY CO .,LTD (W37V683YXZ)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6066,7 +6070,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = iLife;
-				PROVISIONING_PROFILE = "40054afc-a570-450a-b7a7-ed8632973f45";
+				PROVISIONING_PROFILE = "d3e2a17b-19ae-4d87-987a-e8df5142f189";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;

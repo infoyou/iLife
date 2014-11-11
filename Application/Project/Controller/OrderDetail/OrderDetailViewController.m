@@ -785,6 +785,8 @@ enum Button_Evaluation_Tag_Enum
         OrderPayViewController *vc =
         [[[OrderPayViewController alloc] initWithMOC:_MOC orderNo:orderTotal.orderNo totalAmount:orderTotal.totalAmount orderId:orderTotal.orderId deliveryTime:orderTotal.deliveryTime] autorelease];
         
+        [AppManager instance].aliPayStatus = NO;
+        
         [CommonMethod pushViewController:vc withAnimated:YES];
     }
 }

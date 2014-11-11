@@ -402,8 +402,6 @@
         } else {
             if (ticketAmountVal >= totalAmountVal) {
                 // 抵用卷 支付
-                
-                
                 _currentTickent = _totalAmountStr;
                 _currentPayAmount = @"0";
                 
@@ -495,6 +493,7 @@
             {
                 //验证签名成功，交易结果无篡改
                 [AppManager instance].aliPayStatus = YES;
+                [self back:nil];
             }
         } else {
             //交易失败

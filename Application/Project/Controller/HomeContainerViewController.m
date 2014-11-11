@@ -411,8 +411,10 @@
         UIView *shareBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
         shareBgView.backgroundColor = TRANSPARENT_COLOR;
         
+        int shareH = 371;
+        
         // headBg
-        UIView *headBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-190)];
+        UIView *headBgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-shareH)];
         headBgView.backgroundColor = HEX_COLOR(@"0x323232");
         headBgView.alpha = 0.6;
         
@@ -436,7 +438,7 @@
         UIButton *cancelBtn = (UIButton *)[cell viewWithTag:13];
         [cancelBtn addTarget:self action:@selector(btnShareCancelClick:) forControlEvents:UIControlEventTouchUpInside];
         
-        CGRect contentFrame = CGRectMake(0, SCREEN_HEIGHT-64-190, SCREEN_HEIGHT, 190);
+        CGRect contentFrame = CGRectMake(0, SCREEN_HEIGHT-64-shareH, SCREEN_HEIGHT, shareH);
         UIView *shareContentBgView = [[UIView alloc] initWithFrame:contentFrame];
         shareContentBgView.backgroundColor = HEX_COLOR(@"0x323232");
         [shareContentBgView addSubview:cell.contentView];
