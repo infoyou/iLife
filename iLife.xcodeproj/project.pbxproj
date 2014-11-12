@@ -1016,7 +1016,7 @@
 		666BB694191A043F00E7F75A /* UIImageView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WebCache.h"; sourceTree = "<group>"; };
 		666BB695191A043F00E7F75A /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		667ED2401901105E00328E1F /* iLife-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "iLife-Info.plist"; sourceTree = "<group>"; };
-		667ED2411901105E00328E1F /* QiXin-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QiXin-Prefix.pch"; sourceTree = "<group>"; };
+		667ED2411901105E00328E1F /* iLife-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iLife-Prefix.pch"; sourceTree = "<group>"; };
 		667ED2431901105E00328E1F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		667ED2451901105E00328E1F /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		667ED2461901105E00328E1F /* ProjectProp.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProjectProp.plist; sourceTree = "<group>"; };
@@ -2616,7 +2616,7 @@
 			isa = PBXGroup;
 			children = (
 				667ED2401901105E00328E1F /* iLife-Info.plist */,
-				667ED2411901105E00328E1F /* QiXin-Prefix.pch */,
+				667ED2411901105E00328E1F /* iLife-Prefix.pch */,
 				667ED2421901105E00328E1F /* Localizable.strings */,
 				667ED2451901105E00328E1F /* main.m */,
 				667ED2461901105E00328E1F /* ProjectProp.plist */,
@@ -5003,7 +5003,7 @@
 				ORGANIZATIONNAME = com.jit;
 				TargetAttributes = {
 					D018021F1814C6A20094E365 = {
-						DevelopmentTeam = W37V683YXZ;
+						DevelopmentTeam = AG64E95Y55;
 					};
 				};
 			};
@@ -5973,9 +5973,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
-				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_WARN_EMPTY_BODY = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Ronghao Qiu (H9J9ZWYPZA)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Adam Wang (4R4KNYFRAE)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5986,7 +5986,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/Resources/Config/QiXin-Prefix.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Resources/Config/iLife-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"MOBILE_DEBUG=1",
@@ -5999,7 +5999,6 @@
 					./Resources/ThirdPartyLibs/PLCrashReporter/plcrashreporter/Source,
 					./Resources/ThirdPartyLibs/weixin,
 					./Resources/ThirdPartyLibs/GPUImageFilter/Source,
-					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/CCPVoip/ccpsdk",
 				);
 				INFOPLIST_FILE = "Resources/Config/iLife-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -6009,13 +6008,12 @@
 					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/weixin",
 					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/UMAnalytics_Sdk_2.2.1",
 					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/PLCrashReporter",
-					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/CCPVoip/ccpsdk",
 					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/alipay",
 					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/ZBarSDK",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = iLife;
-				PROVISIONING_PROFILE = "ebe41a4b-0e25-4cc8-8360-0beac1acddd8";
+				PROVISIONING_PROFILE = "b7bc51ce-7cfd-4b5e-b4f0-d5f27cef929e";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -6030,9 +6028,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
-				CLANG_CXX_LIBRARY = "compiler-default";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				CLANG_WARN_EMPTY_BODY = NO;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: WEIXUN INFORMATION TECHNOLOGY CO .,LTD (W37V683YXZ)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Just in Time Marketing Co., LTD.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6043,7 +6041,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_INPUT_FILETYPE = automatic;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "$(SRCROOT)/Resources/Config/QiXin-Prefix.pch";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Resources/Config/iLife-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "MOBILE_DEBUG=1";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -6053,7 +6051,6 @@
 					./Resources/ThirdPartyLibs/PLCrashReporter/plcrashreporter/Source,
 					./Resources/ThirdPartyLibs/weixin,
 					./Resources/ThirdPartyLibs/GPUImageFilter/Source,
-					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/CCPVoip/ccpsdk",
 				);
 				INFOPLIST_FILE = "Resources/Config/iLife-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
@@ -6063,14 +6060,13 @@
 					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/weixin",
 					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/UMAnalytics_Sdk_2.2.1",
 					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/PLCrashReporter",
-					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/CCPVoip/ccpsdk",
 					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/alipay",
 					"$(PROJECT_DIR)/Resources/ThirdPartyLibs/ZBarSDK",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = iLife;
-				PROVISIONING_PROFILE = "d3e2a17b-19ae-4d87-987a-e8df5142f189";
+				PROVISIONING_PROFILE = "40054afc-a570-450a-b7a7-ed8632973f45";
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;

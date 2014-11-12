@@ -32,7 +32,7 @@
 //#if APP_TYPE == APP_TYPE_EMBA
 //#define VERSION                     @"1.2.3"
 //#else
-#define VERSION                     @"1.2.5"
+#define VERSION                     @"1.2.6"
 //#endif
 
 #define VOIP_SERVER_IP                @"app.cloopen.com"
