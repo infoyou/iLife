@@ -77,12 +77,8 @@
 		<string>msyhbd.ttf</string>
 		<string>msyh.ttf</string>
 	</array>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>remote-notification</string>
-	</array>
 	<key>UIFileSharingEnabled</key>
-	<true/>
+	<false/>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

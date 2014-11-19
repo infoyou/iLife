@@ -26,6 +26,7 @@
 @property (nonatomic, copy) NSString *totalAmountStr;
 @property (nonatomic, copy) NSString *orderId;
 @property (nonatomic, copy) NSString *orderNo;
+@property (nonatomic, copy) NSString *aliPayOrderNo;
 @property (nonatomic, copy) NSString *deliveryTime;
 
 @property (nonatomic, copy) NSString *currentTickent;
@@ -45,6 +46,7 @@
 @synthesize deliveryTime = _deliveryTime;
 @synthesize currentTickent = _currentTickent;
 @synthesize currentPayAmount = _currentPayAmount;
+@synthesize aliPayOrderNo = _aliPayOrderNo;
 
 - (id)initWithMOC:(NSManagedObjectContext *)MOC orderNo:(NSString *)orderNo totalAmount:(NSString *)totalAmount orderId:(NSString*)orderId deliveryTime:(NSString *)deliveryTime
 {
@@ -57,7 +59,7 @@
         tableHeight = 170;
         selIndex = 0;
         _totalAmountStr = totalAmount;
-        _orderNo = orderNo;
+        self.orderNo = orderNo;
         _orderId = orderId;
         _deliveryTime = deliveryTime;
         
@@ -65,6 +67,13 @@
     }
     
     return self;
+}
+
+- (void)dealloc
+{
+    [super dealloc];
+    
+    _currentPayAmount = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -247,7 +256,7 @@
     
     amountLabel.text = [NSString stringWithFormat:@"￥%@", _totalAmountStr];
     
-    if (totalAmountVal >= totalAmountVal) {
+    if (ticketAmountVal >= totalAmountVal) {
         checkLabel.text = [NSString stringWithFormat:@"可用菜票%@元抵用%@元", userInfo.band, _totalAmountStr];
     } else {
         checkLabel.text = [NSString stringWithFormat:@"可用菜票%@元抵用%@元", userInfo.band, userInfo.band];
@@ -325,7 +334,7 @@
     
     NSMutableDictionary *specialDict = [NSMutableDictionary dictionary];
     [specialDict setValue:_orderId forKey:@"OrderID"];
-    [specialDict setValue:_currentPayAmount forKey:@"Amount"];
+    [specialDict setValue:[NSString stringWithFormat:@"%.2f", [self.currentPayAmount doubleValue]] forKey:@"Amount"];
     [specialDict setValue:@"1" forKey:@"PayTypeID"];
     [specialDict setValue:orderStep forKey:@"PayOrderStep"];
     [specialDict setValue:_currentTickent forKey:@"AmountUsed"];
@@ -361,9 +370,11 @@
 
 - (NSString*)doWebRsa
 {
-    NSString *orderNoStr = [NSString stringWithFormat:@"订单:%@", _orderNo];
     
-    NSString *url = [NSString stringWithFormat:@"%@/AliPay/CreateAliPayUrl.aspx?out_trade_no=%@&subject=%@&body=%@&total_fee=%@", VALUE_API_IP, _orderNo, orderNoStr, orderNoStr, _totalAmountStr];
+    self.aliPayOrderNo = [NSString stringWithFormat:@"%@%@", self.orderNo, [CommonUtils getRandom:4]];
+    NSString *orderNoStr = [NSString stringWithFormat:@"订单:%@", self.orderNo];
+    
+    NSString *url = [NSString stringWithFormat:@"%@/AliPay/CreateAliPayUrl.aspx?out_trade_no=%@&subject=%@&body=%@&total_fee=%@&random=%d", VALUE_API_IP, self.aliPayOrderNo, orderNoStr, orderNoStr, [NSString stringWithFormat:@"%.2f", [self.currentPayAmount doubleValue]], arc4random()];
     
     DLog(@"url = %@", url);
     WXWAsyncConnectorFacade *connFacade = [self setupAsyncConnectorForUrl:url
@@ -378,7 +389,7 @@
     isNeed3rdPay = YES;
     
     _currentTickent = ticketAmount;
-    _currentPayAmount = payAmount;
+    self.currentPayAmount = payAmount;
     
     // 支付宝 支付
     // add notify
@@ -403,12 +414,12 @@
             if (ticketAmountVal >= totalAmountVal) {
                 // 抵用卷 支付
                 _currentTickent = _totalAmountStr;
-                _currentPayAmount = @"0";
+                self.currentPayAmount = @"0";
                 
                 isNeed3rdPay = NO;
                 [self doServerPay:@"1" payResult:@"1"];
             } else {
-                [self payByAlipay:userInfo.band payAmount:[NSString stringWithFormat:@"%f", (totalAmountVal-ticketAmountVal)]];
+                [self payByAlipay:userInfo.band payAmount:[NSString stringWithFormat:@"%.2f", (totalAmountVal-ticketAmountVal)]];
             }
         }
     } else {
@@ -439,7 +450,7 @@
     const int N = 15;
     
     NSString *sourceString = @"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    NSMutableString *result = [[NSMutableString alloc] init] ;
+    NSMutableString *result = [[NSMutableString alloc] init];
     srand(time(0));
     for (int i = 0; i < N; i++)
     {
@@ -489,11 +500,11 @@
             id<DataVerifier> verifier;
             verifier = CreateRSADataVerifier(key);
             
-            if ([verifier verifyString:result.resultString withSign:result.signString])
+//            if ([verifier verifyString:result.resultString withSign:result.signString])
+            if ([[result.resultString stringByReplacingOccurrencesOfString:@"\"" withString:@""] hasSuffix:@"success=true"])
             {
                 //验证签名成功，交易结果无篡改
                 [AppManager instance].aliPayStatus = YES;
-                [self back:nil];
             }
         } else {
             //交易失败
@@ -596,6 +607,8 @@
                                   NSLocalizedString(NSNoteTitle, nil),
                                   msg,
                                   NSLocalizedString(NSSureTitle, nil));
+                        
+                        [self back:nil];
                     }
                 } else {
                     if (payStep == 1) {
@@ -609,6 +622,8 @@
                                       NSLocalizedString(NSNoteTitle, nil),
                                       msg,
                                       NSLocalizedString(NSSureTitle, nil));
+                            
+                            [self back:nil];
                         }
                     }
                 }
@@ -622,6 +637,7 @@
     }
     
     [self closeAsyncLoadingView];
+    
 }
 
 - (void)connectCancelled:(NSString *)url

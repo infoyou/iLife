@@ -813,4 +813,17 @@
     return stateName;
 }
 
+#pragma mark - 得到随机数
++ (NSString *)getRandom:(int)number
+{
+    NSString *strRandom = @"";
+    
+    for(int i=0; i<number; i++)
+    {
+        strRandom = [ strRandom stringByAppendingFormat:@"%i",(arc4random() % 9)];
+    }
+    
+    return strRandom;
+}
+
 @end

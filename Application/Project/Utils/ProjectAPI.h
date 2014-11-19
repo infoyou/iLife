@@ -32,8 +32,15 @@
 // Test
 //#define VALUE_API_PREFIX   @"http://test.o2omarketing.cn:9100/RateLetterInterface"
 //#define VALUE_API_PREFIX   @"http://dev.o2omarketing.cn:9004/ApplicationInterface/"
+
+// Test
 #define VALUE_API_PREFIX   @"http://182.254.148.196/AppInterface"
 #define VALUE_API_IP       @"http://182.254.148.196"
+
+// Publish
+//#define VALUE_API_PREFIX   @"http://app.wymc.com.cn/AppInterface"
+//#define VALUE_API_IP       @"http://app.wymc.com.cn"
+
 
 //O2O
 #elif APP_TYPE == APP_TYPE_O2O

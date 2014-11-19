@@ -147,12 +147,12 @@
                   symbolName = "-[OrderDetailViewController imageviewTouchEvents:]"
                   moduleName = "iLife"
                   urlString = "file:///Users/user/Project/iLife/Application/Project/Controller/OrderDetail/OrderDetailViewController.m"
-                  timestampString = "437378701.166889"
+                  timestampString = "438085761.061324"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "706"
                   endingLineNumber = "706"
-                  offsetFromSymbolStart = "2163">
+                  offsetFromSymbolStart = "1840">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -161,12 +161,12 @@
                   symbolName = "__50-[OrderDetailViewController imageviewTouchEvents:]_block_invoke"
                   moduleName = "iLife"
                   urlString = "file:///Users/user/Project/iLife/Application/Project/Controller/OrderDetail/OrderDetailViewController.m"
-                  timestampString = "437378701.16718"
+                  timestampString = "438085761.061491"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "707"
                   endingLineNumber = "707"
-                  offsetFromSymbolStart = "29">
+                  offsetFromSymbolStart = "12">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -241,12 +241,12 @@
                   symbolName = "-[OrderDetailViewController imageviewTouchEvents:]"
                   moduleName = "iLife"
                   urlString = "file:///Users/user/Project/iLife/Application/Project/Controller/OrderDetail/OrderDetailViewController.m"
-                  timestampString = "437378701.168185"
+                  timestampString = "438085761.064359"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "716"
                   endingLineNumber = "716"
-                  offsetFromSymbolStart = "2769">
+                  offsetFromSymbolStart = "2364">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -255,12 +255,12 @@
                   symbolName = "__50-[OrderDetailViewController imageviewTouchEvents:]_block_invoke414"
                   moduleName = "iLife"
                   urlString = "file:///Users/user/Project/iLife/Application/Project/Controller/OrderDetail/OrderDetailViewController.m"
-                  timestampString = "437378701.168465"
+                  timestampString = "438085761.064518"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "717"
                   endingLineNumber = "717"
-                  offsetFromSymbolStart = "29">
+                  offsetFromSymbolStart = "12">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -303,13 +303,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Application/Project/Controller/OrderDetail/OrderDetailViewController.m"
-            timestampString = "437367827.114274"
+            filePath = "Application/Project/Controller/User/LoginViewController.m"
+            timestampString = "437646067.071284"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "114"
-            endingLineNumber = "114"
-            landmarkName = "-viewWillAppear:"
+            startingLineNumber = "466"
+            endingLineNumber = "466"
+            landmarkName = "-getUserInfo"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -319,13 +319,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Application/Project/Controller/OrderDetail/OrderDetailViewController.m"
-            timestampString = "437367930.571332"
+            filePath = "Application/Project/Controller/OrderDetail/OrderPayViewController.m"
+            timestampString = "438085750.450632"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "388"
-            endingLineNumber = "388"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            startingLineNumber = "422"
+            endingLineNumber = "422"
+            landmarkName = "-btnClick:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -335,13 +335,141 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Application/Project/Controller/OrderDetail/OrderDetailViewController.m"
-            timestampString = "437367944.8915"
+            filePath = "Application/Project/Controller/OrderDetail/OrderPayViewController.m"
+            timestampString = "438085750.450632"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "411"
-            endingLineNumber = "411"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            startingLineNumber = "412"
+            endingLineNumber = "412"
+            landmarkName = "-btnClick:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Application/Project/Controller/OrderDetail/OrderPayViewController.m"
+            timestampString = "438085750.450632"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "414"
+            endingLineNumber = "414"
+            landmarkName = "-btnClick:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Application/Project/Controller/OrderDetail/OrderPayViewController.m"
+            timestampString = "438085750.450632"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "396"
+            endingLineNumber = "396"
+            landmarkName = "-payByAlipay:payAmount:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Application/Project/Controller/OrderDetail/OrderPayViewController.m"
+            timestampString = "438085750.450632"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "345"
+            endingLineNumber = "345"
+            landmarkName = "-doServerPay:payResult:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Application/Project/Controller/OrderDetail/OrderPayViewController.m"
+            timestampString = "438085750.450632"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "602"
+            endingLineNumber = "602"
+            landmarkName = "-connectDone:url:contentType:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Application/Project/Controller/OrderDetail/OrderPayViewController.m"
+            timestampString = "438085750.450632"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "614"
+            endingLineNumber = "614"
+            landmarkName = "-connectDone:url:contentType:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Application/Project/Controller/OrderDetail/OrderPayViewController.m"
+            timestampString = "438085750.450632"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "380"
+            endingLineNumber = "380"
+            landmarkName = "-doWebRsa"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Application/Project/Controller/OrderDetail/OrderPayViewController.m"
+            timestampString = "438085750.450632"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "603"
+            endingLineNumber = "603"
+            landmarkName = "-connectDone:url:contentType:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Application/Project/Controller/OrderDetail/OrderPayViewController.m"
+            timestampString = "438085750.450632"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "389"
+            endingLineNumber = "389"
+            landmarkName = "-payByAlipay:payAmount:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -82,4 +82,7 @@
 #pragma mark - 订单状态
 + (NSString *)getOrderStateName:(int)state;
 
+#pragma mark - 得到随机数
++ (NSString *)getRandom:(int)number;
+
 @end
