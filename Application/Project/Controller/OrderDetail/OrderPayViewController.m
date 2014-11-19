@@ -9,7 +9,7 @@
 
 #define FOOTER_H    47
 
-@interface OrderPayViewController () <UIGestureRecognizerDelegate> {
+@interface OrderPayViewController () <UIGestureRecognizerDelegate, UIAlertViewDelegate> {
     
     int tableHeight;
     int selIndex;
@@ -114,8 +114,8 @@
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
     
+    [super viewDidDisappear:animated];
 }
 
 #pragma mark - prepare Data
@@ -505,12 +505,16 @@
             {
                 //验证签名成功，交易结果无篡改
                 [AppManager instance].aliPayStatus = YES;
+                
+                [self doServerPay:@"2" payResult:@"1"];
             }
         } else {
             //交易失败
+            [self doServerPay:@"2" payResult:@"2"];
         }
     } else {
         //失败
+        [self doServerPay:@"2" payResult:@"2"];
     }
     
 }
@@ -608,7 +612,8 @@
                                   msg,
                                   NSLocalizedString(NSSureTitle, nil));
                         
-                        [self back:nil];
+//                        [[[[UIAlertView alloc] initWithTitle:@"" message:msg delegate:nil cancelButtonTitle:NSLocalizedString(NSSureTitle, nil) otherButtonTitles:nil] autorelease] show];
+                        
                     }
                 } else {
                     if (payStep == 1) {
@@ -622,8 +627,6 @@
                                       NSLocalizedString(NSNoteTitle, nil),
                                       msg,
                                       NSLocalizedString(NSSureTitle, nil));
-                            
-                            [self back:nil];
                         }
                     }
                 }
@@ -655,6 +658,14 @@
     }
     
     [super connectFailed:error url:url contentType:contentType];
+}
+
+#pragma mark - alert view method
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        [self back:nil];
+    }
 }
 
 @end
