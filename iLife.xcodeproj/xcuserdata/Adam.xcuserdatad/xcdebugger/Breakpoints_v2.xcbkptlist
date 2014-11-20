@@ -131,7 +131,7 @@
                   symbolName = "-[OrderDetailViewController imageviewTouchEvents:]"
                   moduleName = "iLife"
                   urlString = "file:///Users/user/Project/iLife/Application/Project/Controller/OrderDetail/OrderDetailViewController.m"
-                  timestampString = "438157496.570393"
+                  timestampString = "438166119.215398"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "706"
@@ -145,7 +145,7 @@
                   symbolName = "__50-[OrderDetailViewController imageviewTouchEvents:]_block_invoke"
                   moduleName = "iLife"
                   urlString = "file:///Users/user/Project/iLife/Application/Project/Controller/OrderDetail/OrderDetailViewController.m"
-                  timestampString = "438157496.570561"
+                  timestampString = "438166119.215548"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "707"
@@ -225,7 +225,7 @@
                   symbolName = "-[OrderDetailViewController imageviewTouchEvents:]"
                   moduleName = "iLife"
                   urlString = "file:///Users/user/Project/iLife/Application/Project/Controller/OrderDetail/OrderDetailViewController.m"
-                  timestampString = "438157496.573238"
+                  timestampString = "438166119.218123"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "716"
@@ -239,7 +239,7 @@
                   symbolName = "__50-[OrderDetailViewController imageviewTouchEvents:]_block_invoke414"
                   moduleName = "iLife"
                   urlString = "file:///Users/user/Project/iLife/Application/Project/Controller/OrderDetail/OrderDetailViewController.m"
-                  timestampString = "438157496.573393"
+                  timestampString = "438166119.218277"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "717"
@@ -582,6 +582,38 @@
             startingLineNumber = "347"
             endingLineNumber = "347"
             landmarkName = "-doServerPay:payResult:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Application/Project/Controller/VisitingFarms/VisitingFarmsViewController.m"
+            timestampString = "438165168.501069"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "382"
+            endingLineNumber = "382"
+            landmarkName = "-handleRequestSuccessData:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Application/Module/JILNetBase.m"
+            timestampString = "438165192.916937"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "-RequestWithRequestType:param:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
