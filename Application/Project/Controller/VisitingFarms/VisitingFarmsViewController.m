@@ -9,6 +9,11 @@
 #import "LoginViewController.h"
 
 
+typedef enum {
+    ALERT_TAG_MUST_UPDATE = 1,
+    ALERT_TAG_CHOISE_UPDATE = 2,
+    LOGIN_TAG = 3,
+}  UPDATE_ALERT_TAG;
 
 @interface VisitingFarmsViewController ()<UITableViewDelegate,UITableViewDataSource,UIActionSheetDelegate,JILNetBaseDelegate,UIWebViewDelegate,UIAlertViewDelegate>
 {
@@ -69,12 +74,9 @@
     return self;
 }
 
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -112,8 +114,6 @@
     self.cacheDir=[self.cacheDir stringByAppendingPathComponent:@"Cache/cache.rtf"];
     self.categoryIndex=0;
     self.selectDict = [[NSMutableDictionary alloc] initWithCapacity:10];
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -121,19 +121,21 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
     
+    [self doUpdateSoftAction];
+//    [self updateVersion];
+    
     if (!_update) {
         if (![self existCache]) {
             [self requestUpdateData];
         } else {
             if ([AppManager instance].updateCache) {
                 [self requestUpdateData];
-            }else{
+            } else {
                 [self readCache];
             }
         }
     }
 }
-
 
 #pragma mark - UpdateData
 - (void)requestUpdateData
@@ -274,7 +276,94 @@
         self.netBase.requestType=nil;
         [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"GetItemCategoryList" UserID:[[AppManager instance].userId length]>0?[AppManager instance].userId:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{}]];
         
-    }else{
+    } else if (self.netBase.requestType==(RequestType*)UPDATE_VERSION) {
+        
+        int ret = [[dic objectForKey:@"ResultCode"] integerValue];
+        NSDictionary *dict = nil;
+        
+        if (ret == SUCCESS_CODE) {
+
+            if (![[[dic objectForKey:@"Data"] objectForKey:@"AppVersion"] isEqual:[NSNull null]]) {
+                dict = [[dic objectForKey:@"Data"] objectForKey:@"AppVersion"];
+            } else {
+                return;
+            }
+
+            
+            [self.view endEditing:YES];
+            
+            if (dict && [dict count] > 0) {
+                
+                NSString *isUpdate = [dict objectForKey:@"IsUpdate"];
+                if (!isUpdate || [isUpdate isEqual:[NSNull null]] || [isUpdate isEqual:@"<null>"]) {
+                } else {
+                    int isUpdate = INT_VALUE_FROM_DIC(dict, @"IsUpdate");
+                    
+                    if (isUpdate != 1) {
+//                        [[[[UIAlertView alloc] initWithTitle:LocaleStringForKey(NSNoteTitle, nil) message:@"当前版本是最新版本."/*@"The current version is the latest."*/ delegate:nil cancelButtonTitle:LocaleStringForKey(NSSureTitle, nil) otherButtonTitles:nil] autorelease] show];
+                        
+                        return;
+                    }
+                }
+                
+                NSString *updateURL = [dict objectForKey:@"DownLoadUrl"];
+                NSString *updateContent = [dict objectForKey:@"Tip"];
+                
+                if (!updateURL || [updateURL isEqual:[NSNull null]] || [updateURL isEqual:@"<null>"]) {
+                    
+                } else {
+                    [AppManager instance].updateURL = updateURL;
+                    DLog(@"%@", [AppManager instance].updateURL);
+                }
+                
+                NSString *isMandatory = [dict objectForKey:@"IsForce"];
+                if (!isMandatory || [isMandatory isEqual:[NSNull null]] || [isMandatory isEqual:@"<null>"]) {
+                    
+                    //                        [self doLoginLogic];
+                } else {
+                    [AppManager instance].isMandatory = INT_VALUE_FROM_DIC(dict, @"IsForce");
+                    DLog(@"%d", [AppManager instance].isMandatory);
+                    
+                    NSString *msgContent = nil;
+                    UIAlertView *updateAlertView = nil;
+                    if ([AppManager instance].isMandatory == 1) {
+                        msgContent = @"有版本更新,您必须更新后才可使用.";
+                        
+                        if (updateContent && updateContent.length > 0) {
+                            msgContent = updateContent;
+                        }
+                        
+                        updateAlertView = [[UIAlertView alloc] initWithTitle:LocaleStringForKey(NSNoteTitle, nil)
+                                                                     message:msgContent
+                                                                    delegate:self
+                                                           cancelButtonTitle:nil
+                                                           otherButtonTitles:LocaleStringForKey(NSUpdateTitle, nil), nil];
+                        updateAlertView.tag = ALERT_TAG_MUST_UPDATE;
+                    } else {
+                        msgContent = @"有新版本发布,需要更新吗?";
+                        
+                        if (updateContent && updateContent.length > 0) {
+                            msgContent = updateContent;
+                        }
+                        
+                        updateAlertView = [[UIAlertView alloc] initWithTitle:LocaleStringForKey(NSNoteTitle, nil)
+                                                                     message:msgContent
+                                                                    delegate:self
+                                                           cancelButtonTitle:LocaleStringForKey(NSCancelTitle, nil)
+                                                           otherButtonTitles:LocaleStringForKey(NSUpdateTitle, nil),nil];
+                        updateAlertView.tag = ALERT_TAG_CHOISE_UPDATE;
+                    }
+                    
+                    [updateAlertView show];
+                }
+            }
+        } else if (ret == 101) {
+            [[[[UIAlertView alloc] initWithTitle:LocaleStringForKey(NSNoteTitle, nil) message:@"当前版本是最新版本."/*@"The current version is the latest."*/ delegate:nil cancelButtonTitle:LocaleStringForKey(NSSureTitle, nil) otherButtonTitles:nil] autorelease] show];
+        }
+
+        self.netBase.requestType=nil;
+        
+    } else {
         if ([[dic objectForKey:@"ResultCode"] integerValue]==0) {
             self.categoryList=[NSMutableArray arrayWithArray:[[dic objectForKey:@"Data"] objectForKey:@"ItemType"]];
             if ([[[dic objectForKey:@"Data"] objectForKey:@"DefaultAddress"] length]>0) {
@@ -453,19 +542,6 @@
     }
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (alertView.tag==LOGIN_TAG) {
-        if (buttonIndex==1) {
-            LoginViewController* login=[[LoginViewController alloc]init];
-            login.delegate=[UIApplication sharedApplication].delegate;
-            [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
-        }
-    }
-}
-
-
-
 #pragma mark-choose select
 -(void)updateFoodListCache
 {
@@ -588,11 +664,14 @@
 - (void)removeWeightPickerView:(UIButton*)sender
 {
     [self.weightPickerView removeFromSuperview];
+    
     if (sender.tag==11) {
+        
         self.netBase.requestType=(RequestType*)BUY_PUTINCART;
         NSDictionary* d=[self.foodList objectAtIndex:self.foodIndexPath.row];
         NSString* weight=[[[d objectForKey:@"weightOption"] objectAtIndex:self.weightPickerView.selecttedIndex] objectForKey:@"Quantity"];
         NSString* SkuId=[d objectForKey:@"SKUId"];
+        
         [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"PutItemCard" UserID:[[AppManager instance].userId length]>0?[AppManager instance].userId:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"SkuId":SkuId,@"Weight":weight}]];
     }
 }
@@ -713,14 +792,211 @@
     _update=NO;
 }
 
-
-
 - (void)dealloc {
     [_farmCategoryCellView release];
     [_farmFoodCellView release];
     [_weightPickerView release];
     [_foodView release];
     [super dealloc];
+}
+
+#pragma mark - update version
+- (void)updateVersion
+{
+    self.netBase.requestType=(RequestType*)UPDATE_VERSION;
+    
+    [self.netBase RequestWithRequestType:NET_GET param:[self getParamWithAction:@"AppUpdate" UserID:[[AppManager instance].userId length] > 0 ? [AppManager instance].userId:@"59853FB6-F003-47B0-9D06-09D2CE20A14D" Parameters:@{@"AppType":@"ios",@"PackName":@"1",@"ChannelId":@"1",@"Vcode":VERSION}]];
+}
+
+#pragma mark - UIAlertViewDelegate method
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag != LOGIN_TAG) {
+
+        [alertView release];
+    }
+
+    switch (alertView.tag) {
+            
+        case LOGIN_TAG:
+        {
+            if (buttonIndex==1) {
+                LoginViewController* login=[[LoginViewController alloc]init];
+                login.delegate=[UIApplication sharedApplication].delegate;
+                [[[UIApplication sharedApplication].delegate window] setRootViewController:login];
+            }
+        }
+            break;
+            
+        case ALERT_TAG_MUST_UPDATE:
+        {
+            //            if (buttonIndex == 1)
+            {
+                [CommonMethod update:[AppManager instance].updateURL];
+                exit(0);
+                //            } else {
+                //                exit(0);
+            }
+        }
+            break;
+            
+        case ALERT_TAG_CHOISE_UPDATE:
+        {
+            if (buttonIndex == 1)
+            {
+                [CommonMethod update:[AppManager instance].updateURL];
+                exit(0);
+            } else {
+            }
+        }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (void)doUpdateSoftAction
+{
+    
+    NSMutableDictionary *specialDict = [NSMutableDictionary dictionary];
+    [specialDict setValue:VERSION forKey:@"Vcode"];
+    [specialDict setValue:@"1" forKey:@"PackName"];
+    [specialDict setValue:@"1" forKey:@"ChannelId"];
+    [specialDict setValue:@"ios" forKey:@"AppType"];
+    
+    NSString *urlStr = [NSString stringWithFormat:@"%@/%@%@", VALUE_API_PREFIX, API_SERVICE_USER, API_UPDATE_SERVICE];
+    
+    NSString *url = [ProjectAPI getURL:urlStr specialDict:specialDict];
+    DLog(@"url = %@", url);
+    WXWAsyncConnectorFacade *connFacade = [self setupAsyncConnectorForUrl:url
+                                                              contentType:UPDATE_VERSION_TY];
+    
+    [connFacade fetchGets:url];
+}
+
+#pragma mark - ECConnectorDelegate methods
+- (void)connectStarted:(NSString *)url
+           contentType:(NSInteger)contentType {
+    //    [self showAsyncLoadingView:LocaleStringForKey(NSLoadingTitle, nil) blockCurrentView:YES];
+    
+    [super connectStarted:url contentType:contentType];
+}
+
+- (void)connectDone:(NSData *)result url:(NSString *)url contentType:(NSInteger)contentType {
+    
+    switch (contentType) {
+            
+        case UPDATE_VERSION_TY:
+        {
+            int ret = SUCCESS_CODE;
+            
+            NSDictionary *resultDic = [result objectFromJSONData];
+            if ([resultDic objectForKey:@"ResultCode"] != nil) {
+                ret = INT_VALUE_FROM_DIC(resultDic, @"ResultCode");
+            }
+            
+            if (ret == SUCCESS_CODE) {
+                //                [self bringToFront];
+                [self.view endEditing:YES];
+                
+                NSDictionary *resultDict = [result objectFromJSONData];
+                NSDictionary *dataDict = OBJ_FROM_DIC(resultDict, @"Data");
+                
+                NSDictionary *dict = OBJ_FROM_DIC(dataDict, @"AppVersion");
+                
+                if (dict && [dict count] > 0) {
+                    
+                    NSString *isUpdate = [dict objectForKey:@"IsUpdate"];
+                    if (!isUpdate || [isUpdate isEqual:[NSNull null]] || [isUpdate isEqual:@"<null>"]) {
+                    } else {
+                        int isUpdate = INT_VALUE_FROM_DIC(dict, @"IsUpdate");
+                        
+                        if (isUpdate != 1) {
+//                            [[[[UIAlertView alloc] initWithTitle:LocaleStringForKey(NSNoteTitle, nil) message:@"当前版本是最新版本."/*@"The current version is the latest."*/ delegate:nil cancelButtonTitle:LocaleStringForKey(NSSureTitle, nil) otherButtonTitles:nil] autorelease] show];
+                            
+                            return;
+                        }
+                    }
+                    
+                    NSString *updateURL = [dict objectForKey:@"DownLoadUrl"];
+                    NSString *updateContent = [dict objectForKey:@"Tip"];
+                    
+                    if (!updateURL || [updateURL isEqual:[NSNull null]] || [updateURL isEqual:@"<null>"]) {
+                        
+                    } else {
+                        [AppManager instance].updateURL = updateURL;
+                        DLog(@"%@", [AppManager instance].updateURL);
+                    }
+                    
+                    NSString *isMandatory = [dict objectForKey:@"IsForce"];
+                    if (!isMandatory || [isMandatory isEqual:[NSNull null]] || [isMandatory isEqual:@"<null>"]) {
+                        
+                        //                        [self doLoginLogic];
+                    } else {
+                        [AppManager instance].isMandatory = INT_VALUE_FROM_DIC(dict, @"IsForce");
+                        DLog(@"%d", [AppManager instance].isMandatory);
+                        
+                        NSString *msgContent = nil;
+                        UIAlertView *updateAlertView = nil;
+                        if ([AppManager instance].isMandatory == 1) {
+                            msgContent = @"有版本更新,您必须更新后才可使用.";
+                            
+                            if (updateContent && updateContent.length > 0) {
+                                msgContent = updateContent;
+                            }
+                            
+                            updateAlertView = [[UIAlertView alloc] initWithTitle:LocaleStringForKey(NSNoteTitle, nil)
+                                                                         message:msgContent
+                                                                        delegate:self
+                                                               cancelButtonTitle:nil
+                                                               otherButtonTitles:LocaleStringForKey(NSUpdateTitle, nil), nil];
+                            updateAlertView.tag = ALERT_TAG_MUST_UPDATE;
+                        } else {
+                            msgContent = @"有新版本发布,需要更新吗?";
+                            
+                            if (updateContent && updateContent.length > 0) {
+                                msgContent = updateContent;
+                            }
+                            
+                            updateAlertView = [[UIAlertView alloc] initWithTitle:LocaleStringForKey(NSNoteTitle, nil)
+                                                                         message:msgContent
+                                                                        delegate:self
+                                                               cancelButtonTitle:LocaleStringForKey(NSCancelTitle, nil)
+                                                               otherButtonTitles:LocaleStringForKey(NSUpdateTitle, nil),nil];
+                            updateAlertView.tag = ALERT_TAG_CHOISE_UPDATE;
+                        }
+                        
+                        [updateAlertView show];
+                    }
+                }
+            } else if (ret == 101) {
+                [[[[UIAlertView alloc] initWithTitle:LocaleStringForKey(NSNoteTitle, nil) message:@"当前版本是最新版本."/*@"The current version is the latest."*/ delegate:nil cancelButtonTitle:LocaleStringForKey(NSSureTitle, nil) otherButtonTitles:nil] autorelease] show];
+            }
+            
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
+    [super connectDone:result
+                   url:url
+           contentType:contentType];
+}
+
+- (void)connectCancelled:(NSString *)url
+             contentType:(NSInteger)contentType {
+    
+    [super connectCancelled:url contentType:contentType];
+}
+
+- (void)connectFailed:(NSError *)error
+                  url:(NSString *)url
+          contentType:(NSInteger)contentType {
+    
+    [super connectFailed:error url:url contentType:contentType];
 }
 
 @end

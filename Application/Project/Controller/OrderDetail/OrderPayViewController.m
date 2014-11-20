@@ -505,11 +505,15 @@
             {
                 //验证签名成功，交易结果无篡改
                 [AppManager instance].aliPayStatus = YES;
-                
                 [self doServerPay:@"2" payResult:@"1"];
             }
         } else {
             //交易失败
+            ShowAlertWithOneButton(self,
+                                   NSLocalizedString(NSNoteTitle, nil),
+                                   result.statusMessage,
+                                   NSLocalizedString(NSSureTitle, nil));
+            
             [self doServerPay:@"2" payResult:@"2"];
         }
     } else {
@@ -581,7 +585,7 @@
 
         case API_ORDER_PAY_RESULT_TY:
         {
-            NSString *orderString = [[NSString alloc] initWithData:result  encoding:NSUTF8StringEncoding];
+            NSString *orderString = [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
 //            NSString *orderString = [result objectFromJSONData];
             
             if (![@"false" isEqualToString:orderString]) {

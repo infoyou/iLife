@@ -32,7 +32,9 @@ typedef enum {
     BUY_CITY=6,
     BUY_DISTRICT=7,
     BUY_COMMUNITY=8,
-    BUY_CARTLIST=9
+    BUY_CARTLIST=9,
+    
+    UPDATE_VERSION=10
 } RequestType;
 
 @interface JILNetBase : NSObject

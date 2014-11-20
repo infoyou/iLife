@@ -19,6 +19,8 @@
 
 #import "UIViewController+JSONValue.h"
 
+#define LOGIN_TAG 1
+
 @interface HomeContainerViewController () <TabDelegate, MFMessageComposeViewControllerDelegate, SinaWeiboDelegate, SinaWeiboRequestDelegate>
 {
     bool isFromTabBar;

@@ -7,7 +7,7 @@
 //
 
 #import "JILNetBase.h"
-
+#import "ProjectAPI.h"
 
 
 @implementation JILNetBase
@@ -66,10 +66,12 @@
 
 -(AFHTTPClient*)RequestClient
 {
-//    NSString* baseUrl=@"http://192.168.0.8/AppInterface/BuyFood";
-    NSString* baseUrl=@"http://test.wymc.com.cn/AppInterface/BuyFood";
+
+    NSString* baseUrl = [NSString stringWithFormat:@"%@/BuyFood", VALUE_API_PREFIX];
+    
     baseUrl=[baseUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     AFHTTPClient * client = [[AFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:baseUrl]];
     return client;
 }
+
 @end
